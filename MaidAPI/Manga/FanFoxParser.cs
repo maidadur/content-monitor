@@ -8,6 +8,7 @@
 	{
 		public string Number { get; set; }
 		public string Date { get; set; }
+		public string Href { get; set; }
 	}
 
 	public class MangaInfo
@@ -27,15 +28,17 @@
 	public class FanFoxParser : IMangaParser
 	{
 		public List<MangaChapterInfo> GetMangaChapters(HtmlDocument htmlDoc) {
-			HtmlNodeCollection links = htmlDoc.DocumentNode.SelectNodes("//div[@class='detail-main-list-main']");
+			HtmlNodeCollection nodes = htmlDoc.DocumentNode.SelectNodes("//div[@class='detail-main-list-main']");
 			var chaptersList = new List<MangaChapterInfo>();
-			foreach (var item in links) {
+			foreach (var item in nodes) {
 				var elems = item.ChildNodes.Where(cn => cn.Name == "p").ToList();
 				string chapterName = elems.FirstOrDefault()?.InnerText;
 				string releaseDate = elems.LastOrDefault()?.InnerText;
+				string href = item.ParentNode.GetAttributeValue("href", "");
 				chaptersList.Add(new MangaChapterInfo {
 					Number = chapterName,
-					Date = releaseDate
+					Date = releaseDate,
+					Href = "http://fanfox.net" + href
 				});
 			}
 			return chaptersList;

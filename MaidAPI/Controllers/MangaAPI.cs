@@ -26,9 +26,9 @@
 			}
 			_htmlDocumentLoader.ServiceName = mangaSource;
 			var document = await _htmlDocumentLoader.GetHtmlDoc(url);
-			IMangaParser fanFoxParser = _parsersFactory.GetParser(mangaSource);
-			var chaptersList = fanFoxParser.GetMangaChapters(document);
-			var imageUrl = fanFoxParser.GetMangaImageUrl(document);
+			IMangaParser mangaParser = _parsersFactory.GetParser(mangaSource);
+			var chaptersList = mangaParser.GetMangaChapters(document);
+			var imageUrl = mangaParser.GetMangaImageUrl(document);
 			return new MangaInfo() {
 				ImageUrl = imageUrl,
 				Chapters = chaptersList
@@ -36,8 +36,8 @@
 		}
 
 		[HttpGet("")]
-		public string Ping() {
-			return "pong";
+		public ActionResult Ping() {
+			return Ok();
 		}
 	}
 }
