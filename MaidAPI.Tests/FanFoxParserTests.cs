@@ -13,7 +13,7 @@ namespace MaidAPI.Tests
 		[TestMethod]
 		public void GetMangaChapters() {
 			var parser = new FanFoxParser();
-			var loader = new HtmlDocumentLoader();
+			var loader = new HtmlDocumentLoader(null);
 			string url = @"http://fanfox.net/manga/kawaii_joushi_o_komarasetai/";
 			Task.Run(async () => {
 				HtmlDocument htmlDoc = await loader.GetHtmlDoc(url);
@@ -25,7 +25,7 @@ namespace MaidAPI.Tests
 		[TestMethod]
 		public void GetMangaImageUrl() {
 			var parser = new FanFoxParser();
-			var loader = new HtmlDocumentLoader();
+			var loader = new HtmlDocumentLoader(null);
 			string url = @"http://fanfox.net/manga/kawaii_joushi_o_komarasetai/";
 			Task.Run(async () => {
 				HtmlDocument htmlDoc = await loader.GetHtmlDoc(url);

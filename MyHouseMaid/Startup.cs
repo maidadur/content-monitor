@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using MyHouseMaid.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyHouseMaid
 {
@@ -38,10 +39,11 @@ namespace MyHouseMaid
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext dbContext) {
 			if (env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
 				app.UseDatabaseErrorPage();
@@ -61,6 +63,8 @@ namespace MyHouseMaid
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+
+			dbContext.Database.Migrate();
 		}
 	}
 }

@@ -3,12 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-MyHouseMaid-7B684359-6DE5-407E-BC9E-4C58B12B40FC</UserSecretsId>
+    <DockerTargetOS>Linux</DockerTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1916590" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" PrivateAssets="All" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
   </ItemGroup>
 
 </Project>
