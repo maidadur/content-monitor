@@ -7,7 +7,26 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Manga.API", "MaidAPI\M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Manga.APi.Tests", "MaidAPI.Tests\Maid.Manga.APi.Tests.csproj", "{1E22E1E3-97A8-438D-A64F-4C312B627956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maid.UI", "Maid.UI\Maid.UI.csproj", "{612BAF2B-1799-4801-B4A0-FE8189E677CD}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "UI", "UI\", "{DB1A996E-7EC0-49EC-9E3B-7859B9913570}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_54638"
+		Debug.AspNetCompiler.PhysicalPath = "UI\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54638\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_54638"
+		Release.AspNetCompiler.PhysicalPath = "UI\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54638\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "54638"
+		SlnRelativePath = "UI\"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +42,10 @@ Global
 		{1E22E1E3-97A8-438D-A64F-4C312B627956}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E22E1E3-97A8-438D-A64F-4C312B627956}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E22E1E3-97A8-438D-A64F-4C312B627956}.Release|Any CPU.Build.0 = Release|Any CPU
-		{612BAF2B-1799-4801-B4A0-FE8189E677CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{612BAF2B-1799-4801-B4A0-FE8189E677CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{612BAF2B-1799-4801-B4A0-FE8189E677CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{612BAF2B-1799-4801-B4A0-FE8189E677CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB1A996E-7EC0-49EC-9E3B-7859B9913570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB1A996E-7EC0-49EC-9E3B-7859B9913570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB1A996E-7EC0-49EC-9E3B-7859B9913570}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB1A996E-7EC0-49EC-9E3B-7859B9913570}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
