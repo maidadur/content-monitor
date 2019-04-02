@@ -17,7 +17,8 @@
 		public List<MangaChapterInfo> Chapters { get; set; }
 	}
 
-	public interface IMangaParser {
+	public interface IMangaParser
+	{
 
 		List<MangaChapterInfo> GetMangaChapters(HtmlDocument htmlDoc);
 
