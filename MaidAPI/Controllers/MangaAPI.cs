@@ -1,43 +1,46 @@
-﻿namespace MaidAPI.Controllers
+﻿namespace Maid.Manga.API.Controllers
 {
-	using MaidAPI.Html;
-	using MaidAPI.Manga;
+	using Maid.Core;
+	using Maid.Manga.Html;
+	using Maid.Manga;
 	using Microsoft.AspNetCore.Mvc;
-	using System;
 	using System.Threading.Tasks;
+	using Maid.Manga.API;
 
 	[Route("api/manga")]
 	[ApiController]
-	public class MangaAPIController : ControllerBase
+	public class MangaAPIController : BaseApiController
 	{
 		IHtmlDocumentLoader _htmlDocumentLoader;
 		IParsersFactory _parsersFactory;
+		ConfigHelper _configHelper;
 
-		public MangaAPIController(IHtmlDocumentLoader htmlDocumentLoader, IParsersFactory parsersFactory) {
+		public MangaAPIController(IHtmlDocumentLoader htmlDocumentLoader, IParsersFactory parsersFactory, 
+				ConfigHelper configHelper) {
 			_htmlDocumentLoader = htmlDocumentLoader;
 			_parsersFactory = parsersFactory;
+			_configHelper = configHelper;
 		}
 
-		[HttpGet("GetChaptersList/{mangaSource}")]
-		public async Task<ActionResult<MangaInfo>> GetChaptersList(string mangaSource,
+		[HttpGet("Chapters/{mangaSource}")]
+		public async Task<ActionResult<MangaInfo>> GetMangaChapters(string mangaSource,
 				[FromQuery(Name = "url")]string url) {
-			if (string.IsNullOrEmpty(mangaSource)) {
-				throw new ArgumentException("mangaSource");
+			mangaSource.CheckArgumentEmptyOrNull(nameof(mangaSource));
+			url.CheckArgumentEmptyOrNull(nameof(url));
+			var mangaInfo = new MangaInfo();
+			var config =  _configHelper.GetServiceConfig(mangaSource);
+			if (config == null) {
+				return mangaInfo;
 			}
+			_htmlDocumentLoader.Cookies = config.Cookies;
 			_htmlDocumentLoader.ServiceName = mangaSource;
 			var document = await _htmlDocumentLoader.GetHtmlDoc(url);
 			IMangaParser mangaParser = _parsersFactory.GetParser(mangaSource);
 			var chaptersList = mangaParser.GetMangaChapters(document);
 			var imageUrl = mangaParser.GetMangaImageUrl(document);
-			return new MangaInfo() {
-				ImageUrl = imageUrl,
-				Chapters = chaptersList
-			};
-		}
-
-		[HttpGet("")]
-		public ActionResult Ping() {
-			return Ok();
+			mangaInfo.ImageUrl = imageUrl;
+			mangaInfo.Chapters = chaptersList;
+			return mangaInfo;
 		}
 	}
 }

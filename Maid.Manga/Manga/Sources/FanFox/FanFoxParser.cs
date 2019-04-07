@@ -1,30 +1,8 @@
-﻿namespace MaidAPI.Manga
+﻿namespace Maid.Manga
 {
 	using HtmlAgilityPack;
 	using System.Collections.Generic;
 	using System.Linq;
-
-	public class MangaChapterInfo
-	{
-		public string Number { get; set; }
-		public string Date { get; set; }
-		public string Href { get; set; }
-	}
-
-	public class MangaInfo
-	{
-		public string ImageUrl { get; set; }
-		public List<MangaChapterInfo> Chapters { get; set; }
-	}
-
-	public interface IMangaParser
-	{
-
-		List<MangaChapterInfo> GetMangaChapters(HtmlDocument htmlDoc);
-
-		string GetMangaImageUrl(HtmlDocument htmlDoc);
-
-	}
 
 	public class FanFoxParser : IMangaParser
 	{
@@ -37,7 +15,7 @@
 				string releaseDate = elems.LastOrDefault()?.InnerText;
 				string href = item.ParentNode.GetAttributeValue("href", "");
 				chaptersList.Add(new MangaChapterInfo {
-					Number = chapterName,
+					Name = chapterName,
 					Date = releaseDate,
 					Href = "http://fanfox.net" + href
 				});

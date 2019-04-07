@@ -1,40 +1,27 @@
-﻿namespace MaidAPI.Html
+﻿namespace Maid.Manga.Html
 {
 	using System;
 	using System.IO;
 	using System.Net.Http;
 	using System.Threading.Tasks;
 	using HtmlAgilityPack;
-	using Microsoft.Extensions.Configuration;
-	using MaidAPI.Configuration;
+	using System.Collections.Generic;
 
 	public class HtmlDocumentLoader : IHtmlDocumentLoader
 	{
 
-		private IConfiguration _conf;
-
-		public HtmlDocumentLoader(IConfiguration configuration) {
-			_conf = configuration;
-		}
-
 		public string ServiceName { get; set; }
+
+		public Dictionary<string, string> Cookies { get; set; }
 
 		private void ApplyCookies(HttpRequestMessage message) {
 			if (!string.IsNullOrEmpty(ServiceName)) {
-				ServiceConfigrationSection config = GetServiceConfig();
 				string cookiesString = string.Empty;
-				foreach (string key in config.Cookies.Keys) {
-					cookiesString += string.Format("{0}={1};", key, config.Cookies[key]);
+				foreach (string key in Cookies.Keys) {
+					cookiesString += string.Format("{0}={1};", key, Cookies[key]);
 				}
 				message.Headers.Add("Cookie", cookiesString);
 			}
-		}
-
-		private ServiceConfigrationSection GetServiceConfig() {
-			var serviceSection = _conf.GetSection(ServiceName);
-			ServiceConfigrationSection config = new ServiceConfigrationSection();
-			serviceSection.Bind(config);
-			return config;
 		}
 
 		public async Task<HtmlDocument> GetHtmlDoc(string url) {

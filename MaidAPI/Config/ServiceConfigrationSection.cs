@@ -1,4 +1,4 @@
-﻿namespace MaidAPI.Configuration
+﻿namespace Maid.Manga.API
 {
 	using System.Collections.Generic;
 

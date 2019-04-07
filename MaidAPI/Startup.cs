@@ -1,7 +1,7 @@
 ﻿namespace MaidAPI
 {
-	using MaidAPI.Html;
-	using MaidAPI.Manga;
+	using Maid.Manga;
+	using Maid.Manga.Html;
 	using Microsoft.AspNetCore.Builder;
 	using Microsoft.AspNetCore.Hosting;
 	using Microsoft.AspNetCore.Mvc;

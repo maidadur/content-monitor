@@ -1,6 +1,5 @@
-﻿namespace MaidAPI.Manga
+﻿namespace Maid.Manga
 {
-	using Microsoft.Extensions.DependencyInjection;
 	using System;
 
 	public interface IParsersFactory
