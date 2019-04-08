@@ -21,8 +21,11 @@
 
 		TEntity Get(Guid id);
 
+		Task<TEntity> GetAsync(Guid id);
+
 		Task SaveAsync();
 
 		void Save();
 	}
 }
+

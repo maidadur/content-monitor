@@ -1,7 +1,5 @@
 ﻿namespace Maid.Manga
 {
-	using System;
-
 	public interface IParsersFactory
 	{
 		IMangaParser GetParser(string serviceName);

@@ -24,6 +24,9 @@
 		}
 
 		public void Create(TEntity entity) {
+			if (entity.CreatedOn == DateTime.MinValue) {
+				entity.CreatedOn = DateTime.UtcNow;
+			}
 			Context.Set<TEntity>().Add(entity);
 		}
 
@@ -44,6 +47,10 @@
 
 		public TEntity Get(Guid id) {
 			return Context.Set<TEntity>().FirstOrDefault(e => e.Id == id);
+		}
+
+		public Task<TEntity> GetAsync(Guid id) {
+			return Context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id);
 		}
 
 		public async Task SaveAsync() {

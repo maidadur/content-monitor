@@ -28,9 +28,11 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "UI", "UI\", "{DB1A996E-7EC0
 		SlnRelativePath = "UI\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maid.Core", "Maid.Core\Maid.Core.csproj", "{D7294F8C-713F-4E68-B204-D51E8C3BC82B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Core", "Maid.Core\Maid.Core.csproj", "{D7294F8C-713F-4E68-B204-D51E8C3BC82B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maid.Manga", "Maid.Manga\Maid.Manga.csproj", "{DE388D93-C6C3-42B4-A6FE-3F59CFFBEC26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Manga", "Maid.Manga\Maid.Manga.csproj", "{DE388D93-C6C3-42B4-A6FE-3F59CFFBEC26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maid.Manga.DB", "Maid.Manga.DB\Maid.Manga.DB.csproj", "{D9C5B3EE-FC1D-4EA5-9D2C-F4528049B5EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{DE388D93-C6C3-42B4-A6FE-3F59CFFBEC26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE388D93-C6C3-42B4-A6FE-3F59CFFBEC26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE388D93-C6C3-42B4-A6FE-3F59CFFBEC26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9C5B3EE-FC1D-4EA5-9D2C-F4528049B5EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9C5B3EE-FC1D-4EA5-9D2C-F4528049B5EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9C5B3EE-FC1D-4EA5-9D2C-F4528049B5EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9C5B3EE-FC1D-4EA5-9D2C-F4528049B5EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

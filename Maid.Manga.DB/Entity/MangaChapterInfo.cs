@@ -1,4 +1,4 @@
-﻿namespace Maid.Manga
+﻿namespace Maid.Manga.DB
 {
 	using Maid.Core;
 

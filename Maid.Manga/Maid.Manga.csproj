@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Maid.Core\Maid.Core.csproj" />
+    <ProjectReference Include="..\Maid.Manga.DB\Maid.Manga.DB.csproj" />
   </ItemGroup>
 
   <ItemGroup>
