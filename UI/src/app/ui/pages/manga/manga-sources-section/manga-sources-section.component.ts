@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MangaSourcesService } from '@app/services/manga/manga-sources.service';
+import { MangaInfo } from '@app/entity/manga/manga-info';
 
 @Component({
   selector: 'app-manga-sources-section',
@@ -7,17 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MangaSourcesSectionComponent implements OnInit {
 
-  constructor() { }
+  items: MangaInfo[];
 
-  items = [
-    { caption: "Lucky star!" },
-    { caption: "Berserk" }
-  ];
+  constructor(private service: MangaSourcesService) { }
 
   ngOnInit() {
+    this.service.getAll().subscribe(items => this.items = items);
   }
 
   openCard(item) {
+
   }
 
 }

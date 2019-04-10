@@ -1,12 +1,14 @@
 <p>
   manga-sources-section works!
 </p>
-<mat-grid-list cols="4" rowHeight="100px">
+<mat-grid-list cols="6" rowHeight="230px">
   <mat-grid-tile *ngFor="let item of items"
                  [colspan]="1"
                  [rowspan]="1"
-                 [style.background]="item.color"
-                 (click)="openCard(item)">
-    {{item.caption}}
+                 routerLink="/manga/sources/{{item.id}}">
+    <img class="manga-grid-image" src="{{item.imageUrl}}" />
+    <mat-grid-tile-footer>
+      <span class="manga-grid-caption">{{item.name}}</span>
+    </mat-grid-tile-footer>
   </mat-grid-tile>
 </mat-grid-list>

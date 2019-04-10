@@ -1,5 +1,6 @@
 ﻿namespace MaidAPI
 {
+	using Maid.Core.DB;
 	using Maid.Manga;
 	using Maid.Manga.DB;
 	using Maid.Manga.Html;
@@ -21,6 +22,7 @@
 		private void SetupDbServices(IServiceCollection services) {
 			var connection = Configuration["DbConnectionString"];
 			services.AddDbContext<MangaDbContext>(options => options.UseSqlServer(connection));
+			services.AddScoped<DbContext, MangaDbContext>();
 			services.AddScoped<IMangaDbContext, MangaDbContext>();
 		}
 
@@ -29,7 +31,19 @@
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			services.AddTransient<IHtmlDocumentLoader, HtmlDocumentLoader>();
 			services.AddTransient<IParsersFactory, ParsersFactory>();
+			services.AddTransient<IEntityRepository<MangaInfo>, EntityRepository<MangaInfo>>();
 			SetupDbServices(services);
+			services.AddCors(options =>
+			{
+				options.AddPolicy("AllowOrigin",
+					builder => {
+						builder
+							.WithOrigins("http://localhost:4200")
+							.AllowAnyHeader()
+							.AllowAnyMethod();
+					}
+				);
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +54,7 @@
 				app.UseHsts();
 			}
 
+			app.UseCors();
 			app.UseHttpsRedirection();
 			app.UseMvc();
 

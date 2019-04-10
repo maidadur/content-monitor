@@ -20,7 +20,7 @@
     "MaidAPI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api/manga",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

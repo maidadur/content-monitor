@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './ui/pages/home/home.component';
@@ -19,7 +20,6 @@ import { NavMenuComponent } from './ui/controls/nav-menu/nav-menu.component';
 import { MangaSectionComponent } from './ui/pages/manga/manga-section/manga-section.component';
 import { MangaPageComponent } from './ui/pages/manga/manga-page/manga-page.component';
 import { MangaSourcesSectionComponent } from './ui/pages/manga/manga-sources-section/manga-sources-section.component';
-
 
 @NgModule({
   declarations: [  
@@ -47,6 +47,7 @@ import { MangaSourcesSectionComponent } from './ui/pages/manga/manga-sources-sec
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatButtonModule,
     NgbModule.forRoot() 
   ],
   providers: [],

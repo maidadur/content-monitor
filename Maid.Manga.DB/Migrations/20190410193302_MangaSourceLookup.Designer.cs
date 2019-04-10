@@ -4,14 +4,16 @@ using Maid.Manga.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Maid.Manga.DB.Migrations
 {
     [DbContext(typeof(MangaDbContext))]
-    partial class MangaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190410193302_MangaSourceLookup")]
+    partial class MangaSourceLookup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,17 +72,11 @@ namespace Maid.Manga.DB.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<string>("DomainUrl");
-
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
                     b.ToTable("MangaSource");
-
-                    b.HasData(
-                        new { Id = new Guid("36577215-2137-44cb-8ccc-06da710d0de0"), CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Name = "FanFox" }
-                    );
                 });
 
             modelBuilder.Entity("Maid.Manga.DB.MangaChapterInfo", b =>

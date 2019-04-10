@@ -1,18 +1,33 @@
-<p>
-  manga-page works!
-</p>
-<div class="example-container">
-  <mat-form-field>
-    <input matInput placeholder="Input">
-  </mat-form-field>
-
-  <mat-form-field>
-    <textarea matInput placeholder="Textarea"></textarea>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-select placeholder="Select">
-      <mat-option value="option">Option</mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="main-page-container">
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>
+        {{item.name}}
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 page-top-control-panel">
+      <button mat-button (click)="goBack();">Back</button>
+      <button mat-raised-button [disabled]="isChanged" color="primary" (click)="save();">Save</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
+      <img src="{{item.imageUrl}}" class="form-image" />
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field class="manga-page-input">
+        <input matInput
+               placeholder="Url"
+               [(ngModel)]="item.href"
+               (paste)="onHrefPaste()"
+               >
+      </mat-form-field>
+      <mat-form-field class="manga-page-input">
+        <input matInput placeholder="Name" [(ngModel)]="item.name">
+      </mat-form-field>
+    </div>
+  </div>
 </div>
+

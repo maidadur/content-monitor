@@ -13,21 +13,20 @@
 	[ApiController]
 	public class MangaInfoController : BaseApiController<MangaInfo>
 	{
-		//IHtmlDocumentLoader _htmlDocumentLoader;
-		//IParsersFactory _parsersFactory;
-		//ConfigHelper _configHelper;
+		IHtmlDocumentLoader _htmlDocumentLoader;
+		IParsersFactory _parsersFactory;
+		ConfigHelper _configHelper;
 
 		public MangaInfoController(IEntityRepository<MangaInfo> entityRepository) 
 			: base(entityRepository) {
 		}
 
-		//[HttpGet("Chapters/{mangaSource}")]
-		//public async Task<ActionResult<MangaInfo>> GetMangaChapters(string mangaSource,
-		//		[FromQuery(Name = "url")]string url) {
+		//[HttpPost("LoadChapters")]
+		//public async Task<ActionResult<MangaInfo>> LoadChapters(MangaInfo item) {
 		//	mangaSource.CheckArgumentEmptyOrNull(nameof(mangaSource));
 		//	url.CheckArgumentEmptyOrNull(nameof(url));
 		//	var mangaInfo = new MangaInfo();
-		//	var config =  _configHelper.GetServiceConfig(mangaSource);
+		//	var config = _configHelper.GetServiceConfig(mangaSource);
 		//	if (config == null) {
 		//		return mangaInfo;
 		//	}

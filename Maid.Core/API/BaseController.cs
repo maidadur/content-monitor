@@ -1,11 +1,13 @@
 ﻿namespace Maid.Core
 {
 	using Maid.Core.DB;
+	using Microsoft.AspNetCore.Cors;
 	using Microsoft.AspNetCore.Mvc;
 	using System;
 	using System.Collections.Generic;
 	using System.Threading.Tasks;
 
+	[EnableCors("AllowOrigin")]
 	public class BaseApiController<T>: ControllerBase
 		where T: BaseEntity
 	{
@@ -36,8 +38,27 @@
 		}
 
 		[HttpPost()]
-		public void AddItem(T item) { 
+		public void AddItem(T item) {
 			EntityRepository.Create(item);
+			EntityRepository.Save();
+		}
+
+		[HttpPut()]
+		public void EditItem(T item) {
+			EntityRepository.Update(item);
+			EntityRepository.Save();
+		}
+
+		[HttpDelete()]
+		public void DeleteItem(T item) {
+			EntityRepository.Delete(item);
+			EntityRepository.Save();
+		}
+
+		[HttpDelete("{id}")]
+		public void DeleteItem(Guid id) {
+			EntityRepository.Delete(id);
+			EntityRepository.Save();
 		}
 	}
 }

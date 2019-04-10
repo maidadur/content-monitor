@@ -11,6 +11,8 @@
 
 		public string Href { get; set; }
 
+		public MangaSource Source { get; set; }
+
 		public virtual List<MangaChapterInfo> Chapters { get; set; }
 	}
 }
