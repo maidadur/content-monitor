@@ -1,8 +1,9 @@
-﻿namespace Maid.Manga.DB
+﻿using Maid.Core;
+
+namespace Maid.Manga.DB
 {
 	public class MangaSource : BaseLookup
 	{
 		public string DomainUrl { get; set; }
-
 	}
 }

@@ -6,6 +6,20 @@
 	using System.Linq;
 	using System.Linq.Expressions;
 	using System.Threading.Tasks;
+	using Microsoft.EntityFrameworkCore.Metadata;
+
+	public class EntityRepository : IEntityRepository
+	{
+		protected DbContext Context { get; set; }
+
+		public EntityRepository(DbContext repositoryContext) {
+			Context = repositoryContext;
+		}
+
+		public async Task<IEnumerable<BaseEntity>> GetAllAsync(Type type) {
+			return await Context.Set(type).ToListAsync();
+		}
+	}
 
 	public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : BaseEntity
 	{
@@ -46,11 +60,15 @@
 		}
 
 		public TEntity Get(Guid id) {
-			return Context.Set<TEntity>().FirstOrDefault(e => e.Id == id);
+			return Context.Set<TEntity>().AsQueryable()
+				.Include(Context)
+				.SingleOrDefault(item => item.Id == id);
 		}
 
 		public Task<TEntity> GetAsync(Guid id) {
-			return Context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id);
+			return Context.Set<TEntity>().AsQueryable()
+				.Include(Context)
+				.SingleOrDefaultAsync(item => item.Id == id);
 		}
 
 		public async Task SaveAsync() {

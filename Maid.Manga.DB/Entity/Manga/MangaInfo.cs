@@ -1,7 +1,9 @@
 ﻿namespace Maid.Manga.DB
 {
 	using Maid.Core;
+	using System;
 	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations.Schema;
 
 	public class MangaInfo : BaseEntity
 	{
@@ -13,6 +15,6 @@
 
 		public MangaSource Source { get; set; }
 
-		public virtual List<MangaChapterInfo> Chapters { get; set; }
+		public List<MangaChapterInfo> Chapters { get; set; }
 	}
 }

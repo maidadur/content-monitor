@@ -18,7 +18,8 @@
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			modelBuilder.Entity<MangaSource>().HasData(
 				new MangaSource {
-					Id = Guid.NewGuid(),
+					Id = new Guid("ADFB04FE-231C-41ED-8623-5EA3BB50C400"),
+					CreatedOn = DateTime.Now,
 					Name = "FanFox"
 				}
 			);

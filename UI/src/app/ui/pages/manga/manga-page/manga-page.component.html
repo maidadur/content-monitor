@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-6">
       <h3>
-        {{item.name}}
+        {{model.name}}
       </h3>
     </div>
   </div>
@@ -13,19 +13,25 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-2">
-      <img src="{{item.imageUrl}}" class="form-image" />
+    <div class="col-sm-3">
+      <img src="{{model.imageUrl}}" class="form-image" />
     </div>
     <div class="col-sm-6">
       <mat-form-field class="manga-page-input">
         <input matInput
                placeholder="Url"
-               [(ngModel)]="item.href"
-               (paste)="onHrefPaste()"
-               >
+               [(ngModel)]="model.href"
+               (paste)="onHrefPaste()" />
       </mat-form-field>
       <mat-form-field class="manga-page-input">
-        <input matInput placeholder="Name" [(ngModel)]="item.name">
+        <input matInput placeholder="Name" [(ngModel)]="model.name" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Source</mat-label>
+        <mat-select name="source" [(ngModel)]="sourceId">
+          <mat-option [value]=""></mat-option>
+          <mat-option *ngFor="let source of sourceValues" [value]="source.id">{{ source.name }}</mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
   </div>

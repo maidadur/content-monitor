@@ -7,17 +7,18 @@ import { BaseEntity } from '../entity/base-entity';
 @Injectable({
   providedIn: 'root'
 })
-export class BaseService<TEntity extends BaseEntity> {
+export class BaseGenericService<TEntity extends BaseEntity> {
 
-  private apiUrl = 'https://localhost:5001/api/manga';
+  protected apiUrl: string;
+
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient, private genericType: new () => TEntity) {
+  constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<TEntity[]> { 
+  getAll(): Observable<TEntity[]> {
     return this.http.get<TEntity[]>(this.apiUrl)
       .pipe(
         catchError(this.handleError)

@@ -1,5 +1,6 @@
 ﻿namespace MaidAPI
 {
+	using Maid.Core;
 	using Maid.Core.DB;
 	using Maid.Manga;
 	using Maid.Manga.DB;
@@ -10,6 +11,7 @@
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
+	using System.Reflection;
 
 	public class Startup
 	{
@@ -21,7 +23,10 @@
 
 		private void SetupDbServices(IServiceCollection services) {
 			var connection = Configuration["DbConnectionString"];
-			services.AddDbContext<MangaDbContext>(options => options.UseSqlServer(connection));
+			services.AddDbContext<MangaDbContext>(options => 
+				options
+					.UseSqlServer(connection)
+			);
 			services.AddScoped<DbContext, MangaDbContext>();
 			services.AddScoped<IMangaDbContext, MangaDbContext>();
 		}
@@ -32,7 +37,9 @@
 			services.AddTransient<IHtmlDocumentLoader, HtmlDocumentLoader>();
 			services.AddTransient<IParsersFactory, ParsersFactory>();
 			services.AddTransient<IEntityRepository<MangaInfo>, EntityRepository<MangaInfo>>();
+			services.AddTransient<IEntityRepository, EntityRepository>();
 			SetupDbServices(services);
+			LookupTypeManager.Instance.LoadLookupTypes(Assembly.GetAssembly(typeof(MangaDbContext)));
 			services.AddCors(options =>
 			{
 				options.AddPolicy("AllowOrigin",

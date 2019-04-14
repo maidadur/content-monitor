@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Maid.Manga.DB.Migrations
 {
     [DbContext(typeof(MangaDbContext))]
-    [Migration("20190410194941_MangaSourceLookup1")]
-    partial class MangaSourceLookup1
+    [Migration("20190414192034_SourceFK4")]
+    partial class SourceFK4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,8 @@ namespace Maid.Manga.DB.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<string>("DomainUrl");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
@@ -79,7 +81,7 @@ namespace Maid.Manga.DB.Migrations
                     b.ToTable("MangaSource");
 
                     b.HasData(
-                        new { Id = new Guid("5540cd3a-755d-4b4c-9125-71a3c0258640"), CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Name = "FanFox" }
+                        new { Id = new Guid("41bd3be4-9e5d-4b9e-9709-11458285afb8"), CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Name = "FanFox" }
                     );
                 });
 

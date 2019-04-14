@@ -79,7 +79,7 @@ namespace Maid.Manga.DB.Migrations
                     b.ToTable("MangaSource");
 
                     b.HasData(
-                        new { Id = new Guid("36577215-2137-44cb-8ccc-06da710d0de0"), CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Name = "FanFox" }
+                        new { Id = new Guid("41bd3be4-9e5d-4b9e-9709-11458285afb8"), CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Name = "FanFox" }
                     );
                 });
 
