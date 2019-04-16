@@ -11,11 +11,11 @@ export class BaseGenericService<TEntity extends BaseEntity> {
 
   protected apiUrl: string;
 
-  private httpOptions = {
+  protected httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) {
+  constructor(protected http: HttpClient) {
   }
 
   getAll(): Observable<TEntity[]> {
@@ -52,7 +52,7 @@ export class BaseGenericService<TEntity extends BaseEntity> {
       );
   }
 
-  private handleError(error: HttpErrorResponse) {
+  protected handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);

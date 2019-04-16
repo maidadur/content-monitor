@@ -29,5 +29,11 @@
 			string imageUrl = imgNode.GetAttributeValue("src", string.Empty);
 			return imageUrl;
 		}
+
+		public string GetMangaName(HtmlDocument htmlDoc) {
+			HtmlNode nameNode = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='detail-info-right-title-font']");
+			string name = nameNode.InnerText;
+			return name;
+		}
 	}
 }

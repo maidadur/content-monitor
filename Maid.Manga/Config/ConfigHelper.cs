@@ -1,6 +1,5 @@
-﻿namespace Maid.Manga.API
+﻿namespace Maid.Manga
 {
-
 	using Microsoft.Extensions.Configuration;
 
 	public class ConfigHelper

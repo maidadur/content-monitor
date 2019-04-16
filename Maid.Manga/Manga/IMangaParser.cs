@@ -11,5 +11,7 @@
 
 		string GetMangaImageUrl(HtmlDocument htmlDoc);
 
+		string GetMangaName(HtmlDocument htmlDoc);
+
 	}
 }

@@ -24,7 +24,8 @@ namespace Maid.Manga.DB.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedOn");
+                    b.Property<DateTime?>("CreatedOn")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Date");
 
@@ -46,7 +47,8 @@ namespace Maid.Manga.DB.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedOn");
+                    b.Property<DateTime?>("CreatedOn")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Href");
 
@@ -68,7 +70,8 @@ namespace Maid.Manga.DB.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedOn");
+                    b.Property<DateTime?>("CreatedOn")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("DomainUrl");
 
@@ -79,7 +82,7 @@ namespace Maid.Manga.DB.Migrations
                     b.ToTable("MangaSource");
 
                     b.HasData(
-                        new { Id = new Guid("41bd3be4-9e5d-4b9e-9709-11458285afb8"), CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Name = "FanFox" }
+                        new { Id = new Guid("cb5cea99-ff7e-4272-0c11-08d6c115fe81"), CreatedOn = new DateTime(2019, 4, 16, 20, 30, 42, 842, DateTimeKind.Local), DomainUrl = "http://fanfox.net", Name = "FanFox" }
                     );
                 });
 

@@ -41,6 +41,7 @@
 			if (entity.CreatedOn == DateTime.MinValue) {
 				entity.CreatedOn = DateTime.UtcNow;
 			}
+			Context.Attach(entity);
 			Context.Set<TEntity>().Add(entity);
 		}
 

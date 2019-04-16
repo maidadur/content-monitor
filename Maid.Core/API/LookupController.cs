@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Maid.Core.API
 {
-	[Route("api/lookup")]
 	[ApiController]
+	[Route("api/lookup")]
 	[EnableCors("AllowOrigin")]
 	public class LookupController : ControllerBase
 	{

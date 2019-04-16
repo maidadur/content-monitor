@@ -7,38 +7,30 @@
 	using Maid.Manga.DB;
 	using Maid.Manga.Html;
 	using Microsoft.AspNetCore.Mvc;
+	using System;
 	using System.Threading.Tasks;
 
 	[Route("api/manga")]
 	[ApiController]
 	public class MangaInfoController : BaseApiController<MangaInfo>
 	{
-		IHtmlDocumentLoader _htmlDocumentLoader;
-		IParsersFactory _parsersFactory;
-		ConfigHelper _configHelper;
+		private MangaLoader _mangaLoader;
 
-		public MangaInfoController(IEntityRepository<MangaInfo> entityRepository) 
+		public MangaInfoController(IEntityRepository<MangaInfo> entityRepository, MangaLoader mangaLoader)
 			: base(entityRepository) {
+			_mangaLoader = mangaLoader;
 		}
 
-		//[HttpPost("LoadChapters")]
-		//public async Task<ActionResult<MangaInfo>> LoadChapters(MangaInfo item) {
-		//	mangaSource.CheckArgumentEmptyOrNull(nameof(mangaSource));
-		//	url.CheckArgumentEmptyOrNull(nameof(url));
-		//	var mangaInfo = new MangaInfo();
-		//	var config = _configHelper.GetServiceConfig(mangaSource);
-		//	if (config == null) {
-		//		return mangaInfo;
-		//	}
-		//	_htmlDocumentLoader.Cookies = config.Cookies;
-		//	_htmlDocumentLoader.ServiceName = mangaSource;
-		//	var document = await _htmlDocumentLoader.GetHtmlDoc(url);
-		//	IMangaParser mangaParser = _parsersFactory.GetParser(mangaSource);
-		//	var chaptersList = mangaParser.GetMangaChapters(document);
-		//	var imageUrl = mangaParser.GetMangaImageUrl(document);
-		//	mangaInfo.ImageUrl = imageUrl;
-		//	mangaInfo.Chapters = chaptersList;
-		//	return mangaInfo;
-		//}
+		[HttpPost("LoadMangaInfo")]
+		public async Task<ActionResult> LoadMangaInfo([FromBody]MangaInfo item) {
+			item = await EntityRepository.GetAsync(item.Id);
+			if (item == null) {
+				return BadRequest("nema");
+			}
+			item = await _mangaLoader.LoadMangaInfoAsync(item);
+			EntityRepository.Update(item);
+			EntityRepository.Save();
+			return Ok();
+		}
 	}
 }

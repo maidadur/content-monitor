@@ -19,21 +19,21 @@
     <div class="col-sm-6">
       <mat-form-field class="manga-page-input">
         <input matInput
+               #mangaUrl
+               autocomplete="doNotAutoComplete"
                placeholder="Url"
                [(ngModel)]="model.href"
-               (paste)="onHrefPaste()" />
+               (paste)="onHrefPaste($event)" />
       </mat-form-field>
       <mat-form-field class="manga-page-input">
         <input matInput placeholder="Name" [(ngModel)]="model.name" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Source</mat-label>
-        <mat-select name="source" [(ngModel)]="sourceId">
-          <mat-option [value]=""></mat-option>
+        <mat-select name="source" required [(ngModel)]="sourceId">
           <mat-option *ngFor="let source of sourceValues" [value]="source.id">{{ source.name }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
   </div>
 </div>
-
