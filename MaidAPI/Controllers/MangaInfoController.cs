@@ -3,21 +3,20 @@
 	using Maid.Core;
 	using Maid.Core.DB;
 	using Maid.Manga;
-	using Maid.Manga.API;
 	using Maid.Manga.DB;
-	using Maid.Manga.Html;
 	using Microsoft.AspNetCore.Mvc;
-	using System;
 	using System.Threading.Tasks;
 
 	[Route("api/manga")]
 	[ApiController]
 	public class MangaInfoController : BaseApiController<MangaInfo>
 	{
-		private MangaLoader _mangaLoader;
+		private IMangaLoader _mangaLoader;
+		private IEntityRepository<MangaChapterInfo> _chaptersRep;
 
-		public MangaInfoController(IEntityRepository<MangaInfo> entityRepository, MangaLoader mangaLoader)
-			: base(entityRepository) {
+		public MangaInfoController(
+				IEntityRepository<MangaInfo> mangaInfoRep, 
+				IMangaLoader mangaLoader) : base(mangaInfoRep) {
 			_mangaLoader = mangaLoader;
 		}
 
@@ -28,6 +27,7 @@
 				return BadRequest("nema");
 			}
 			item = await _mangaLoader.LoadMangaInfoAsync(item);
+			_chaptersRep.Delete(chapter => chapter.Manga.Id == item.Id);
 			EntityRepository.Update(item);
 			EntityRepository.Save();
 			return Ok();

@@ -28,7 +28,7 @@
 			return Ok(await EntityRepository.GetAllAsync());
 		}
 
-		[HttpGet("{id}")]
+		[HttpGet("{id:guid}")]
 		public async Task<ActionResult<T>> GetItem(Guid id) {
 			var item = await EntityRepository.GetAsync(id);
 			if (item == null) {

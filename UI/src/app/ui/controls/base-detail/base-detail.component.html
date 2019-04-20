@@ -1,0 +1,9 @@
+<div>
+  <mat-grid-list cols="{{columns.length}}" rowHeight="50px" class="detail-grid">
+    <mat-grid-tile *ngFor="let row of rows"
+             [colspan]="1"
+             [rowspan]="1"
+             routerLink="{{row.url}}">
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

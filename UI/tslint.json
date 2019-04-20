@@ -3,7 +3,11 @@
   "rulesDirectory": [
     "codelyzer"
   ],
+  "jsRules": {
+    "indent": [true, "tabs", 4],
+  },
   "rules": {
+    "indent": [true, "tabs", 4],
     "array-type": false,
     "arrow-parens": false,
     "deprecation": {

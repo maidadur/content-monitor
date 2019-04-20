@@ -31,7 +31,7 @@ namespace Maid.Manga.DB.Migrations
 
                     b.Property<string>("Href");
 
-                    b.Property<Guid?>("MangaId");
+                    b.Property<Guid>("MangaId");
 
                     b.Property<string>("Name");
 
@@ -82,7 +82,7 @@ namespace Maid.Manga.DB.Migrations
                     b.ToTable("MangaSource");
 
                     b.HasData(
-                        new { Id = new Guid("cb5cea99-ff7e-4272-0c11-08d6c115fe81"), CreatedOn = new DateTime(2019, 4, 16, 20, 30, 42, 842, DateTimeKind.Local), DomainUrl = "http://fanfox.net", Name = "FanFox" }
+                        new { Id = new Guid("cb5cea99-ff7e-4272-0c11-08d6c115fe81"), CreatedOn = new DateTime(2019, 4, 17, 22, 44, 4, 591, DateTimeKind.Local), DomainUrl = "http://fanfox.net", Name = "FanFox" }
                     );
                 });
 
@@ -90,7 +90,8 @@ namespace Maid.Manga.DB.Migrations
                 {
                     b.HasOne("Maid.Manga.DB.MangaInfo", "Manga")
                         .WithMany("Chapters")
-                        .HasForeignKey("MangaId");
+                        .HasForeignKey("MangaId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Maid.Manga.DB.MangaInfo", b =>

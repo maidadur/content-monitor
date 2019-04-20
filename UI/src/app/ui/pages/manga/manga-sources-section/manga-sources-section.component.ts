@@ -20,5 +20,11 @@ export class MangaSourcesSectionComponent implements OnInit {
   openCard(item) {
 
   }
+ 
+  onDeleteItem(event, item) {
+    event.stopPropagation();
+    this.service.delete(item.id).subscribe();
+    this.items = this.items.filter(i => i.id !== item.id);
+  }
 
 }

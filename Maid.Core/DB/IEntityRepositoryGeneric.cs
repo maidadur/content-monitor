@@ -19,6 +19,8 @@
 
 		void Delete(Guid id);
 
+		void Delete(Expression<Func<TEntity, bool>> expression);
+
 		TEntity Get(Guid id);
 
 		Task<TEntity> GetAsync(Guid id);

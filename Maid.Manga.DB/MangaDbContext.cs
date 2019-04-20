@@ -24,6 +24,12 @@
 					DomainUrl = "http://fanfox.net"
 				}
 			);
+			modelBuilder.Entity<MangaInfo>()
+				.HasMany(i => i.Chapters)
+				.WithOne(i => i.Manga)
+				.HasForeignKey(i => i.MangaId)
+				.IsRequired()
+				.OnDelete(DeleteBehavior.Cascade);
 		}
 	}
 }

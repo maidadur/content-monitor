@@ -1,16 +1,16 @@
 ﻿namespace Maid.Manga
 {
+	using HtmlAgilityPack;
 	using Maid.Core;
 	using Maid.Core.DB;
 	using Maid.Manga.DB;
 	using Maid.Manga.Html;
 	using System;
-	using System.Linq;
 	using System.Collections.Generic;
-	using System.Text;
+	using System.Linq;
 	using System.Threading.Tasks;
 
-	public class MangaLoader
+	public class MangaLoader : IMangaLoader
 	{
 		IHtmlDocumentLoader _htmlDocumentLoader;
 		IParsersFactory _parsersFactory;
@@ -31,20 +31,7 @@
 			return mangaSource;
 		}
 
-		public async Task<MangaInfo> LoadMangaInfoAsync(MangaInfo mangaInfo) {
-			mangaInfo.CheckArgumentNull(nameof(mangaInfo));
-			string mangaUrl = mangaInfo.Href;
-			Uri mangaUri = new Uri(mangaUrl);
-			MangaSource mangaSource = await GetSourceByUrl(mangaUri);
-			mangaInfo.Source = mangaSource ?? throw new ArgumentException("Wrong url domain");
-			string sourceName = mangaSource.Name;
-			var config = _configHelper.GetServiceConfig(mangaSource.Name);
-			if (config == null) {
-				return mangaInfo;
-			}
-			_htmlDocumentLoader.Cookies = config.Cookies;
-			_htmlDocumentLoader.ServiceName = sourceName;
-			var document = await _htmlDocumentLoader.GetHtmlDoc(mangaInfo.Href);
+		protected virtual void FillMangaInfo(MangaInfo mangaInfo, string sourceName, HtmlDocument document) {
 			IMangaParser mangaParser = _parsersFactory.GetParser(sourceName);
 			List<MangaChapterInfo> chaptersList = mangaParser.GetMangaChapters(document);
 			string imageUrl = mangaParser.GetMangaImageUrl(document);
@@ -52,6 +39,24 @@
 			mangaInfo.ImageUrl = imageUrl;
 			mangaInfo.Chapters = chaptersList;
 			mangaInfo.Name = name;
+		}
+
+		public async Task<MangaInfo> LoadMangaInfoAsync(MangaInfo mangaInfo) {
+			mangaInfo.CheckArgumentNull(nameof(mangaInfo));
+			string mangaUrl = mangaInfo.Href;
+			mangaUrl.CheckArgumentEmptyOrNull(nameof(mangaUrl));
+			Uri mangaUri = new Uri(mangaUrl);
+			MangaSource mangaSource = await GetSourceByUrl(mangaUri);
+			mangaInfo.Source = mangaSource ?? throw new ArgumentException("Wrong url domain");
+			string sourceName = mangaSource.Name;
+			ServiceConfigrationSection config = _configHelper.GetServiceConfig(sourceName);
+			if (config == null) {
+				throw new ArgumentException($"No handler for source {sourceName}");
+			}
+			_htmlDocumentLoader.Cookies = config.Cookies;
+			_htmlDocumentLoader.ServiceName = sourceName;
+			HtmlDocument document = await _htmlDocumentLoader.GetHtmlDoc(mangaInfo.Href);
+			FillMangaInfo(mangaInfo, sourceName, document);
 			return mangaInfo;
 		}
 	}

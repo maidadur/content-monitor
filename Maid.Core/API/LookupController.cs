@@ -1,13 +1,12 @@
-﻿using Maid.Core.DB;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Maid.Core.API
+﻿namespace Maid.Core.API
 {
+	using Maid.Core.DB;
+	using Microsoft.AspNetCore.Cors;
+	using Microsoft.AspNetCore.Mvc;
+	using System;
+	using System.Collections.Generic;
+	using System.Threading.Tasks;
+
 	[ApiController]
 	[Route("api/lookup")]
 	[EnableCors("AllowOrigin")]
@@ -24,7 +23,7 @@ namespace Maid.Core.API
 		public async Task<ActionResult<IEnumerable<BaseLookup>>> GetAllItems(string lookupTypeName) {
 			var type = LookupTypeManager.Instance.GetLookupType(lookupTypeName);
 			if (type == null) {
-				return new List<BaseLookup>();
+				throw new ArgumentException($"No lookup '{lookupTypeName}'t exists");
 			}
 			return Ok(await EntityRepository.GetAllAsync(type));
 		}

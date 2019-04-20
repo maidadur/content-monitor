@@ -3,6 +3,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { BaseEntity } from '../entity/base-entity';
+import { Guid } from 'guid-typescript';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,7 @@ export class BaseGenericService<TEntity extends BaseEntity> {
     return this.http.put<TEntity>(this.apiUrl, entity, this.httpOptions);
   }
 
-  delete(id): Observable<any> {
+  delete(id: Guid): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<TEntity>(url)
       .pipe(

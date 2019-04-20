@@ -38,8 +38,9 @@
 			services.AddTransient<IParsersFactory, ParsersFactory>();
 			services.AddTransient<IEntityRepository<MangaInfo>, EntityRepository<MangaInfo>>();
 			services.AddTransient<IEntityRepository<MangaSource>, EntityRepository<MangaSource>>();
+			services.AddTransient<IEntityRepository<MangaChapterInfo>, EntityRepository<MangaChapterInfo>>();
 			services.AddTransient<IEntityRepository, EntityRepository>();
-			services.AddTransient<MangaLoader, MangaLoader>();
+			services.AddTransient<IMangaLoader, MangaLoader>();
 			services.AddTransient<ConfigHelper, ConfigHelper>();
 			SetupDbServices(services);
 			LookupTypeManager.Instance.LoadLookupTypes(Assembly.GetAssembly(typeof(MangaDbContext)));
@@ -67,7 +68,6 @@
 			app.UseCors();
 			app.UseHttpsRedirection();
 			app.UseMvc();
-
 		}
 	}
 }

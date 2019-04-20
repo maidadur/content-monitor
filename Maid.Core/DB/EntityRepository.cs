@@ -53,6 +53,11 @@
 			Context.Set<TEntity>().Remove(entity);
 		}
 
+		public void Delete(Expression<Func<TEntity, bool>> expression) {
+			var collection = Context.Set<TEntity>().Where(expression);
+			Context.Set<TEntity>().RemoveRange(collection);
+		}
+
 		public void Delete(Guid id) {
 			var entityToDelete = Context.Set<TEntity>().FirstOrDefault(e => e.Id == id);
 			if (entityToDelete != null) {

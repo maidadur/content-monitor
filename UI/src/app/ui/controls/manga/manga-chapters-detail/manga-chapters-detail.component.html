@@ -1,0 +1,12 @@
+<div>
+  <mat-grid-list cols="4" rowHeight="100px" class="manga-chapter-6detail-grid">
+    <mat-grid-tile *ngFor="let row of rows"
+             [colspan]="1"
+             [rowspan]="1"
+             class="chapter-tile">
+             <mat-icon>collections</mat-icon>
+              <span class="chapter-name">{{row.name}}</span>
+              <p class="chapter-date">{{row.date}}</p>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
