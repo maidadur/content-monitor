@@ -6,11 +6,17 @@
     <span>Sources</span>
   </a>
 </div>
-<mat-grid-list cols="4" rowHeight="100px">
-  <mat-grid-tile *ngFor="let tile of tiles"
-                 [colspan]="1"
-                 [rowspan]="1"
-                 [style.background]="tile.color">
-    {{tile.text}}
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="row">
+	<mat-grid-list cols="6" rowHeight="230px" class="manga-grid">
+    <a *ngFor="let item of items" href="{{item.href}}" target="_blank">
+      <mat-grid-tile 
+        [colspan]="1"
+        [rowspan]="1">
+      <img class="manga-grid-image" src="{{item.manga.imageUrl}}" />
+      <mat-grid-tile-footer>
+        <span class="manga-grid-caption">{{item.name}}</span>
+      </mat-grid-tile-footer>
+      </mat-grid-tile>
+    </a>
+	</mat-grid-list>
+</div>

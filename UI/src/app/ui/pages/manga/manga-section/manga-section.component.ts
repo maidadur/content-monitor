@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MangaChapterService } from '@app/services/manga/manga-chapter.service';
+import { MangaChapter } from '@app/entity/manga/manga-chapter';
 
 @Component({
   selector: 'app-manga-section',
@@ -7,16 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MangaSectionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: MangaChapterService) { }
 
-  tiles = [
-    { text: 'One', cols: 1, rows: 1, color: '#142A5C' },
-    { text: 'Two', cols: 1, rows: 1, color: '#B7A0E8' },
-    { text: 'Three', cols: 1, rows: 1, color: '#FF0000' },
-    { text: 'Four', cols: 1, rows: 1, color: '#D9EDD9' },
-  ];
+  items: MangaChapter[];
 
   ngOnInit() {
+    this.service.getAll({loadLookups: true})
+      .subscribe(items => this.items = items); 
   }
 
 }

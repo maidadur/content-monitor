@@ -14,7 +14,7 @@ export class MangaSourcesSectionComponent implements OnInit {
   constructor(private service: MangaSourcesService) { }
 
   ngOnInit() {
-    this.service.getAll().subscribe(items => this.items = items);
+    this.service.getAll({}).subscribe(items => this.items = items);
   }
 
   openCard(item) {

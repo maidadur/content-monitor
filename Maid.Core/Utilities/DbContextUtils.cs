@@ -17,6 +17,7 @@ namespace Maid.Core
 		public static IQueryable<TEntity> Include<TEntity>(this IQueryable<TEntity> query, DbContext context) 
 				where TEntity: BaseEntity  {
 			IEnumerable<INavigation> navigationProperties = context.Model.FindEntityType(typeof(TEntity)).GetNavigations();
+			query.AsNoTracking();
 			foreach (INavigation navigationProperty in navigationProperties) {
 				if (!(navigationProperty.ClrType.IsGenericType && 
 						navigationProperty.ClrType.GetGenericTypeDefinition() == typeof(List<>))) {

@@ -24,8 +24,9 @@
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<T>>> GetAllItems() {
-			return Ok(await EntityRepository.GetAllAsync());
+		public async Task<ActionResult<IEnumerable<T>>> GetAllItems(bool loadLookups = false) {
+			var data = await EntityRepository.GetAllAsync(loadLookups);
+			return Ok(data);
 		}
 
 		[HttpGet("{id:guid}")]

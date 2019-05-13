@@ -29,8 +29,13 @@
 			Context = repositoryContext;
 		}
 
-		public async Task<IEnumerable<TEntity>> GetAllAsync() {
-			return await Context.Set<TEntity>().ToListAsync();
+		public async Task<IEnumerable<TEntity>> GetAllAsync(bool loadLookups = false) {
+			var dbSet = Context.Set<TEntity>();
+			if (loadLookups) {
+				return await dbSet.Include(Context)
+					.ToListAsync();
+			}
+			return await dbSet.ToListAsync();
 		}
 
 		public async Task<IEnumerable<TEntity>> GetByAsync(Expression<Func<TEntity, bool>> expression) {

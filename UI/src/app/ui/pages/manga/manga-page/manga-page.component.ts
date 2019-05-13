@@ -19,10 +19,11 @@ import { DialogWindowComponent } from '@app/ui/controls/dialog-window/dialog-win
 export class MangaPageComponent implements OnInit, OnChanges {
 
 	model: MangaInfo = new MangaInfo({});
-
 	isChanged: boolean;
-
 	cardMode: CardMode;
+
+	sourceValues = [];
+	sourceId: string;
 
 	constructor(
 		private route: ActivatedRoute,

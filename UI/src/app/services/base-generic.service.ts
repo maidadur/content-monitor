@@ -19,9 +19,11 @@ export class BaseGenericService<TEntity extends BaseEntity> {
   constructor(protected http: HttpClient) {
   }
 
-  getAll(): Observable<TEntity[]> {
-    return this.http.get<TEntity[]>(this.apiUrl)
-      .pipe(
+  getAll(params): Observable<TEntity[]> {
+    let url = this.apiUrl;
+    return this.http.get<TEntity[]>(url, {
+      params: params
+    }).pipe(
         catchError(this.handleError)
       );
   }
