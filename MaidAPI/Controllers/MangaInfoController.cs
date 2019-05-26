@@ -6,6 +6,8 @@
 	using Maid.Manga.DB;
 	using Microsoft.AspNetCore.Mvc;
 	using System.Threading.Tasks;
+	using System.Linq;
+	using System.Collections.Generic;
 
 	[Route("api/manga")]
 	[ApiController]
@@ -15,16 +17,18 @@
 		private IEntityRepository<MangaChapterInfo> _chaptersRep;
 
 		public MangaInfoController(
-				IEntityRepository<MangaInfo> mangaInfoRep, 
+				IEntityRepository<MangaInfo> mangaInfoRep,
+				IEntityRepository<MangaChapterInfo> chaptersRep,
 				IMangaLoader mangaLoader) : base(mangaInfoRep) {
 			_mangaLoader = mangaLoader;
+			_chaptersRep = chaptersRep;
 		}
 
 		[HttpPost("LoadMangaInfo")]
 		public async Task<ActionResult> LoadMangaInfo([FromBody]MangaInfo item) {
 			item = await EntityRepository.GetAsync(item.Id);
 			if (item == null) {
-				return BadRequest("nema");
+				return BadRequest("net takogo");
 			}
 			item = await _mangaLoader.LoadMangaInfoAsync(item);
 			_chaptersRep.Delete(chapter => chapter.Manga.Id == item.Id);
