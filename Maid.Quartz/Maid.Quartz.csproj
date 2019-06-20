@@ -14,4 +14,8 @@
     <PackageReference Include="Quartz" Version="3.0.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Maid.RabbitMQ\Maid.RabbitMQ.csproj" />
+  </ItemGroup>
+
 </Project>

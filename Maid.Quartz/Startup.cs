@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Maid.RabbitMQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,7 +31,7 @@ namespace Maid.Quartz
 			services.AddLogging();
 
 			services.Add(new ServiceDescriptor(typeof(IJob), typeof(LoadMangaJob), ServiceLifetime.Transient));
-			services.AddTransient<IJobFactory, ScheduledJobFactory>();
+			services.AddSingleton<IJobFactory, ScheduledJobFactory>();
 			services.AddTransient<IJobDetail>(provider => {
 				return JobBuilder.Create<LoadMangaJob>()
 				  .WithIdentity("LoadManga.job", "MangaGroup")
@@ -39,14 +40,14 @@ namespace Maid.Quartz
 
 			services.AddTransient<ITrigger>(provider => {
 				return TriggerBuilder.Create()
-				.WithIdentity($"LoadManga.trigger", "MangaGroup")
-				.StartNow()
-				.WithSimpleSchedule
-				 (s =>
-					s.WithInterval(TimeSpan.FromSeconds(5))
-					.RepeatForever()
-				 )
-				 .Build();
+					.WithIdentity($"LoadManga.trigger", "MangaGroup")
+					.StartNow()
+					.WithSimpleSchedule
+					 (s =>
+						s.WithInterval(TimeSpan.FromSeconds(15))
+						.RepeatForever()
+					 )
+					 .Build();
 			});
 
 			services.AddTransient<IScheduler>(provider => {
@@ -69,10 +70,14 @@ namespace Maid.Quartz
 				app.UseHsts();
 			}
 
-			scheduler.ScheduleJob(app.ApplicationServices.GetService<IJobDetail>(), app.ApplicationServices.GetService<ITrigger>());
-
 			app.UseHttpsRedirection();
 			app.UseMvc();
+
+			MessageQueuesManager.Instance
+				.Init(app.ApplicationServices)
+				.ConnectToQueue("quartz");
+
+			scheduler.ScheduleJob(app.ApplicationServices.GetService<IJobDetail>(), app.ApplicationServices.GetService<ITrigger>());
 		}
 	}
 }

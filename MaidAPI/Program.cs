@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-
-namespace MaidAPI
+﻿namespace Maid.Manga.API
 {
+	using Microsoft.AspNetCore;
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.Extensions.Configuration;
+
 	public class Program
 	{
 		public static void Main(string[] args) {

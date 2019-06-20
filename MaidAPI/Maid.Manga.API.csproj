@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Maid.Core\Maid.Core.csproj" />
     <ProjectReference Include="..\Maid.Manga\Maid.Manga.csproj" />
+    <ProjectReference Include="..\Maid.RabbitMQ\Maid.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>

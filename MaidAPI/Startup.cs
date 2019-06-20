@@ -1,19 +1,18 @@
-﻿namespace MaidAPI
+﻿namespace Maid.Manga.API
 {
 	using Maid.Core;
 	using Maid.Core.DB;
 	using Maid.Manga;
 	using Maid.Manga.DB;
 	using Maid.Manga.Html;
+	using Maid.RabbitMQ;
 	using Microsoft.AspNetCore.Builder;
 	using Microsoft.AspNetCore.Hosting;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
-	using RabbitMQ.Client;
 	using System.Reflection;
-	using System.Text;
 
 	public class Startup
 	{
@@ -29,8 +28,8 @@
 				options
 					.UseSqlServer(connection)
 			);
-			services.AddScoped<DbContext, MangaDbContext>();
-			services.AddScoped<IMangaDbContext, MangaDbContext>();
+			services.AddTransient<DbContext, MangaDbContext>();
+			services.AddTransient<IMangaDbContext, MangaDbContext>();
 		}
 
 		// This method gets called by the runtime. Use this method to add services to the container.
@@ -44,8 +43,9 @@
 			services.AddTransient<IEntityRepository, EntityRepository>();
 			services.AddTransient<IMangaLoader, MangaLoader>();
 			services.AddTransient<ConfigHelper, ConfigHelper>();
+			services.AddTransient<MangaLoadTask, MangaLoadTask>();
+			services.AddTransient<QuartzSubscriber, QuartzSubscriber>();
 			SetupDbServices(services);
-			LookupTypeManager.Instance.LoadLookupTypes(Assembly.GetAssembly(typeof(MangaDbContext)));
 			services.AddCors(options =>
 			{
 				options.AddPolicy("AllowOrigin",
@@ -71,25 +71,11 @@
 			app.UseHttpsRedirection();
 			app.UseMvc();
 
-			//var factory = new ConnectionFactory() { HostName = "localhost" };
-			//using (var connection = factory.CreateConnection())
-			//using (var channel = connection.CreateModel()) {
-			//	channel.QueueDeclare(queue: "task_queue",
-			//						 durable: true,
-			//						 exclusive: false,
-			//						 autoDelete: false,
-			//						 arguments: null);
-
-			//	var message = "asd";
-			//	var body = Encoding.UTF8.GetBytes(message);
-
-			//	var properties = channel.CreateBasicProperties();
-			//	properties.Persistent = true;
-			//	channel.BasicPublish(exchange: "",
-			//						 routingKey: "task_queue",
-			//						 basicProperties: properties,
-			//						 body: body);
-			//}
+			LookupTypeManager.Instance.LoadLookupTypes(Assembly.GetAssembly(typeof(MangaDbContext)));
+			MessageQueuesManager.Instance
+					.Init(app.ApplicationServices)
+					.ConnectToQueue("quartz")
+					.Subsribe<QuartzSubscriber>("quartz");
 		}
 	}
 }

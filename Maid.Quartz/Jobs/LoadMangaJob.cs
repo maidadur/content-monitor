@@ -1,5 +1,6 @@
 ﻿namespace Schedule.WebApiCore.Sample.Schedule
 {
+	using Maid.RabbitMQ;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.Logging;
 	using Quartz;
@@ -19,8 +20,8 @@
 
 		public async Task Execute(IJobExecutionContext context) {
 			logger.LogWarning($"Hello from scheduled task {DateTime.Now}");
+			MessageQueuesManager.Instance.Publish("quartz", "");
 			await Task.CompletedTask;
-
 		}
 	}
 }
