@@ -38,9 +38,27 @@
 			return await dbSet.ToListAsync();
 		}
 
-		public async Task<IEnumerable<TEntity>> GetByAsync(Expression<Func<TEntity, bool>> expression) {
-			return await Context.Set<TEntity>().Where(expression).ToListAsync();
+		public IEnumerable<TEntity> GetAll(bool loadLookups = false) {
+			var dbSet = Context.Set<TEntity>();
+			if (loadLookups) {
+				return dbSet.Include(Context)
+					.ToList();
+			}
+			return dbSet.ToList();
 		}
+
+		public async Task<IEnumerable<TEntity>> GetByAsync(Expression<Func<TEntity, bool>> expression) {
+			return await Context.Set<TEntity>()
+				.Where(expression)
+				.ToListAsync();
+		}
+
+		public IEnumerable<TEntity> GetBy(Expression<Func<TEntity, bool>> expression) {
+			return Context.Set<TEntity>()
+				.Where(expression)
+				.ToList();
+		}
+
 
 		public void Create(TEntity entity) {
 			if (entity.CreatedOn == DateTime.MinValue) {

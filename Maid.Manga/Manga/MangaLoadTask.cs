@@ -21,9 +21,9 @@
 			_chaptersRep = chaptersRep;
 		}
 
-		private async Task UpdateMangaChapters(MangaInfo manga) {
+		private async Task UpdateMangaChaptersAsync(MangaInfo manga) {
 			manga = await _mangaLoader.LoadMangaInfoAsync(manga);
-			var chapters = _chaptersRep.GetByAsync(chapter => chapter.MangaId == manga.Id);
+			var chapters = await _chaptersRep.GetByAsync(chapter => chapter.MangaId == manga.Id);
 			var currentChapters = manga.Chapters;
 			bool hasNew = false;
 			currentChapters.ForEach(chapter => {
@@ -34,14 +34,14 @@
 				_chaptersRep.Create(chapter);
 			});
 			if (hasNew) {
-				await _chaptersRep.SaveAsync();
+				_chaptersRep.Save();
 			}
 		}
 
-		public async Task LoadMangaInfos() {
+		public async Task LoadMangaInfosAsync() {
 			var mangas = await _mangaInfoRep.GetAllAsync();
-			mangas.ForEach(async (manga) => {
-				await UpdateMangaChapters(manga);
+			await mangas.ForEachAsync(async (manga) => {
+				await UpdateMangaChaptersAsync(manga);
 			});
 		}
 

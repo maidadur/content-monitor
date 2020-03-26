@@ -25,8 +25,8 @@
 			_sourceRepository = sourceRepository;
 		}
 
-		private async Task<MangaSource> GetSourceByUrl(Uri mangaUri) {
-			var sourceItem = await _sourceRepository.GetByAsync(i => new Uri(i.DomainUrl).Host == mangaUri.Host);
+		private MangaSource GetSourceByUrl(Uri mangaUri) {
+			var sourceItem = _sourceRepository.GetBy(i => new Uri(i.DomainUrl).Host == mangaUri.Host);
 			MangaSource mangaSource = sourceItem.FirstOrDefault();
 			return mangaSource;
 		}
@@ -46,7 +46,7 @@
 			string mangaUrl = mangaInfo.Href;
 			mangaUrl.CheckArgumentEmptyOrNull(nameof(mangaUrl));
 			Uri mangaUri = new Uri(mangaUrl);
-			MangaSource mangaSource = await GetSourceByUrl(mangaUri);
+			MangaSource mangaSource = GetSourceByUrl(mangaUri);
 			mangaInfo.Source = mangaSource ?? throw new ArgumentException("Wrong url domain");
 			string sourceName = mangaSource.Name;
 			ServiceConfigrationSection config = _configHelper.GetServiceConfig(sourceName);

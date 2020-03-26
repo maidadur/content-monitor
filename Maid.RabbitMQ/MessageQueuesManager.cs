@@ -52,10 +52,10 @@ namespace Maid.RabbitMQ
 								 body: bytes);
 		}
 
-		public void Subsribe<T>(string queueName) 
+		public MessageQueuesManager Subsribe<T>(string queueName) 
 				where T: IMessageConsumer  {
 			if (_channel == null) {
-				return;
+				return Instance;
 			}
 			var consumer = new EventingBasicConsumer(_channel);
 			consumer.Received += async (model, ea) => {
@@ -69,6 +69,7 @@ namespace Maid.RabbitMQ
 			_channel.BasicConsume(queue: queueName,
 								 autoAck: true,
 								 consumer: consumer);
+			return Instance;
 		}
 	}
 }

@@ -9,7 +9,11 @@
 	{
 		Task<IEnumerable<TEntity>> GetAllAsync(bool loadLookups = false);
 
+		IEnumerable<TEntity> GetAll(bool loadLookups = false);
+
 		Task<IEnumerable<TEntity>> GetByAsync(Expression<Func<TEntity, bool>> expression);
+
+		IEnumerable<TEntity> GetBy(Expression<Func<TEntity, bool>> expression);
 
 		void Create(TEntity entity);
 

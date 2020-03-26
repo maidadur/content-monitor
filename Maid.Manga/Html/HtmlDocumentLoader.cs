@@ -15,9 +15,9 @@
 		public Dictionary<string, string> Cookies { get; set; }
 
 		private void ApplyCookies(HttpRequestMessage message) {
-			if (!string.IsNullOrEmpty(ServiceName)) {
+			if (!string.IsNullOrEmpty(ServiceName) && Cookies != null) {
 				string cookiesString = string.Empty;
-				foreach (string key in Cookies.Keys) {
+				foreach (string key in Cookies?.Keys) {
 					cookiesString += string.Format("{0}={1};", key, Cookies[key]);
 				}
 				message.Headers.Add("Cookie", cookiesString);

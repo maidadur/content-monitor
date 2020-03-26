@@ -12,7 +12,7 @@
 		}
 
 		public async Task ProcessAsync(byte[] data) {
-			await _mangaLoadTask.LoadMangaInfos();
+			await _mangaLoadTask.LoadMangaInfosAsync();
 		}
 	}
 }

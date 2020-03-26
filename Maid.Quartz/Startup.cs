@@ -44,7 +44,7 @@ namespace Maid.Quartz
 					.StartNow()
 					.WithSimpleSchedule
 					 (s =>
-						s.WithInterval(TimeSpan.FromSeconds(15))
+						s.WithInterval(TimeSpan.FromSeconds(60 * 5))
 						.RepeatForever()
 					 )
 					 .Build();

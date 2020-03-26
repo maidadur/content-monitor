@@ -9,8 +9,15 @@
 	{
 		public IMangaParser GetParser(string serviceName) {
 			serviceName = serviceName.ToLower();
-			if (serviceName == "fanfox") {
-				return new FanFoxParser();
+			switch (serviceName) {
+				case "fanfox": {
+						return new FanFoxParser();
+					}
+				case "mangarock": {
+						return new MangaRockParser();
+					}
+				default:
+					break;
 			}
 			return null;
 		}

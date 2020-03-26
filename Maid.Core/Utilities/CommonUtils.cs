@@ -4,6 +4,7 @@
 	using System.Collections.Generic;
 	using System.IO;
 	using System.Runtime.Serialization.Formatters.Binary;
+	using System.Threading.Tasks;
 
 	public static class CommonUtils
 	{
@@ -16,6 +17,12 @@
 		public static void ForEach<T>(this IEnumerable<T> collection, Action<T> action) {
 			foreach (var item in collection) {
 				action.Invoke(item);
+			}
+		}
+
+		public static async Task ForEachAsync<T>(this IEnumerable<T> list, Func<T, Task> func) {
+			foreach (var value in list) {
+				await func(value);
 			}
 		}
 

@@ -28,8 +28,7 @@
 				options
 					.UseSqlServer(connection)
 			);
-			services.AddTransient<DbContext, MangaDbContext>();
-			services.AddTransient<IMangaDbContext, MangaDbContext>();
+			services.AddScoped<DbContext, MangaDbContext>();
 		}
 
 		// This method gets called by the runtime. Use this method to add services to the container.
@@ -51,7 +50,7 @@
 				options.AddPolicy("AllowOrigin",
 					builder => {
 						builder
-							.WithOrigins("http://localhost:4200")
+							.WithOrigins("http://localhost", "http://localhost:4200")
 							.AllowAnyHeader()
 							.AllowAnyMethod();
 					}
