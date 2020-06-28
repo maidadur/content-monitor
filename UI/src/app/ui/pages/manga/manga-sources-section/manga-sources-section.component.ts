@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MangaSource } from '@app/entity/manga/manga-source';
 import { MangaSourcesService } from '@app/services/manga/manga-sources.service';
-import { MangaInfo } from '@app/entity/manga/manga-info';
 
 @Component({
   selector: 'app-manga-sources-section',
@@ -9,22 +9,18 @@ import { MangaInfo } from '@app/entity/manga/manga-info';
 })
 export class MangaSourcesSectionComponent implements OnInit {
 
-  items: MangaInfo[];
+	items: MangaSource[];
 
-  constructor(private service: MangaSourcesService) { }
-
-  ngOnInit() {
-    this.service.getAll({}).subscribe(items => this.items = items);
-  }
-
-  openCard(item) {
-
-  }
- 
-  onDeleteItem(event, item) {
-    event.stopPropagation();
-    this.service.delete(item.id).subscribe();
-    this.items = this.items.filter(i => i.id !== item.id);
-  }
+	constructor(private service: MangaSourcesService) { }
+  
+	ngOnInit() {
+	  this.service.getAll({}).subscribe(items => this.items = items);
+	}
+   
+	onDeleteItem(event, item) {
+	  event.stopPropagation();
+	  this.service.delete(item.id).subscribe();
+	  this.items = this.items.filter(i => i.id !== item.id);
+	}
 
 }

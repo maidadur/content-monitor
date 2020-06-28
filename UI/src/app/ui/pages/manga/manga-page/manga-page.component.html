@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="col-sm-6 page-top-control-panel">
 			<button mat-button (click)="goBack();">Back</button>
-			<button mat-raised-button color="primary" (click)="save(null);">Save</button>
+			<button mat-raised-button color="primary" (click)="doSave();">Save</button>
 		</div>
 	</div>
 	<div class="row">
@@ -17,7 +17,7 @@
 			<img src="{{model.imageUrl}}" class="form-image" />
 		</div>
 		<div class="col-sm-6">
-			<mat-form-field class="manga-page-input">
+			<mat-form-field class="page-input">
 				<input matInput
 					   #mangaUrl
 					   autocomplete="doNotAutoComplete"
@@ -25,14 +25,8 @@
 					   [(ngModel)]="model.href"
 					   (paste)="onHrefPaste($event)" />
 			</mat-form-field>
-			<mat-form-field class="manga-page-input">
+			<mat-form-field class="page-input">
 				<input matInput placeholder="Name" [(ngModel)]="model.name" />
-			</mat-form-field>
-			<mat-form-field>
-				<mat-label>Source</mat-label>
-				<mat-select name="source" required [(ngModel)]="sourceId">
-					<mat-option *ngFor="let source of sourceValues" [value]="source.id">{{ source.name }}</mat-option>
-				</mat-select>
 			</mat-form-field>
 		</div>
 	</div>

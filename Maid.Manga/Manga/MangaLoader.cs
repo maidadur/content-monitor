@@ -26,16 +26,16 @@
 		}
 
 		private MangaSource GetSourceByUrl(Uri mangaUri) {
-			var sourceItem = _sourceRepository.GetBy(i => new Uri(i.DomainUrl).Host == mangaUri.Host);
-			MangaSource mangaSource = sourceItem.FirstOrDefault();
-			return mangaSource;
+			var sources = _sourceRepository.GetAll();
+			var sourceItem = sources.FirstOrDefault(i => i.DomainUrl == mangaUri.Host);
+			return sourceItem;
 		}
 
-		protected virtual void FillMangaInfo(MangaInfo mangaInfo, string sourceName, HtmlDocument document) {
-			IMangaParser mangaParser = _parsersFactory.GetParser(sourceName);
-			List<MangaChapterInfo> chaptersList = mangaParser.GetMangaChapters(document);
-			string imageUrl = mangaParser.GetMangaImageUrl(document);
-			string name = mangaParser.GetMangaName(document);
+		protected virtual void FillMangaInfo(MangaInfo mangaInfo, MangaSource source, HtmlDocument document) {
+			IMangaParser mangaParser = _parsersFactory.GetParser(source.Code);
+			List<MangaChapterInfo> chaptersList = mangaParser.GetMangaChapters(document, source);
+			string imageUrl = mangaParser.GetMangaImageUrl(document, source.ImageXpath);
+			string name = mangaParser.GetMangaName(document, source.TitleXpath);
 			mangaInfo.ImageUrl = imageUrl;
 			mangaInfo.Chapters = chaptersList;
 			mangaInfo.Name = name;
@@ -54,9 +54,8 @@
 				throw new ArgumentException($"No handler for source {sourceName}");
 			}
 			_htmlDocumentLoader.Cookies = config.Cookies;
-			_htmlDocumentLoader.ServiceName = sourceName;
 			HtmlDocument document = await _htmlDocumentLoader.GetHtmlDoc(mangaInfo.Href);
-			FillMangaInfo(mangaInfo, sourceName, document);
+			FillMangaInfo(mangaInfo, mangaSource, document);
 			return mangaInfo;
 		}
 	}

@@ -1,7 +1,7 @@
-<h3>Manga Sources</h3>
+<h3>Manga Titles</h3>
 <div class="row">
 	<div class="col-sm-6 section-top-control-panel">
-		<button mat-raised-button color="primary" routerLink="/manga/sources/new">Add</button>
+		<button mat-raised-button color="primary" routerLink="/manga/titles/new">Add</button>
 	</div>
 </div>
 <div class="row">
@@ -9,10 +9,10 @@
 		<mat-grid-tile *ngFor="let item of items"
 					   [colspan]="1"
 					   [rowspan]="1"
-					   routerLink="/manga/sources/{{item.id}}">
+					   routerLink="/manga/titles/{{item.id}}">
 			<img class="manga-grid-image" src="{{item.imageUrl}}" />
 			<mat-grid-tile-footer>
-				<span class="manga-grid-caption">{{item.domainUrl}}</span>
+				<span class="manga-grid-caption">{{item.name}}</span>
 				<button class="delete-button" mat-button (click)="onDeleteItem($event, item)">
 					<mat-icon>delete</mat-icon>
 				</button>

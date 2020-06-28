@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MangaChapterService } from '@app/services/manga/manga-chapter.service';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-manga-chapters-detail',
@@ -11,8 +12,10 @@ export class MangaChaptersDetailComponent implements OnInit {
   constructor(private service: MangaChapterService) { }
 
   ngOnInit() {
-    this.service.getMangaChapters(this.parentId)
+    if (this.parentId && Guid.isGuid(this.parentId)) {
+      this.service.getMangaChapters(this.parentId)
       .subscribe(items => this.rows = items);
+    }
   }
 
   @Input()

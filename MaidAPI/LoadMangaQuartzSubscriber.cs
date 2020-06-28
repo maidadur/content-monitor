@@ -3,11 +3,11 @@
 	using Maid.Core;
 	using System.Threading.Tasks;
 
-	public class QuartzSubscriber : IMessageConsumer
+	public class LoadMangaQuartzSubscriber : IMessageConsumer
 	{
 		private MangaLoadTask _mangaLoadTask;
 
-		public QuartzSubscriber(MangaLoadTask mangaLoader) {
+		public LoadMangaQuartzSubscriber(MangaLoadTask mangaLoader) {
 			_mangaLoadTask = mangaLoader;
 		}
 

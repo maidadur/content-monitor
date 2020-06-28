@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  mangaUrl: "http://localhost:5555/api"
 };

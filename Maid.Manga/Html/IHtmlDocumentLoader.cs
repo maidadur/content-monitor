@@ -8,8 +8,6 @@
 	{
 		Task<HtmlDocument> GetHtmlDoc(string url);
 
-		string ServiceName { get; set; }
-
 		Dictionary<string, string> Cookies { get; set; }
 
 	}

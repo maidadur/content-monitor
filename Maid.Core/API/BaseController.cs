@@ -39,27 +39,31 @@
 		}
 
 		[HttpPost()]
-		public void AddItem(T item) {
+		public ActionResult AddItem(T item) {
 			EntityRepository.Create(item);
 			EntityRepository.Save();
+			return Ok();
 		}
 
 		[HttpPut()]
-		public void EditItem(T item) {
+		public ActionResult EditItem(T item) {
 			EntityRepository.Update(item);
 			EntityRepository.Save();
+			return Ok();
 		}
 
 		[HttpDelete()]
-		public void DeleteItem(T item) {
+		public ActionResult DeleteItem(T item) {
 			EntityRepository.Delete(item);
 			EntityRepository.Save();
+			return Ok();
 		}
 
 		[HttpDelete("{id}")]
-		public void DeleteItem(Guid id) {
+		public ActionResult DeleteItem(Guid id) {
 			EntityRepository.Delete(id);
 			EntityRepository.Save();
+			return Ok();
 		}
 	}
 }

@@ -1,10 +1,19 @@
-import { BaseEntity } from '../base-entity';
 import { BaseLookup } from '../base-lookup';
 
 export class MangaSource extends BaseLookup {
-  domainUrl: string;
 
-  constructor(entity) {
-    super(entity);
-  }
+	domainUrl: string;
+	imageUrl: string;
+	
+	titleXpath: string;
+	imageXpath: string;
+
+	chapterXpath: string;
+	chapterTitleXpath: string;
+	chapterDateXpath: string;
+	chapterHrefXpath: string;
+
+	constructor(entity?) {
+		super(entity);
+	}
 }

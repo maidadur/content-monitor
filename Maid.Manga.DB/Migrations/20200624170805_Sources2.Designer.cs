@@ -4,14 +4,16 @@ using Maid.Manga.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Maid.Manga.DB.Migrations
 {
     [DbContext(typeof(MangaDbContext))]
-    partial class MangaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200624170805_Sources2")]
+    partial class Sources2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,13 +72,7 @@ namespace Maid.Manga.DB.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ChapterDateXpath");
-
-                    b.Property<string>("ChapterHrefXpath");
-
-                    b.Property<string>("ChapterTitleXpath");
-
-                    b.Property<string>("ChapterXpath");
+                    b.Property<string>("ChapterItemXpath");
 
                     b.Property<string>("Code");
 
@@ -84,8 +80,6 @@ namespace Maid.Manga.DB.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("DomainUrl");
-
-                    b.Property<string>("ImageUrl");
 
                     b.Property<string>("ImageXpath");
 

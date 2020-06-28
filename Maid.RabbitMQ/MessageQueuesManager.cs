@@ -1,6 +1,5 @@
 ﻿using RabbitMQ.Client;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using Maid.Core;
 using RabbitMQ.Client.Events;
@@ -13,17 +12,17 @@ namespace Maid.RabbitMQ
 		private static Lazy<MessageQueuesManager> _instance = 
 			new Lazy<MessageQueuesManager>(() => new MessageQueuesManager());
 		private IServiceProvider _serviceProvider;
-
-		private MessageQueuesManager() { }
-
-		public static MessageQueuesManager Instance => _instance.Value;
-
 		private IModel _channel;
 		private IConnection _connection;
 
+		private MessageQueuesManager() { }
+
+
+		public static MessageQueuesManager Instance => _instance.Value;
+
 		public MessageQueuesManager Init(IServiceProvider serviceProvider, string queueUrl = null) {
 			_serviceProvider = serviceProvider;
-			var factory = new ConnectionFactory() { HostName = queueUrl ?? "localhost" };
+			var factory = new ConnectionFactory() { HostName = queueUrl ?? "localhost", Port = 5672 };
 			_connection = factory.CreateConnection();
 			_channel = _connection.CreateModel();
 			return Instance;

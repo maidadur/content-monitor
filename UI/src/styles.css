@@ -5,3 +5,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .home-container-back-image {
 	width: 1000px;
 }
+
+.page-input {
+	width: 100%;
+  }
+  .mat-form-field-label {
+	font-size: 18px;
+  }
+  .page-top-control-panel {
+	margin: 20px 0 20px 0;
+  }
+  .page-top-control-panel button {
+	margin-right: 8px;
+  }
+  
+  .main-page-container .form-image {
+	-webkit-box-shadow: 9px 7px 43px -15px rgba(0,0,0,1);
+	-moz-box-shadow: 9px 7px 43px -15px rgba(0,0,0,1);
+	box-shadow: 9px 7px 43px -15px rgba(0,0,0,1);
+  }
+  .divider {
+	margin: 10px 0 10px 0;
+  }

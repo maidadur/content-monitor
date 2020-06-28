@@ -10,12 +10,10 @@
 	public class HtmlDocumentLoader : IHtmlDocumentLoader
 	{
 
-		public string ServiceName { get; set; }
-
 		public Dictionary<string, string> Cookies { get; set; }
 
 		private void ApplyCookies(HttpRequestMessage message) {
-			if (!string.IsNullOrEmpty(ServiceName) && Cookies != null) {
+			if (Cookies != null) {
 				string cookiesString = string.Empty;
 				foreach (string key in Cookies?.Keys) {
 					cookiesString += string.Format("{0}={1};", key, Cookies[key]);

@@ -14,7 +14,7 @@ export class MangaSectionComponent implements OnInit {
   items: MangaChapter[];
 
   ngOnInit() {
-    this.service.getAll({loadLookups: true})
+    this.service.getAll()
       .subscribe(items => this.items = items); 
   }
 

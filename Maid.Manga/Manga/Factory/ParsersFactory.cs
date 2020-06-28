@@ -8,18 +8,11 @@
 	public class ParsersFactory : IParsersFactory
 	{
 		public IMangaParser GetParser(string serviceName) {
-			serviceName = serviceName.ToLower();
+			serviceName = serviceName?.ToLower();
 			switch (serviceName) {
-				case "fanfox": {
-						return new FanFoxParser();
-					}
-				case "mangarock": {
-						return new MangaRockParser();
-					}
 				default:
-					break;
+					return new DefaultPageParser();
 			}
-			return null;
 		}
 	}
 }

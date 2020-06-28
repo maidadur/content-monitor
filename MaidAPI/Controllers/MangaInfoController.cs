@@ -6,8 +6,6 @@
 	using Maid.Manga.DB;
 	using Microsoft.AspNetCore.Mvc;
 	using System.Threading.Tasks;
-	using System.Linq;
-	using System.Collections.Generic;
 
 	[Route("api/manga")]
 	[ApiController]

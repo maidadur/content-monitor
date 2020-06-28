@@ -8,10 +8,11 @@
 	using Maid.RabbitMQ;
 	using Microsoft.AspNetCore.Builder;
 	using Microsoft.AspNetCore.Hosting;
-	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
+	using Microsoft.Extensions.Hosting;
+	using System;
 	using System.Reflection;
 
 	public class Startup
@@ -33,7 +34,8 @@
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddControllers();
+			//services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 			services.AddTransient<IHtmlDocumentLoader, HtmlDocumentLoader>();
 			services.AddTransient<IParsersFactory, ParsersFactory>();
 			services.AddTransient<IEntityRepository<MangaInfo>, EntityRepository<MangaInfo>>();
@@ -43,7 +45,7 @@
 			services.AddTransient<IMangaLoader, MangaLoader>();
 			services.AddTransient<ConfigHelper, ConfigHelper>();
 			services.AddTransient<MangaLoadTask, MangaLoadTask>();
-			services.AddTransient<QuartzSubscriber, QuartzSubscriber>();
+			services.AddTransient<LoadMangaQuartzSubscriber, LoadMangaQuartzSubscriber>();
 			SetupDbServices(services);
 			services.AddCors(options =>
 			{
@@ -59,22 +61,30 @@
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 			if (env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
 			} else {
 				app.UseHsts();
 			}
 
-			app.UseCors();
 			app.UseHttpsRedirection();
-			app.UseMvc();
+			app.UseRouting();
+			app.UseCors();
+			app.UseEndpoints(endpoints => {
+				endpoints.MapControllers();
+			});
 
 			LookupTypeManager.Instance.LoadLookupTypes(Assembly.GetAssembly(typeof(MangaDbContext)));
-			MessageQueuesManager.Instance
-					.Init(app.ApplicationServices)
-					.ConnectToQueue("quartz")
-					.Subsribe<QuartzSubscriber>("quartz");
+
+			try {
+				MessageQueuesManager.Instance
+						.Init(app.ApplicationServices)
+						.ConnectToQueue("quartz")
+						.Subsribe<LoadMangaQuartzSubscriber>("quartz");
+			} catch {
+				Console.WriteLine("Error. Could not connecto to RabbitQ");
+			}
 		}
 	}
 }

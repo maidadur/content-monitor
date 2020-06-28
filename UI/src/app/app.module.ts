@@ -20,10 +20,12 @@ import { HomeComponent } from './ui/pages/home/home.component';
 import { NavMenuComponent } from './ui/controls/nav-menu/nav-menu.component';
 import { MangaSectionComponent } from './ui/pages/manga/manga-section/manga-section.component';
 import { MangaPageComponent } from './ui/pages/manga/manga-page/manga-page.component';
-import { MangaSourcesSectionComponent } from './ui/pages/manga/manga-sources-section/manga-sources-section.component';
+import { MangaTitlesSectionComponent } from './ui/pages/manga/manga-titles-section/manga-titles-section.component';
 import { DialogWindowComponent } from './ui/controls/dialog-window/dialog-window.component';
 import { BaseDetailComponent } from './ui/controls/base-detail/base-detail.component';
 import { MangaChaptersDetailComponent } from './ui/controls/manga/manga-chapters-detail/manga-chapters-detail.component';
+import { MangaSourcesSectionComponent } from './ui/pages/manga/manga-sources-section/manga-sources-section.component';
+import { MangaSourcePageComponent } from './ui/pages/manga/manga-source-page/manga-source-page.component';
 
 @NgModule({
   declarations: [  
@@ -32,10 +34,12 @@ import { MangaChaptersDetailComponent } from './ui/controls/manga/manga-chapters
     NavMenuComponent,
     MangaSectionComponent,
     MangaPageComponent,
-    MangaSourcesSectionComponent,
+    MangaTitlesSectionComponent,
     DialogWindowComponent,
     BaseDetailComponent,
     MangaChaptersDetailComponent,
+    MangaSourcesSectionComponent,
+    MangaSourcePageComponent,
   ],
   entryComponents: [DialogWindowComponent],
   imports: [
@@ -45,8 +49,10 @@ import { MangaChaptersDetailComponent } from './ui/controls/manga/manga-chapters
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'manga', component: MangaSectionComponent },
+      { path: 'manga/titles', component: MangaTitlesSectionComponent },
       { path: 'manga/sources', component: MangaSourcesSectionComponent },
-      { path: 'manga/sources/:id', component: MangaPageComponent },
+      { path: 'manga/titles/:id', component: MangaPageComponent },
+      { path: 'manga/sources/:id', component: MangaSourcePageComponent },
     ]),
     BrowserAnimationsModule,
     MatGridListModule,
