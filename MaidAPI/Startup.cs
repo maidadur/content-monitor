@@ -24,7 +24,7 @@
 		public IConfiguration Configuration { get; }
 
 		private void SetupDbServices(IServiceCollection services) {
-			var connection = Configuration["DbConnectionString"];
+			var connection = Configuration["Maid_ConnectionString"];
 			services.AddDbContext<MangaDbContext>(options => 
 				options
 					.UseSqlServer(connection)
@@ -35,7 +35,6 @@
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddControllers();
-			//services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 			services.AddTransient<IHtmlDocumentLoader, HtmlDocumentLoader>();
 			services.AddTransient<IParsersFactory, ParsersFactory>();
 			services.AddTransient<IEntityRepository<MangaInfo>, EntityRepository<MangaInfo>>();
@@ -79,11 +78,11 @@
 
 			try {
 				MessageQueuesManager.Instance
-						.Init(app.ApplicationServices)
+						.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
 						.ConnectToQueue("quartz")
 						.Subsribe<LoadMangaQuartzSubscriber>("quartz");
 			} catch {
-				Console.WriteLine("Error. Could not connecto to RabbitQ");
+				Console.WriteLine("Error. Could not connect to to RabbitMQ");
 			}
 		}
 	}

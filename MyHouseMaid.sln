@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2048
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Manga.API", "MaidAPI\Maid.Manga.API.csproj", "{CCD5D898-8A5B-4F18-A9C7-47B761091E9C}"
 EndProject
@@ -36,7 +36,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Manga.DB", "Maid.Manga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Quartz", "Maid.Quartz\Maid.Quartz.csproj", "{9A2CE557-22B8-4DDD-A1CE-7FD0CE909BE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maid.RabbitMQ", "Maid.RabbitMQ\Maid.RabbitMQ.csproj", "{22A50C24-AA6D-4130-9BEB-835459D504DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.RabbitMQ", "Maid.RabbitMQ\Maid.RabbitMQ.csproj", "{22A50C24-AA6D-4130-9BEB-835459D504DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{09FDD4D6-1265-4BC9-9830-231E070896D3}"
+	ProjectSection(SolutionItems) = preProject
+		maid-api-deploy.yaml = maid-api-deploy.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
