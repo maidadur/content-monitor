@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Maid.RabbitMQ;
+﻿using Maid.RabbitMQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Quartz;
-using Quartz.Impl;
+using Quartz.Impl;s
 using Quartz.Spi;
 using Schedule.WebApiCore.Sample.Schedule;
+using System;
 
 namespace Maid.Quartz
 {
@@ -33,13 +27,13 @@ namespace Maid.Quartz
 
 			services.Add(new ServiceDescriptor(typeof(IJob), typeof(LoadMangaJob), ServiceLifetime.Transient));
 			services.AddSingleton<IJobFactory, ScheduledJobFactory>();
-			services.AddTransient<IJobDetail>(provider => {
+			services.AddTransient(provider => {
 				return JobBuilder.Create<LoadMangaJob>()
 				  .WithIdentity("LoadManga.job", "MangaGroup")
 				  .Build();
 			});
 
-			services.AddTransient<ITrigger>(provider => {
+			services.AddTransient(provider => {
 				return TriggerBuilder.Create()
 					.WithIdentity($"LoadManga.trigger", "MangaGroup")
 					.StartNow()
@@ -51,15 +45,13 @@ namespace Maid.Quartz
 					 .Build();
 			});
 
-			services.AddTransient<IScheduler>(provider => {
+			services.AddTransient(provider => {
 				var schedulerFactory = new StdSchedulerFactory();
 				var scheduler = schedulerFactory.GetScheduler().Result;
 				scheduler.JobFactory = provider.GetService<IJobFactory>();
 				scheduler.Start();
 				return scheduler;
 			});
-
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,7 +64,6 @@ namespace Maid.Quartz
 			}
 
 			app.UseHttpsRedirection();
-			app.UseMvc();
 
 			MessageQueuesManager.Instance
 				.Init(app.ApplicationServices)
