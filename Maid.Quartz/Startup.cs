@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quartz;
-using Quartz.Impl;s
+using Quartz.Impl;
 using Quartz.Spi;
 using Schedule.WebApiCore.Sample.Schedule;
 using System;
