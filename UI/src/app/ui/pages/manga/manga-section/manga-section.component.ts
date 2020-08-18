@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MangaChapterService } from '@app/services/manga/manga-chapter.service';
-import { MangaChapter } from '@app/entity/manga/manga-chapter';
+import { MangaChapterNotificationService } from '@app/services/manga/manga-chapter-notification.service';
+import { MangaChapterNotification } from '@app/entity/manga/manga-chapter-notification';
 
 @Component({
   selector: 'app-manga-section',
@@ -9,12 +9,12 @@ import { MangaChapter } from '@app/entity/manga/manga-chapter';
 })
 export class MangaSectionComponent implements OnInit {
 
-  constructor(private service: MangaChapterService) { }
+  constructor(private service: MangaChapterNotificationService) { }
 
-  items: MangaChapter[];
+  items: MangaChapterNotification[];
 
   ngOnInit() {
-    this.service.getAll()
+    this.service.getAllNotifications()
       .subscribe(items => this.items = items); 
   }
 

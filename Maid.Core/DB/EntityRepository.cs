@@ -1,5 +1,6 @@
 ﻿namespace Maid.Core.DB
 {
+	using Maid.Core.Utilities;
 	using Microsoft.EntityFrameworkCore;
 	using System;
 	using System.Collections.Generic;
@@ -28,22 +29,32 @@
 			Context = repositoryContext;
 		}
 
-		public async Task<IEnumerable<TEntity>> GetAllAsync(bool loadLookups = false) {
+		public async Task<IEnumerable<TEntity>> GetAllAsync(SelectOptions options = null) {
+			options = options ?? new SelectOptions();
 			var dbSet = Context.Set<TEntity>();
-			if (loadLookups) {
-				return await dbSet.Include(Context)
+			if (options.LoadLookups) {
+				return await dbSet
+					.Include(Context)
+					.ApplyOrderOptions(options.OrderOptions)
 					.ToListAsync();
 			}
-			return await dbSet.ToListAsync();
+			return await dbSet
+				.ApplyOrderOptions(options.OrderOptions)
+				.ToListAsync();
 		}
 
-		public IEnumerable<TEntity> GetAll(bool loadLookups = false) {
+		public IEnumerable<TEntity> GetAll(SelectOptions options = null) {
+			options = options ?? new SelectOptions();
 			var dbSet = Context.Set<TEntity>();
-			if (loadLookups) {
-				return dbSet.Include(Context)
+			if (options.LoadLookups) {
+				return dbSet
+					.Include(Context)
+					.ApplyOrderOptions(options.OrderOptions)
 					.ToList();
 			}
-			return dbSet.ToList();
+			return dbSet
+				.ApplyOrderOptions(options.OrderOptions)
+				.ToList();
 		}
 
 		public async Task<IEnumerable<TEntity>> GetByAsync(Expression<Func<TEntity, bool>> expression) {
@@ -57,7 +68,6 @@
 				.Where(expression)
 				.ToList();
 		}
-
 
 		public void Create(TEntity entity) {
 			if (entity.CreatedOn == DateTime.MinValue) {

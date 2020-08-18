@@ -47,7 +47,7 @@ export class MangaPageComponent extends BasePageComponent<MangaInfo> implements 
 		this.openDialog(function () {
 			this.model.href = url;
 			this.save().subscribe(() => {
-				this.service.loadMangaInfo(this.model.id).subscribe(() => {
+				this.service.loadMangaInfo(this.model).subscribe(() => {
 					this.loadData();
 				});
 			})

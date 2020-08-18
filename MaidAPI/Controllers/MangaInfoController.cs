@@ -24,12 +24,9 @@
 
 		[HttpPost("LoadMangaInfo")]
 		public async Task<ActionResult> LoadMangaInfo([FromBody]MangaInfo item) {
-			item = await EntityRepository.GetAsync(item.Id);
-			if (item == null) {
-				return BadRequest("net takogo");
-			}
 			item = await _mangaLoader.LoadMangaInfoAsync(item);
 			_chaptersRep.Delete(chapter => chapter.Manga.Id == item.Id);
+			_chaptersRep.Save();
 			EntityRepository.Update(item);
 			EntityRepository.Save();
 			return Ok();

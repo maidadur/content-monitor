@@ -18,9 +18,9 @@ export class MangaTitlesService extends BaseGenericService<MangaInfo> {
     super(http);
   }
 
-  loadMangaInfo(id: Guid): Observable<MangaInfo> {
+  loadMangaInfo(model: MangaInfo): Observable<MangaInfo> {
     const url = `${this.apiUrl}/LoadMangaInfo`;
-    return this.http.post<MangaInfo>(url, { id: id }, this.httpOptions)
+    return this.http.post<MangaInfo>(url, model, this.httpOptions)
       .pipe(
         catchError(this.handleError)
       );

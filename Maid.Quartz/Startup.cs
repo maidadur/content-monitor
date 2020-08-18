@@ -1,7 +1,6 @@
 ﻿using Maid.RabbitMQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,7 +38,7 @@ namespace Maid.Quartz
 					.StartNow()
 					.WithSimpleSchedule
 					 (s =>
-						s.WithInterval(TimeSpan.FromSeconds(60 * 5))
+						s.WithInterval(TimeSpan.FromSeconds(60 * 3))
 						.RepeatForever()
 					 )
 					 .Build();
@@ -54,7 +53,6 @@ namespace Maid.Quartz
 			});
 		}
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IScheduler scheduler) {
 			if (env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();

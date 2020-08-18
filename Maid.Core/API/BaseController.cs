@@ -25,7 +25,9 @@
 
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<T>>> GetAllItems(bool loadLookups = false) {
-			var data = await EntityRepository.GetAllAsync(loadLookups);
+			var data = await EntityRepository.GetAllAsync(new SelectOptions {
+				LoadLookups = loadLookups
+			});
 			return Ok(data);
 		}
 

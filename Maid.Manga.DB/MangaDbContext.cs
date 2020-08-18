@@ -14,6 +14,8 @@
 
 		public DbSet<MangaSource> MangaSource { get; set; }
 
+		public DbSet<MangaChapterNotification> MangaChapterNotification { get; set; }
+
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			modelBuilder.Entity<MangaInfo>()

@@ -34,12 +34,13 @@
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddControllers();
+			services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 			services.AddTransient<IHtmlDocumentLoader, HtmlDocumentLoader>();
 			services.AddTransient<IParsersFactory, ParsersFactory>();
 			services.AddTransient<IEntityRepository<MangaInfo>, EntityRepository<MangaInfo>>();
 			services.AddTransient<IEntityRepository<MangaSource>, EntityRepository<MangaSource>>();
 			services.AddTransient<IEntityRepository<MangaChapterInfo>, EntityRepository<MangaChapterInfo>>();
+			services.AddTransient<IEntityRepository<MangaChapterNotification>, EntityRepository<MangaChapterNotification>>();
 			services.AddTransient<IEntityRepository, EntityRepository>();
 			services.AddTransient<IMangaLoader, MangaLoader>();
 			services.AddTransient<ConfigHelper, ConfigHelper>();

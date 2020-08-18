@@ -31,14 +31,20 @@
 			return sourceItem;
 		}
 
-		protected virtual void FillMangaInfo(MangaInfo mangaInfo, MangaSource source, HtmlDocument document) {
+		protected virtual MangaInfo FillMangaInfo(MangaInfo mangaInfo, MangaSource source, HtmlDocument document) {
 			IMangaParser mangaParser = _parsersFactory.GetParser(source.Code);
 			List<MangaChapterInfo> chaptersList = mangaParser.GetMangaChapters(document, source);
+			chaptersList.ForEach(chapter => chapter.MangaId = mangaInfo.Id);
 			string imageUrl = mangaParser.GetMangaImageUrl(document, source.ImageXpath);
 			string name = mangaParser.GetMangaName(document, source.TitleXpath);
-			mangaInfo.ImageUrl = imageUrl;
-			mangaInfo.Chapters = chaptersList;
-			mangaInfo.Name = name;
+			var manga = new MangaInfo();
+			manga.Id = mangaInfo.Id;
+			manga.ImageUrl = imageUrl;
+			manga.Chapters = chaptersList;
+			manga.Name = name;
+			manga.Href = mangaInfo.Href;
+			manga.Source = mangaInfo.Source;
+			return manga;
 		}
 
 		public async Task<MangaInfo> LoadMangaInfoAsync(MangaInfo mangaInfo) {
@@ -55,8 +61,7 @@
 			}
 			_htmlDocumentLoader.Cookies = config.Cookies;
 			HtmlDocument document = await _htmlDocumentLoader.GetHtmlDoc(mangaInfo.Href);
-			FillMangaInfo(mangaInfo, mangaSource, document);
-			return mangaInfo;
+			return FillMangaInfo(mangaInfo, mangaSource, document);
 		}
 	}
 }

@@ -19,7 +19,7 @@
 		}
 
 		public async Task Execute(IJobExecutionContext context) {
-			logger.LogWarning($"Hello from scheduled task {DateTime.Now}");
+			logger.LogInformation($">>LoadMangaJob fired:  {DateTime.Now}");
 			MessageQueuesManager.Instance.Publish("quartz", "");
 			await Task.CompletedTask;
 		}

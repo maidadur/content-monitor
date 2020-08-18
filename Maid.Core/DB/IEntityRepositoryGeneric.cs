@@ -7,9 +7,9 @@
 
 	public interface IEntityRepository<TEntity>
 	{
-		Task<IEnumerable<TEntity>> GetAllAsync(bool loadLookups = false);
+		Task<IEnumerable<TEntity>> GetAllAsync(SelectOptions options = null);
 
-		IEnumerable<TEntity> GetAll(bool loadLookups = false);
+		IEnumerable<TEntity> GetAll(SelectOptions options = null);
 
 		Task<IEnumerable<TEntity>> GetByAsync(Expression<Func<TEntity, bool>> expression);
 

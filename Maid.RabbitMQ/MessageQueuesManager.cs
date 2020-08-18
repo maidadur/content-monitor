@@ -57,8 +57,8 @@ namespace Maid.RabbitMQ
 				return Instance;
 			}
 			var consumer = new EventingBasicConsumer(_channel);
-			consumer.Received += async (model, ea) => {
-				var body = ea.Body;
+			consumer.Received += async (model, eventArgs) => {
+				var body = eventArgs.Body.ToArray();
 				var message = Encoding.UTF8.GetString(body);
 				using (var scope = _serviceProvider.CreateScope()) {
 					var subscriber = scope.ServiceProvider.GetRequiredService<T>();

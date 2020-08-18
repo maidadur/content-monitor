@@ -3,6 +3,7 @@
 	using System;
 	using System.Collections.Generic;
 	using System.IO;
+	using System.Linq;
 	using System.Runtime.Serialization.Formatters.Binary;
 	using System.Threading.Tasks;
 
@@ -32,6 +33,14 @@
 				bf.Serialize(ms, obj);
 				return ms.ToArray();
 			}
+		}
+
+		public static bool IsEmpty<T>(this IEnumerable<T> collection) {
+			return collection == null || collection.Count() == 0;
+		}
+
+		public static bool IsNotEmpty<T>(this IEnumerable<T> collection) {
+			return !collection.IsEmpty();
 		}
 	}
 }

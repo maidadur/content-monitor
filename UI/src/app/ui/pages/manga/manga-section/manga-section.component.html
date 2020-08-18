@@ -15,8 +15,9 @@
       <mat-grid-tile 
         [colspan]="1"
         [rowspan]="1">
-      <img class="manga-grid-image" src="{{item.manga.imageUrl}}" />
+      <img class="manga-grid-image" src="{{item.imageUrl}}" />
       <mat-grid-tile-footer>
+		<span class="manga-name-grid-caption">{{item.mangaName}}</span>
         <span class="manga-grid-caption">{{item.name}}</span>
       </mat-grid-tile-footer>
       </mat-grid-tile>
