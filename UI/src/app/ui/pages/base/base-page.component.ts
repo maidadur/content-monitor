@@ -4,9 +4,7 @@ import { Guid } from 'guid-typescript';
 import { CardMode } from '@app/entity/card-mode';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
 
 export class BasePageComponent<TEntity extends BaseEntity> {
 

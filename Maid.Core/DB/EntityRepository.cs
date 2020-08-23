@@ -35,10 +35,12 @@
 			if (options.LoadLookups) {
 				return await dbSet
 					.Include(Context)
+					.ApplyOffsetOptions(options)
 					.ApplyOrderOptions(options.OrderOptions)
 					.ToListAsync();
 			}
 			return await dbSet
+				.ApplyOffsetOptions(options)
 				.ApplyOrderOptions(options.OrderOptions)
 				.ToListAsync();
 		}
@@ -49,10 +51,12 @@
 			if (options.LoadLookups) {
 				return dbSet
 					.Include(Context)
+					.ApplyOffsetOptions(options)
 					.ApplyOrderOptions(options.OrderOptions)
 					.ToList();
 			}
 			return dbSet
+				.ApplyOffsetOptions(options)
 				.ApplyOrderOptions(options.OrderOptions)
 				.ToList();
 		}

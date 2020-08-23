@@ -50,5 +50,16 @@ namespace Maid.Core.Utilities
 			}
 			return query;
 		}
+
+		public static IQueryable<TSource> ApplyOffsetOptions<TSource>(this IQueryable<TSource> query, SelectOptions selectOptions) {
+			if (selectOptions == null) {
+				return query;
+			}
+			if (selectOptions.Count == -1 || selectOptions.Offset == -1) {
+				return query;
+			}
+			return query.Skip(selectOptions.Offset)
+				.Take(selectOptions.Count);
+		}
 	}
 }

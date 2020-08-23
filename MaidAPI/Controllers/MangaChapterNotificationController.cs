@@ -29,7 +29,9 @@
 		[HttpGet("updates")]
 		public async Task<ActionResult<IEnumerable<MangaChapterNotificationViewModel>>> GetMangaNotifications(int count = 0, int offset = 0) {
 			var notifications = await EntityRepository.GetAllAsync(new SelectOptions {
-				LoadLookups = true
+				LoadLookups = true,
+				Count = count,
+				Offset = offset
 			});
 			var mangaIds = notifications.GroupBy(g => g.MangaChapterInfo.MangaId).Select(g => g.Key);
 			var mangas = await _mangaRep.GetByAsync(manga => mangaIds.Contains(manga.Id));

@@ -15,7 +15,7 @@
       "node_modules/@types"
     ],
     "paths": {
-      "@app/*": [ "./app/*" ]
+	  "@app/*": [ "./app/*" ]
     },
     "lib": [
       "es2018",

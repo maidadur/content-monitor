@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MangaSource } from '@app/entity/manga/manga-source';
-import { BasePageComponent } from '../../base/base-page-component';
+import { BasePageComponent } from '../../base/base-page.component';
 import { MangaSourcesService } from '@app/services/manga/manga-sources.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';

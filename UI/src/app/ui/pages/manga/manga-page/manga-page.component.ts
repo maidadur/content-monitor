@@ -3,12 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MangaTitlesService } from '@app/services/manga/manga-titles.service';
 import { MangaInfo } from '@app/entity/manga/manga-info';
-import { CardMode } from '@app/entity/card-mode';
-import { Guid } from 'guid-typescript';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material';
-import { DialogData } from '@app/ui/controls/dialog-window/dialog-data';
+import { MatDialog} from '@angular/material';
 import { DialogWindowComponent } from '@app/ui/controls/dialog-window/dialog-window.component';
-import { BasePageComponent } from '../../base/base-page-component';
+import { BasePageComponent } from '../../base/base-page.component';
 
 @Component({
 	selector: 'app-manga-page',
