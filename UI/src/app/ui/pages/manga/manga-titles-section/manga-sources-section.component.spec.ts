@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MangaSourcesSectionComponent } from './manga-titles-section.component';
+import { MangaTitlesSectionComponent } from './manga-titles-section.component';
 
 describe('MangaSourcesSectionComponent', () => {
-  let component: MangaSourcesSectionComponent;
-  let fixture: ComponentFixture<MangaSourcesSectionComponent>;
+  let component: MangaTitlesSectionComponent;
+  let fixture: ComponentFixture<MangaTitlesSectionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MangaSourcesSectionComponent ]
+      declarations: [ MangaTitlesSectionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MangaSourcesSectionComponent);
+    fixture = TestBed.createComponent(MangaTitlesSectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
