@@ -26,6 +26,7 @@ import { BaseDetailComponent } from './ui/controls/base-detail/base-detail.compo
 import { MangaChaptersDetailComponent } from './ui/controls/manga/manga-chapters-detail/manga-chapters-detail.component';
 import { MangaSourcesSectionComponent } from './ui/pages/manga/manga-sources-section/manga-sources-section.component';
 import { MangaSourcePageComponent } from './ui/pages/manga/manga-source-page/manga-source-page.component';
+import { ViewPortComponent } from './ui/controls/view-port/view-port.component';
 
 @NgModule({
   declarations: [  
@@ -40,6 +41,7 @@ import { MangaSourcePageComponent } from './ui/pages/manga/manga-source-page/man
     MangaChaptersDetailComponent,
     MangaSourcesSectionComponent,
     MangaSourcePageComponent,
+    ViewPortComponent,
   ],
   entryComponents: [DialogWindowComponent],
   imports: [

@@ -1,10 +1,6 @@
 import { BaseEntity } from '@app/entity/base-entity';
 import { BaseGenericService } from '@app/services/base-generic.service';
-import { Guid } from 'guid-typescript';
-import { CardMode } from '@app/entity/card-mode';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { tap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 export class BaseSectionComponent<TEntity extends BaseEntity> {
 

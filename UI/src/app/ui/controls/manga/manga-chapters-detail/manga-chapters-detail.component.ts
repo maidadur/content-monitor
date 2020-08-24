@@ -3,26 +3,26 @@ import { MangaChapterService } from '@app/services/manga/manga-chapter.service';
 import { Guid } from 'guid-typescript';
 
 @Component({
-  selector: 'app-manga-chapters-detail',
-  templateUrl: './manga-chapters-detail.component.html',
-  styleUrls: ['./manga-chapters-detail.component.css']
+	selector: 'app-manga-chapters-detail',
+	templateUrl: './manga-chapters-detail.component.html',
+	styleUrls: ['./manga-chapters-detail.component.css']
 })
 export class MangaChaptersDetailComponent implements OnInit {
 
-  constructor(private service: MangaChapterService) { }
+	constructor(private service: MangaChapterService) { }
 
-  ngOnInit() {
-    if (this.parentId && Guid.isGuid(this.parentId)) {
-      this.service.getMangaChapters(this.parentId)
-      .subscribe(items => this.rows = items);
-    }
-  }
+	ngOnInit() {
+		if (this.parentId && Guid.isGuid(this.parentId)) {
+			this.service.getMangaChapters(this.parentId)
+				.subscribe(items => this.rows = items);
+		}
+	}
 
-  @Input()
-  parentId: string;
+	@Input()
+	parentId: string;
 
-  columns: any[];
+	columns: any[];
 
-  rows: any[];
+	rows: any[];
 
 }
