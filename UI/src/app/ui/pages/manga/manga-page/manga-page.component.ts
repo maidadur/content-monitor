@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MangaTitlesService } from '@app/services/manga/manga-titles.service';
 import { MangaInfo } from '@app/entity/manga/manga-info';
-import { MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogWindowComponent } from '@app/ui/controls/dialog-window/dialog-window.component';
 import { BasePageComponent } from '../../base/base-page.component';
 
