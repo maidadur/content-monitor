@@ -5,7 +5,9 @@ import { CardMode } from '@app/entity/card-mode';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { Component } from '@angular/core';
 
+@Component({template: ''})
 export class BasePageComponent<TEntity extends BaseEntity> {
 
 	public cardMode: CardMode;

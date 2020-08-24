@@ -1,7 +1,9 @@
 import { BaseEntity } from '@app/entity/base-entity';
 import { BaseGenericService } from '@app/services/base-generic.service';
 import { map } from 'rxjs/operators';
+import { Component } from '@angular/core';
 
+@Component({template: ''})
 export class BaseSectionComponent<TEntity extends BaseEntity> {
 
 	public items: TEntity[] = [];

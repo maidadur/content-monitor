@@ -65,7 +65,7 @@ import { ViewPortComponent } from './ui/controls/view-port/view-port.component';
     MatSelectModule,
     MatButtonModule,
     MatDialogModule,
-    NgbModule.forRoot() 
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
