@@ -1,9 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body .container-fluid { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+html, body { 
+	height: 100%; 
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+body .container-fluid { 
+	margin: 0;
+}
 .home-container-back-image {
-	width: 1000px;
+	width: 150px;
+	border-radius: 35%;
 }
 /* 
 @media (min-width: 767px) {
@@ -45,3 +51,12 @@ body .container-fluid { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verd
   .divider {
 	margin: 10px 0 10px 0;
   }
+
+.mat-grid-tile .mat-grid-tile-footer{ 
+	padding-right: 5px;
+}
+ 
+ .mat-grid-tile-footer span {
+	max-height: 48px;
+	line-height: normal;
+}

@@ -39,15 +39,32 @@
 			notifications.ForEach(n => {
 				var manga = mangas.First(manga => manga.Id == n.MangaChapterInfo.MangaId);
 				models.Add(new MangaChapterNotificationViewModel {
+					Id = n.Id,
 					CreatedOn = n.CreatedOn,
 					Name = n.MangaChapterInfo.Name,
 					Date = n.MangaChapterInfo.Date,
 					Href = n.MangaChapterInfo.Href,
 					MangaName = manga.Name,
-					ImageUrl = manga.ImageUrl
+					ImageUrl = manga.ImageUrl,
+					IsRead = n.IsRead
 				});
 			});
 			return Ok(models);
+		}
+
+		[HttpPost("read")]
+		public async Task<ActionResult> ReadNotifications(Guid[] notifications) {
+			var items = await EntityRepository.GetByAsync(item => notifications.Contains(item.Id));
+			bool save = false;
+			items.ForEach(item => {
+				item.IsRead = true;
+				EntityRepository.Update(item);
+				save = true;
+			});
+			if (save) {
+				EntityRepository.Save();
+			}
+			return Ok();
 		}
 	}
 }

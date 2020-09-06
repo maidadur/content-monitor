@@ -6,4 +6,5 @@ export class MangaChapterNotification extends BaseEntity {
 	public href: string;
 	public mangaName: string;
 	public imageUrl: string;
+	public isRead: boolean;
 }

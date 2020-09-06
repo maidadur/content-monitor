@@ -17,5 +17,7 @@ namespace Maid.Manga.ViewModels
 		public string MangaName { get; set; }
 
 		public string ImageUrl { get; set; }
+
+		public bool IsRead { get; set; }
 	}
 }
