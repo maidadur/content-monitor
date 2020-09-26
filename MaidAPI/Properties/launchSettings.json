@@ -22,7 +22,7 @@
       "launchBrowser": true,
       "launchUrl": "api/manga",
         "environmentVariables": {
-            "Maid_ConnectionString": "Server=localhost;Database=mangadb;User Id=api;Password=maidadurapi;Integrated Security=False",
+            "Maid_ConnectionString": "Server=localhost;Database=mangadb;User Id=__user__;Password=__password__;Integrated Security=False",
             "ASPNETCORE_ENVIRONMENT": "Development",
             "Maid_RabbitMQ_Host": "localhost",
             "Maid_RabbitMQ_Port": "5672"
