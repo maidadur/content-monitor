@@ -1,34 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+@import './themes.less';
 
-html, body { 
-	height: 100%; 
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+body.body { 
+	height: 100%;
+	width: 100%;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: @background-color;
+	color: @font-color;
+
+	h1, h2, h3 {
+		color: @header-font-color;
+	}
+
+	a span {
+		color: @font-color;
+	}
+	
+	.maid-button {
+		background-color: @button-color;
+	}
 }
 body .container-fluid { 
 	margin: 0;
 }
 .home-container-back-image {
-	width: 150px;
-	border-radius: 35%;
+	width: 85px;
+	border-radius: 20%;
 }
-/* 
-@media (min-width: 767px) {
-	.table-container {
-		display: table;
-		width: 100%;
-	  }
-	  
-	 .table-container .table-row {
-		height: 100%;
-		display: table-row;
-	  }
-	  
-	 .table-container .table-row .table-col {
-		display: table-cell;
-		float: none;
-		vertical-align: top;
-	  }
-  } */
 
 .page-input {
 	width: 100%;
@@ -59,4 +56,8 @@ body .container-fluid {
  .mat-grid-tile-footer span {
 	max-height: 48px;
 	line-height: normal;
+}
+
+.span-icon {
+	margin: 0 3px;
 }

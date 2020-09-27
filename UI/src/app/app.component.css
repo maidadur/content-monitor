@@ -4,3 +4,21 @@
     padding-top: 50px;
   }
 }
+
+.main-container {
+}
+
+.content {
+	width: 90%;
+	margin: auto;
+}
+
+.body-content {
+  width: 90%;
+  display: inline-block;
+}
+
+.header-content .nav-menu {
+	display: inline-block;
+	vertical-align: top;
+}
