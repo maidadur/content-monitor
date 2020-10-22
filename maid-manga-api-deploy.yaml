@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maid-manga-api
+spec:
+  selector:
+    matchLabels:
+      app: maid-manga-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: maid-manga-api
+    spec:
+      containers:
+      - name: maid-manga-api
+        image: maidadur/maid-manga-api:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_URLS
+          value: http://*:80
+        - name: MaidManga_ConnectionString
+          value: "Server=localhost;Database=mangadb;User Id=api;Password=dazdranagorn;Integrated Security=False"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maid-manga-api
+spec:
+  type: NodePort
+  ports:
+     - port: 80
+       nodePort: 31111
+  selector:
+    app: maid-manga-api

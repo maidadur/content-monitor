@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.RabbitMQ", "Maid.Rabbi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{09FDD4D6-1265-4BC9-9830-231E070896D3}"
 	ProjectSection(SolutionItems) = preProject
-		maid-api-deploy.yaml = maid-api-deploy.yaml
+		maid-manga-api-deploy.yaml = maid-manga-api-deploy.yaml
 	EndProjectSection
 EndProject
 Global
