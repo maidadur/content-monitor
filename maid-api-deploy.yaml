@@ -21,7 +21,7 @@ spec:
         env:
         - name: ASPNETCORE_URLS
           value: http://*:80
-        - name: Maid_ConnectionString
+        - name: MaidManga_ConnectionString
           value: "Server=192.168.0.101\\DESKTOP-FP8LT38,1433;Database=mangadb;User Id=api;Password=maidadurapi;Integrated Security=False"
 ---
 apiVersion: v1

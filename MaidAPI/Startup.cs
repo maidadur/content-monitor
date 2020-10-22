@@ -24,7 +24,7 @@
 		public IConfiguration Configuration { get; }
 
 		private void SetupDbServices(IServiceCollection services) {
-			var connection = Configuration["Maid_ConnectionString"];
+			var connection = Configuration["MaidManga_ConnectionString"];
 			services.AddDbContext<MangaDbContext>(options => 
 				options
 					.UseSqlServer(connection)
