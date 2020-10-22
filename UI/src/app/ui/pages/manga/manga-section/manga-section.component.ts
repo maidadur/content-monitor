@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MangaChapterNotificationService } from '@app/services/manga/manga-chapter-notification.service';
 import { MangaChapterNotification } from '@app/entity/manga/manga-chapter-notification';
 import { BaseSectionComponent } from '../../base/base-section.component';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-manga-section',
@@ -10,17 +11,20 @@ import { BaseSectionComponent } from '../../base/base-section.component';
 })
 export class MangaSectionComponent extends BaseSectionComponent<MangaChapterNotification> implements OnInit {
 
-	constructor(public service: MangaChapterNotificationService) {
-		super(service);
+	constructor(
+			public service: MangaChapterNotificationService,
+			location: Location
+		) {
+		super(service, location);
 	}
 
 	public getItemsObservable() {
-		return this.service.getAllNotifications({offset: this.offset, count: this.count});
+		return this.service.getAllNotifications({ offset: this.offset, count: this.count });
 	}
 
 	public handleGetDataResponse(items: MangaChapterNotification[]) {
 		super.handleGetDataResponse(items);
-		var notReadItems = items.filter((item) => !item.isRead);
+		const notReadItems = items.filter((item) => !item.isRead);
 		if (notReadItems.length > 0) {
 			this.service.readNotifications(notReadItems).subscribe();
 		}

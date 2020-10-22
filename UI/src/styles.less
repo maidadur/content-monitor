@@ -17,6 +17,21 @@ body.body {
 	
 	.maid-button {
 		background-color: @button-color;
+
+	}
+
+			
+	.mat-raised-button {
+		color:#fff;
+	}
+
+	.mat-grid-list .mat-grid-tile .mat-grid-tile-footer{ 
+		background	: rgba(0,0,0,0.55);
+		height: 70px;
+
+		span {
+			color: #fff;
+		}
 	}
 }
 body .container-fluid { 
@@ -26,38 +41,24 @@ body .container-fluid {
 	width: 85px;
 	border-radius: 20%;
 }
+ 
+.span-icon {
+	margin: 0 3px;
+}
 
 .page-input {
 	width: 100%;
-  }
-  .mat-form-field-label {
-	font-size: 18px;
-  }
-  .page-top-control-panel {
+}
+
+.page-top-control-panel {
 	margin: 20px 0 20px 0;
-  }
-  .page-top-control-panel button {
+}
+
+.page-top-control-panel button {
 	margin-right: 8px;
-  }
-  
-  .main-page-container .form-image {
-	-webkit-box-shadow: 9px 7px 43px -15px rgba(0,0,0,1);
-	-moz-box-shadow: 9px 7px 43px -15px rgba(0,0,0,1);
-	box-shadow: 9px 7px 43px -15px rgba(0,0,0,1);
-  }
-  .divider {
-	margin: 10px 0 10px 0;
-  }
-
-.mat-grid-tile .mat-grid-tile-footer{ 
-	padding-right: 5px;
-}
- 
- .mat-grid-tile-footer span {
-	max-height: 48px;
-	line-height: normal;
 }
 
-.span-icon {
-	margin: 0 3px;
+.mat-form-field-label span{
+	font-size: 18px;
+	color: @field-font-color;
 }

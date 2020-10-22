@@ -6,18 +6,18 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-manga-source-page',
-  templateUrl: './manga-source-page.component.html',
-  styleUrls: ['./manga-source-page.component.css']
+	selector: 'app-manga-source-page',
+	templateUrl: './manga-source-page.component.html',
+	styleUrls: ['./manga-source-page.component.css']
 })
 export class MangaSourcePageComponent extends BasePageComponent<MangaSource> implements OnInit {
-  public model: MangaSource = new MangaSource();
-  
-  constructor(public service: MangaSourcesService, router: ActivatedRoute, location: Location) {
-	  super(service, router, location);
-   }
+	public model: MangaSource = new MangaSource();
 
-   public afterInsertHandler() {
-	   this.location.go("manga/sources");
-   }
+	constructor(public service: MangaSourcesService, router: ActivatedRoute, location: Location) {
+		super(service, router, location);
+	}
+
+	public afterInsertHandler() {
+		this.location.go('manga/sources');
+	}
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MangaTitlesService } from '@app/services/manga/manga-titles.service';
 import { MangaInfo } from '@app/entity/manga/manga-info';
 import { BaseSectionComponent } from '../../base/base-section.component';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-manga-titles-section',
@@ -12,12 +13,11 @@ export class MangaTitlesSectionComponent extends BaseSectionComponent<MangaInfo>
 
 	items: MangaInfo[];
 
-	constructor(public service: MangaTitlesService) {
-		super(service);
-	}
-
-	openCard(item) {
-
+	constructor(
+		public service: MangaTitlesService,
+		location: Location
+	) {
+		super(service, location);
 	}
 
 	onDeleteItem(event, item) {

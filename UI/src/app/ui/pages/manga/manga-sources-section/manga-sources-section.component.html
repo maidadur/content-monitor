@@ -1,6 +1,7 @@
 <h3>Manga Sources</h3>
 <div class="row">
 	<div class="col-sm-6 section-top-control-panel">
+		<button mat-button (click)="goBack();">Back</button>
 		<button mat-raised-button class="maid-button" routerLink="/manga/sources/new">Add</button>
 	</div>
 </div>
@@ -19,4 +20,5 @@
 			</mat-grid-tile-footer>
 		</mat-grid-tile>
 	</mat-grid-list>
+	<app-view-port [scrollableParentDomEl]="parentBody" (onVisible)="onViewPortVisible()"></app-view-port>
 </div>
