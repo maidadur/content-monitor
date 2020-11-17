@@ -30,6 +30,7 @@ jobs:
         with:
           push: true
           file: ./UI/Dockerfile
+          context:  ./UI
           tags: maidadur/maid-ui:latest
       -
         name: Image digest
