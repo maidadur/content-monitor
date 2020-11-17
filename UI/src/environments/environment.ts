@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  mangaUrl: 'https://localhost:5001/api'
+  mangaUrl: 'https://localhost:5555/api'
 };
