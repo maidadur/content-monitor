@@ -24,17 +24,14 @@
 		public IConfiguration Configuration { get; }
 
 		private void SetupDbServices(IServiceCollection services) {
-			var connection = Configuration["Maid_ConnectionString"];
-			services.AddDbContext<MangaDbContext>(options => 
-				options
-					.UseSqlServer(connection)
+			var connection = Configuration["MaidManga_ConnectionString"];
+			services.AddDbContext<MangaDbContext>(options =>
+				options.UseMySql(connection)
 			);
 			services.AddScoped<DbContext, MangaDbContext>();
 		}
 
-		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services) {
-			services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+		private void SetupServicesBindings(IServiceCollection services) {
 			services.AddTransient<IHtmlDocumentLoader, HtmlDocumentLoader>();
 			services.AddTransient<IParsersFactory, ParsersFactory>();
 			services.AddTransient<IEntityRepository<MangaInfo>, EntityRepository<MangaInfo>>();
@@ -46,9 +43,14 @@
 			services.AddTransient<ConfigHelper, ConfigHelper>();
 			services.AddTransient<MangaLoadTask, MangaLoadTask>();
 			services.AddTransient<LoadMangaQuartzSubscriber, LoadMangaQuartzSubscriber>();
+		}
+
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services) {
+			services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+			SetupServicesBindings(services);
 			SetupDbServices(services);
-			services.AddCors(options =>
-			{
+			services.AddCors(options => {
 				options.AddPolicy("AllowOrigin",
 					builder => {
 						builder

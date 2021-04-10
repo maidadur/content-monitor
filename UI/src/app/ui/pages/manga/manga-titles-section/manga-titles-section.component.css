@@ -1,5 +1,8 @@
 .manga-grid-image {
   height: 230px;
+	-webkit-box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
+	-moz-box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
+	box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
 }
 .mat-grid-tile-footer {
   margin: 0 7px 0 7px;

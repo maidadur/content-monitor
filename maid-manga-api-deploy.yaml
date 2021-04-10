@@ -1,0 +1,71 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maid-manga-api
+spec:
+  selector:
+    matchLabels:
+      app: maid-manga-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: maid-manga-api 
+    spec:
+      containers:
+      - name: maid-manga-api
+        image: maidadur/maid-manga-api:latest 
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_URLS
+          value: http://*:5555
+        - name: MaidManga_ConnectionString
+          valueFrom:
+            secretKeyRef:
+              name: maid-manga
+              key: db_connection_string
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maid-manga-api
+spec:
+  selector:
+    app: maid-manga-api
+  type: LoadBalancer
+  ports: 
+    - port: 5555
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maid-ui
+spec:
+  selector:
+    matchLabels:
+      app: maid-ui
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: maid-ui
+    spec:
+      containers:
+      - name: maid-ui
+        image: maidadur/maid-ui:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maid-ui
+spec:
+  selector:
+    app: maid-ui
+  type: LoadBalancer
+  ports:
+    - port: 80

@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Maid.Manga.DB.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,9 +13,18 @@ namespace Maid.Manga.DB.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: true)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    DomainUrl = table.Column<string>(nullable: true)
+                    Code = table.Column<string>(nullable: true),
+                    DomainUrl = table.Column<string>(nullable: true),
+                    TitleXpath = table.Column<string>(nullable: true),
+                    ImageXpath = table.Column<string>(nullable: true),
+                    ChapterXpath = table.Column<string>(nullable: true),
+                    ChapterHrefXpath = table.Column<string>(nullable: true),
+                    ChapterTitleXpath = table.Column<string>(nullable: true),
+                    ChapterDateXpath = table.Column<string>(nullable: true),
+                    ImageUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,7 +36,8 @@ namespace Maid.Manga.DB.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: true)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true),
                     Href = table.Column<string>(nullable: true),
@@ -48,7 +59,8 @@ namespace Maid.Manga.DB.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: true)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Date = table.Column<string>(nullable: true),
                     Href = table.Column<string>(nullable: true),
@@ -65,15 +77,36 @@ namespace Maid.Manga.DB.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "MangaSource",
-                columns: new[] { "Id", "CreatedOn", "DomainUrl", "Name" },
-                values: new object[] { new Guid("cb5cea99-ff7e-4272-0c11-08d6c115fe81"), new DateTime(2019, 4, 17, 22, 44, 4, 591, DateTimeKind.Local), "http://fanfox.net", "FanFox" });
+            migrationBuilder.CreateTable(
+                name: "MangaChapterNotification",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: true)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IsRead = table.Column<bool>(nullable: false),
+                    MangaChapterInfoId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MangaChapterNotification", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MangaChapterNotification_MangaChapterInfo_MangaChapterInfoId",
+                        column: x => x.MangaChapterInfoId,
+                        principalTable: "MangaChapterInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_MangaChapterInfo_MangaId",
                 table: "MangaChapterInfo",
                 column: "MangaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MangaChapterNotification_MangaChapterInfoId",
+                table: "MangaChapterNotification",
+                column: "MangaChapterInfoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MangaInfo_SourceId",
@@ -83,6 +116,9 @@ namespace Maid.Manga.DB.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "MangaChapterNotification");
+
             migrationBuilder.DropTable(
                 name: "MangaChapterInfo");
 
