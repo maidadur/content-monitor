@@ -19,7 +19,9 @@ body.body {
 		background-color: @button-color;
 
 	}
-
+	.mat-form-field-underline{
+		background-color: @field-font-color;
+	}
 			
 	.mat-raised-button {
 		color:#fff;
@@ -61,4 +63,8 @@ body .container-fluid {
 .mat-form-field-label span{
 	font-size: 18px;
 	color: @field-font-color;
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 100% transparent inset;
 }
