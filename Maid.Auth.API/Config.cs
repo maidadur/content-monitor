@@ -37,7 +37,7 @@ namespace Maid.Auth.API
 					AllowedGrantTypes = GrantTypes.Code,
 					RequireClientSecret = false,
 					AllowedScopes = { "openid", "profile", "email", "api.read" },
-					RedirectUris = {"https://localhost:4200/auth-callback"},
+					RedirectUris = {"https://localhost:4200/auth-callback", "https://localhost:4200/auth/silent-refresh"},
 					PostLogoutRedirectUris = {"https://localhost:4200/"},
 					AllowedCorsOrigins = {"https://localhost:4200"},
 					AllowAccessTokensViaBrowser = true,
