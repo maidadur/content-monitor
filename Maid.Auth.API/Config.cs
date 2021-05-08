@@ -24,21 +24,18 @@ namespace Maid.Auth.API
 			};
 		}
 
-		public static IEnumerable<Client> GetClients() {
+		public static IEnumerable<Client> GetClients(string uiUrl) {
 			return new[]
 			{
 				new Client
 				{
 					ClientId = "client",
 					ClientName = "Api client",
-					// no interactive user, use the clientid/secret for authentication
 					AllowedGrantTypes = GrantTypes.ClientCredentials,
-					// secret for authentication
 					ClientSecrets =
 					{
 						new Secret("secret".Sha256())
 					},
-					// scopes that client has access to
 					AllowedScopes = { "api" }
 				},
 				new Client {
@@ -48,9 +45,9 @@ namespace Maid.Auth.API
 					AllowedGrantTypes = GrantTypes.Code,
 					RequireClientSecret = false,
 					AllowedScopes = { "openid", "profile", "email", "api" },
-					RedirectUris = {"https://localhost:4200/auth-callback", "https://localhost:4200/auth/silent-refresh"},
-					PostLogoutRedirectUris = {"https://localhost:4200/"},
-					AllowedCorsOrigins = {"https://localhost:4200"},
+					RedirectUris = { $"{uiUrl}/auth-callback", $"{uiUrl}/auth/silent-refresh"},
+					PostLogoutRedirectUris = {uiUrl},
+					AllowedCorsOrigins = {uiUrl},
 					AllowAccessTokensViaBrowser = true,
 					AccessTokenLifetime = 3600
 				}

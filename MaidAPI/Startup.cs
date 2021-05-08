@@ -47,6 +47,7 @@
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
+			string uiUrl = Configuration["UI_Url"];
 			services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 			SetupServicesBindings(services);
 			SetupDbServices(services);
@@ -61,7 +62,7 @@
 				options.AddPolicy("AllowOrigin",
 					builder => {
 						builder
-							.WithOrigins("https://localhost", "https://localhost:4200")
+							.WithOrigins(uiUrl)
 							.AllowAnyHeader()
 							.AllowAnyMethod();
 					}

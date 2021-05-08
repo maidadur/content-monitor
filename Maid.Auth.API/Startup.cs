@@ -28,6 +28,7 @@ namespace Maid.Auth.API
 		public IConfiguration Configuration { get; }
 
 		public void ConfigureServices(IServiceCollection services) {
+			string uiUrl = Configuration["UI_Url"];
 			services.AddTransient<IReturnUrlParser, ReturnUrlParser>();
 			services.AddControllers();
 			services.AddDbContext<AppIdentityDbContext>(options => options.UseMySql(Configuration.GetConnectionString("Maid_Auth_ConnectionString")));
@@ -40,15 +41,15 @@ namespace Maid.Auth.API
 				setup.AddDefaultPolicy(policy => {
 					policy.AllowAnyHeader();
 					policy.AllowAnyMethod();
-					policy.WithOrigins("https://localhost:4200");
+					policy.WithOrigins(uiUrl);
 					policy.AllowCredentials();
 				});
 			});
 
 			services.AddIdentityServer((options) => {
-				options.UserInteraction.LoginUrl = "https://localhost:4200/auth";
-				//options.UserInteraction.ErrorUrl = "http://localhost:4200/error.html";
-				options.UserInteraction.LogoutUrl = "http://localhost:4200/auth";
+				options.UserInteraction.LoginUrl = $"{uiUrl}/auth";
+				//options.UserInteraction.ErrorUrl = $"{uiUrl}/error.html";
+				options.UserInteraction.LogoutUrl = $"{uiUrl}/auth";
 				options.Events.RaiseErrorEvents = true;
 				options.Events.RaiseInformationEvents = true;
 				options.Events.RaiseFailureEvents = true;
@@ -65,16 +66,8 @@ namespace Maid.Auth.API
 				.AddInMemoryPersistedGrants()
 				.AddInMemoryIdentityResources(Config.GetIdentityResources())
 				.AddInMemoryApiResources(Config.GetApiResources())
-				.AddInMemoryClients(Config.GetClients())
+				.AddInMemoryClients(Config.GetClients(uiUrl))
 				.AddAspNetIdentity<AppUser>();
-
-			//services.ConfigureApplicationCookie(config =>
-			//{
-			//	config.Cookie.Name = "IdentityServer.Cookie";
-			//	config.LoginPath = "http://localhost:4200/auth";
-			//});
-
-			//services.AddJsonFormatters();
 
 			var cors = new DefaultCorsPolicyService(new LoggerFactory().CreateLogger<DefaultCorsPolicyService>()) {
 				AllowAll = true
