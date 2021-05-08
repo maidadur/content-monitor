@@ -66,6 +66,13 @@ export class AuthService extends BaseService {
 	public async signout() {
 		await this.manager.signoutRedirect();
 	}
+
+	public silentSignin() {
+		this.manager.signinSilentCallback()
+			.catch((err) => {
+            	console.log(err);
+       		});
+	}
 }
 
 export function getClientSettings(): UserManagerSettings {
@@ -80,6 +87,6 @@ export function getClientSettings(): UserManagerSettings {
 		filterProtocolClaims: true,
 		loadUserInfo: true,
 		automaticSilentRenew: true,
-		//silent_redirect_uri: "https://localhost:4200/silent-refresh.html",
+		silent_redirect_uri: `${appHost}/auth/silent-refresh`,
 	};
 }

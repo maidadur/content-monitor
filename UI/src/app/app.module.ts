@@ -17,6 +17,7 @@ import {
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginPageComponent } from './ui/pages/auth/login-page/login-page.component';
+import { SilentRenewComponent } from './ui/pages/auth/silent-renew/silent-renew.component';
 
 @NgModule({
 	declarations: [
@@ -24,6 +25,7 @@ import { LoginPageComponent } from './ui/pages/auth/login-page/login-page.compon
 		LoginComponent,
 		AuthCallbackComponent,
 		LoginPageComponent,
+		SilentRenewComponent,
 	],
 	entryComponents: [DialogWindowComponent],
 	imports: [
