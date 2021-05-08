@@ -83,7 +83,7 @@ export function getClientSettings(): UserManagerSettings {
 		redirect_uri: `${appHost}/auth-callback`,
 		post_logout_redirect_uri: appHost,
 		response_type: 'code',
-		scope: "openid profile email api.read",
+		scope: "openid profile email api",
 		filterProtocolClaims: true,
 		loadUserInfo: true,
 		automaticSilentRenew: true,

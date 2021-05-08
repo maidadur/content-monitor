@@ -1,32 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 import { BaseEntity } from '../entity/base-entity';
 import { Guid } from 'guid-typescript';
 import { BaseService} from './base-http-service.service';
+import { AuthService } from './auth/auth.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class BaseGenericService<TEntity extends BaseEntity> extends BaseService {
 
-	constructor(protected http: HttpClient) {
+	constructor(protected http: HttpClient, protected auth: AuthService) {
 		super();
+		this.httpOptions.headers = this.httpOptions.headers.append("Authorization", this.auth.authorizationHeaderValue);
 	}
 
 	getAll(params?: any): Observable<TEntity[]> {
 		let url = this.apiUrl;
-		return this.http.get<TEntity[]>(url, {
+		return this.http.get<TEntity[]>(url, Object.assign(this.httpOptions, {
 			params: params
-		}).pipe(
+		})).pipe(
 			catchError(this.handleError)
 		);
 	}
 
 	get(id: string): Observable<TEntity> {
 		const url = `${this.apiUrl}/${id}`;
-		return this.http.get<TEntity>(url)
+		return this.http.get<TEntity>(url, this.httpOptions)
 			.pipe(
 				catchError(this.handleError)
 			);
@@ -45,7 +47,7 @@ export class BaseGenericService<TEntity extends BaseEntity> extends BaseService 
 
 	delete(id: Guid): Observable<any> {
 		const url = `${this.apiUrl}/${id}`;
-		return this.http.delete<TEntity>(url)
+		return this.http.delete<TEntity>(url, this.httpOptions)
 			.pipe(
 				catchError(this.handleError)
 			);

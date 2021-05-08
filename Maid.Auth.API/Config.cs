@@ -5,8 +5,7 @@ namespace Maid.Auth.API
 {
 	public class Config
 	{
-		public static IEnumerable<IdentityResource> GetIdentityResources()
-		{
+		public static IEnumerable<IdentityResource> GetIdentityResources() {
 			return new List<IdentityResource>
 			{
 				new IdentityResources.OpenId(),
@@ -15,28 +14,40 @@ namespace Maid.Auth.API
 			};
 		}
 
-		public static IEnumerable<ApiResource> GetApiResources()
-		{
+		public static IEnumerable<ApiResource> GetApiResources() {
 			return new List<ApiResource>
 			{
-				new ApiResource("resourceapi", "Resource API")
+				new ApiResource("client", "Resource API")
 				{
-					Scopes = {new Scope("api.read")}
+					Scopes = {new Scope("api")}
 				}
 			};
 		}
 
-		public static IEnumerable<Client> GetClients()
-		{
+		public static IEnumerable<Client> GetClients() {
 			return new[]
 			{
+				new Client
+				{
+					ClientId = "client",
+					ClientName = "Api client",
+					// no interactive user, use the clientid/secret for authentication
+					AllowedGrantTypes = GrantTypes.ClientCredentials,
+					// secret for authentication
+					ClientSecrets =
+					{
+						new Secret("secret".Sha256())
+					},
+					// scopes that client has access to
+					AllowedScopes = { "api" }
+				},
 				new Client {
 					RequireConsent = false,
 					ClientId = "angular_spa",
 					ClientName = "Angular SPA",
 					AllowedGrantTypes = GrantTypes.Code,
 					RequireClientSecret = false,
-					AllowedScopes = { "openid", "profile", "email", "api.read" },
+					AllowedScopes = { "openid", "profile", "email", "api" },
 					RedirectUris = {"https://localhost:4200/auth-callback", "https://localhost:4200/auth/silent-refresh"},
 					PostLogoutRedirectUris = {"https://localhost:4200/"},
 					AllowedCorsOrigins = {"https://localhost:4200"},

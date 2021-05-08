@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Guid } from 'guid-typescript';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class MangaTitlesService extends BaseGenericService<MangaInfo> {
 
   protected apiUrl = environment.mangaUrl + '/manga';
 
-  constructor(http: HttpClient) {
-    super(http);
+  constructor(protected http: HttpClient, protected auth: AuthService) {
+    super(http, auth);
   }
 
   loadMangaInfo(model: MangaInfo): Observable<MangaInfo> {

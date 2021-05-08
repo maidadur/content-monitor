@@ -4,11 +4,13 @@
 	using Maid.Core.DB;
 	using Maid.Manga;
 	using Maid.Manga.DB;
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 	using System.Threading.Tasks;
 
 	[Route("api/manga")]
 	[ApiController]
+	[Authorize]
 	public class MangaInfoController : BaseApiController<MangaInfo>
 	{
 		private IMangaLoader _mangaLoader;

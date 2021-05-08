@@ -50,6 +50,13 @@
 			services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 			SetupServicesBindings(services);
 			SetupDbServices(services);
+
+			services.AddAuthentication("Bearer")
+				.AddJwtBearer("Bearer", options => {
+					options.Authority = Configuration["Authority"] ?? "https://localhost:44393";
+					options.Audience = "client";
+				});
+
 			services.AddCors(options => {
 				options.AddPolicy("AllowOrigin",
 					builder => {
@@ -73,6 +80,10 @@
 			app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseCors();
+
+			app.UseAuthentication();
+			app.UseAuthorization();
+
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllers();
 			});

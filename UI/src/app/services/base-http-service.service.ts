@@ -6,7 +6,7 @@ export class BaseService {
 	protected apiUrl: string;
 
 	protected httpOptions = {
-		headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+		headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 	};
 
 	protected handleError(error: HttpErrorResponse) {

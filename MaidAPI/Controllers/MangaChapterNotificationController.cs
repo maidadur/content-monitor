@@ -4,6 +4,7 @@
 	using Maid.Core.DB;
 	using Maid.Manga.DB;
 	using Maid.Manga.ViewModels;
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Cors;
 	using Microsoft.AspNetCore.Mvc;
 	using System;
@@ -11,9 +12,9 @@
 	using System.Linq;
 	using System.Threading.Tasks;
 
-	[EnableCors("AllowOrigin")]
 	[Route("api/new-manga")]
 	[ApiController]
+	[Authorize]
 	public class MangaChapterNotificationController : BaseApiController<MangaChapterNotification>
 	{
 		private IEntityRepository<MangaInfo> _mangaRep;
