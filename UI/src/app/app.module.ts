@@ -49,8 +49,8 @@ import { ViewPortComponent } from './ui/controls/view-port/view-port.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'manga', component: MangaSectionComponent },
+      { path: '', component: MangaSectionComponent, pathMatch: 'full' },
+      //{ path: 'manga', component: MangaSectionComponent },
       { path: 'manga/titles', component: MangaTitlesSectionComponent },
       { path: 'manga/sources', component: MangaSourcesSectionComponent },
       { path: 'manga/titles/:id', component: MangaPageComponent },

@@ -49,7 +49,7 @@ export class BasePageComponent<TEntity extends BaseEntity> {
 		}
 		this.model = item;
 	}
-	
+
 	public goBack() {
 		this.location.back();
 	}
@@ -85,4 +85,5 @@ export class BasePageComponent<TEntity extends BaseEntity> {
 	public doSave() {
 		this.save().subscribe();
 	}
+
 }
