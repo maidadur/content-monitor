@@ -2,11 +2,11 @@
 	New manga updates
 </h3>
 <div class="manga-section-navigation">
-	<a routerLink="/manga/titles">
+	<a [routerLink]="['titles']">
 		<span class="span-icon fa fa-copyright fa-1x"></span>
 		<span>Titles</span>
 	</a>
-	<a routerLink="/manga/sources">
+	<a [routerLink]="['sources']">
 		<span class="span-icon fa fa-sitemap fa-1x"></span>
 		<span>Sources</span>
 	</a>
@@ -14,10 +14,10 @@
 <br />
 <div class="row manga-section-content">
 	<mat-grid-list cols="6" rowHeight="230px" class="manga-grid">
-		<a *ngFor="let item of items" href="{{item.href}}" target="_blank">
+		<a *ngFor="let item of items" [attr.href]="item.href" target="_blank">
 			<mat-grid-tile [colspan]="1" [rowspan]="1">
 				<span *ngIf="!item.isRead" class="new-chapter-plus fa fa-exclamation fa-1x"></span>
-				<img class="manga-grid-image" src="{{item.imageUrl}}" />
+				<img class="manga-grid-image" [attr.src]="item.imageUrl" />
 				<mat-grid-tile-footer>
 					<span class="manga-name-grid-caption">{{item.mangaName}}</span>
 					<span class="manga-grid-caption">{{item.name}}</span>

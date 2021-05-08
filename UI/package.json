@@ -28,6 +28,7 @@
     "core-js": "^2.6.11",
     "guid-typescript": "^1.0.9",
     "jquery": "^3.5.1",
+    "oidc-client": "^1.11.5",
     "rxjs": "~6.6.2",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

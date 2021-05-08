@@ -54,7 +54,7 @@
 				options.AddPolicy("AllowOrigin",
 					builder => {
 						builder
-							.WithOrigins("http://localhost", "http://localhost:4200")
+							.WithOrigins("https://localhost", "https://localhost:4200")
 							.AllowAnyHeader()
 							.AllowAnyMethod();
 					}
