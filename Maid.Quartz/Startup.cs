@@ -38,7 +38,7 @@ namespace Maid.Quartz
 					.StartNow()
 					.WithSimpleSchedule
 					 (s =>
-						s.WithInterval(TimeSpan.FromSeconds(60 * 3))
+						s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["LoadMangaIntervalSeconds"] ?? (60 * 3).ToString())))
 						.RepeatForever()
 					 )
 					 .Build();
@@ -57,7 +57,6 @@ namespace Maid.Quartz
 			if (env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
 			} else {
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
 

@@ -9,7 +9,7 @@ namespace Maid.RabbitMQ
 {
 	public class MessageQueuesManager
 	{
-		private static Lazy<MessageQueuesManager> _instance = 
+		private static Lazy<MessageQueuesManager> _instance =
 			new Lazy<MessageQueuesManager>(() => new MessageQueuesManager());
 		private IServiceProvider _serviceProvider;
 		private IModel _channel;
@@ -51,8 +51,8 @@ namespace Maid.RabbitMQ
 								 body: bytes);
 		}
 
-		public MessageQueuesManager Subsribe<T>(string queueName) 
-				where T: IMessageConsumer  {
+		public MessageQueuesManager Subsribe<T>(string queueName)
+				where T : IMessageConsumer {
 			if (_channel == null) {
 				return Instance;
 			}
