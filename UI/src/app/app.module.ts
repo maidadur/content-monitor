@@ -18,6 +18,8 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginPageComponent } from './ui/pages/auth/login-page/login-page.component';
 import { SilentRenewComponent } from './ui/pages/auth/silent-renew/silent-renew.component';
+import { AuthInterceptor } from './utils/auth/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
 	declarations: [
@@ -46,6 +48,11 @@ import { SilentRenewComponent } from './ui/pages/auth/silent-renew/silent-renew.
 			deps: [AuthService],
 			multi: true,
 		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptor,
+			multi: true
+		  }
 	],
 	bootstrap: [AppComponent],
 })

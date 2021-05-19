@@ -2,6 +2,7 @@
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using System;
@@ -27,14 +28,18 @@ namespace Maid.Auth.API
 		private readonly IAuthorizeRequestValidator _validator;
 		private readonly IUserSession _userSession;
 		private readonly ILogger _logger;
+		private readonly IConfiguration configuration;
 
 		public ReturnUrlParser(
 			IAuthorizeRequestValidator validator,
 			IUserSession userSession,
-			ILogger<ReturnUrlParser> logger) {
+			ILogger<ReturnUrlParser> logger,
+			IConfiguration configuration
+			) {
 			_validator = validator;
 			_userSession = userSession;
 			_logger = logger;
+			this.configuration = configuration;
 		}
 
 		public async Task<AuthorizationRequest> ParseAsync(string returnUrl) {
@@ -53,12 +58,11 @@ namespace Maid.Auth.API
 		}
 
 		public bool IsValidReturnUrl(string returnUrl) {
-			if (returnUrl.IsLocalUrl() || returnUrl.StartsWith("https://localhost:44393")) {
+			if (returnUrl.IsLocalUrl() || returnUrl.StartsWith(configuration["Current_App_Url"])) {
 				var index = returnUrl.IndexOf('?');
 				if (index >= 0) {
 					returnUrl = returnUrl.Substring(0, index);
 				}
-
 				if (returnUrl.EndsWith(ProtocolRoutePaths.Authorize, StringComparison.Ordinal) ||
 					returnUrl.EndsWith(ProtocolRoutePaths.AuthorizeCallback, StringComparison.Ordinal)) {
 					_logger.LogTrace("returnUrl is valid");

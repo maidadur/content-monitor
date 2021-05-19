@@ -37,7 +37,7 @@ export class AuthService extends BaseService {
 	}
 
 	public login(email: string, password: string, returnUrl: string) {
-		return this.http.post(environment.authApiUrl + '/login', {
+		return this.http.post(environment.authHost + '/api/auth/login', {
 			email: email,
 			password: password,
 			returnUrl: returnUrl
@@ -56,7 +56,7 @@ export class AuthService extends BaseService {
 	}
 
 	get authorizationHeaderValue(): string {
-		return `${this.user.token_type} ${this.user.access_token}`;
+		return this.user && `${this.user.token_type} ${this.user.access_token}`;
 	}
 
 	get name(): string {

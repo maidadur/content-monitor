@@ -14,21 +14,20 @@ export class BaseGenericService<TEntity extends BaseEntity> extends BaseService 
 
 	constructor(protected http: HttpClient, protected auth: AuthService) {
 		super();
-		this.httpOptions.headers = this.httpOptions.headers.append("Authorization", this.auth.authorizationHeaderValue);
 	}
 
 	getAll(params?: any): Observable<TEntity[]> {
 		let url = this.apiUrl;
-		return this.http.get<TEntity[]>(url, Object.assign(this.httpOptions, {
+		return this.http.get<TEntity[]>(url, {
 			params: params
-		})).pipe(
+		}).pipe(
 			catchError(this.handleError)
 		);
 	}
 
 	get(id: string): Observable<TEntity> {
 		const url = `${this.apiUrl}/${id}`;
-		return this.http.get<TEntity>(url, this.httpOptions)
+		return this.http.get<TEntity>(url)
 			.pipe(
 				catchError(this.handleError)
 			);

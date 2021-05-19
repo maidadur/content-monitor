@@ -7,7 +7,7 @@
 	using System.Collections.Generic;
 	using System.Threading.Tasks;
 
-	[EnableCors("AllowOrigin")]
+	[EnableCors()]
 	public class BaseApiController<T>: ControllerBase
 		where T: BaseEntity
 	{

@@ -9,7 +9,7 @@
 
 	[ApiController]
 	[Route("api/lookup")]
-	[EnableCors("AllowOrigin")]
+	[EnableCors()]
 	public class LookupController : ControllerBase
 	{
 

@@ -31,7 +31,7 @@ namespace Maid.Auth.API
 			string uiUrl = Configuration["UI_Url"];
 			services.AddTransient<IReturnUrlParser, ReturnUrlParser>();
 			services.AddControllers();
-			services.AddDbContext<AppIdentityDbContext>(options => options.UseMySql(Configuration.GetConnectionString("Maid_Auth_ConnectionString")));
+			services.AddDbContext<AppIdentityDbContext>(options => options.UseMySql(Configuration["Maid_Auth_ConnectionString"]));
 
 			services.AddIdentity<AppUser, IdentityRole>()
 				.AddEntityFrameworkStores<AppIdentityDbContext>()
@@ -43,7 +43,7 @@ namespace Maid.Auth.API
 					policy.AllowAnyMethod();
 					policy.WithOrigins(uiUrl);
 					policy.AllowCredentials();
-				});
+				}); 
 			});
 
 			services.AddIdentityServer((options) => {
@@ -58,10 +58,10 @@ namespace Maid.Auth.API
 				.AddDeveloperSigningCredential()
 				.AddOperationalStore(options => {
 					options.ConfigureDbContext = builder => 
-						builder.UseMySql(Configuration.GetConnectionString("Maid_Auth_ConnectionString"), 
+						builder.UseMySql(Configuration["Maid_Auth_ConnectionString"], 
 						sql => sql.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
 					options.EnableTokenCleanup = true;
-					options.TokenCleanupInterval = 30;
+					options.TokenCleanupInterval = 360;
 				})
 				.AddInMemoryPersistedGrants()
 				.AddInMemoryIdentityResources(Config.GetIdentityResources())
@@ -99,7 +99,7 @@ namespace Maid.Auth.API
 				HttpOnly = HttpOnlyPolicy.None,
 				MinimumSameSitePolicy = SameSiteMode.None,
 				Secure = CookieSecurePolicy.Always,
-			}); ;
+			});
 		}
 	}
 }

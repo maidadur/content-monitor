@@ -7,12 +7,17 @@
 	using Maid.Manga.Html;
 	using Maid.RabbitMQ;
 	using Microsoft.AspNetCore.Builder;
+	using Microsoft.AspNetCore.Diagnostics;
 	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.AspNetCore.Http;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Hosting;
+	using Microsoft.IdentityModel.Logging;
 	using System;
+	using System.Net;
+	using System.Net.Http;
 	using System.Reflection;
 
 	public class Startup
@@ -47,26 +52,25 @@
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			string uiUrl = Configuration["UI_Url"];
+			IdentityModelEventSource.ShowPII = true;
+			string uiUrl = Configuration["UI_Url"];  
 			services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 			SetupServicesBindings(services);
 			SetupDbServices(services);
 
 			services.AddAuthentication("Bearer")
 				.AddJwtBearer("Bearer", options => {
-					options.Authority = Configuration["Authority"] ?? "https://localhost:44393";
+					options.Authority = Configuration["Authority"];
 					options.Audience = "client";
+					options.RequireHttpsMetadata = false;
 				});
 
-			services.AddCors(options => {
-				options.AddPolicy("AllowOrigin",
-					builder => {
-						builder
-							.WithOrigins(uiUrl)
-							.AllowAnyHeader()
-							.AllowAnyMethod();
-					}
-				);
+			services.AddCors(setup => {
+				setup.AddDefaultPolicy(policy => {
+					policy.AllowAnyHeader();
+					policy.AllowAnyMethod();
+					policy.WithOrigins(uiUrl);
+				});
 			});
 		}
 
@@ -77,6 +81,14 @@
 			} else {
 				app.UseHsts();
 			}
+
+			app.UseExceptionHandler(c => c.Run(async context =>
+			{
+				var exception = context.Features
+					.Get<IExceptionHandlerPathFeature>()
+					.Error;
+				await context.Response.WriteAsync(exception.Message + "\n" + exception.StackTrace);
+			}));
 
 			app.UseHttpsRedirection();
 			app.UseRouting();
@@ -97,7 +109,7 @@
 						.ConnectToQueue("quartz")
 						.Subsribe<LoadMangaQuartzSubscriber>("quartz");
 			} catch {
-				Console.WriteLine("Error. Could not connect to to RabbitMQ");
+				Console.WriteLine("Error. Could not connect to RabbitMQ");
 			}
 		}
 	}
