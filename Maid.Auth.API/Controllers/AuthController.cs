@@ -60,23 +60,6 @@ namespace Maid.Auth.API.Controllers
 			return Unauthorized();
 		}
 
-
-		[HttpPost]
-		[Route("--reg--")]
-		public async Task<IActionResult> Register([FromBody] RegisterRequestViewModel model) {
-			if (!ModelState.IsValid) {
-				return BadRequest(ModelState);
-			}
-			var user = new AppUser { UserName = model.Email, Name = model.Name, Email = model.Email };
-			var result = await _userManager.CreateAsync(user, model.Password);
-			if (!result.Succeeded) return BadRequest(result.Errors);
-			await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("userName", user.UserName));
-			await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("name", user.Name));
-			await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("email", user.Email));
-			await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", Roles.Consumer));
-			return Ok();
-		}
-
 		[HttpGet]
 		public async Task<IActionResult> Logout(string logoutId) {
 			await _signInManager.SignOutAsync();
