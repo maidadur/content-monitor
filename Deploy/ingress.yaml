@@ -1,0 +1,35 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: maid-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+spec:
+  tls:
+  - hosts:
+    - {hostname}
+    - manga-api.{hostname}
+    - auth.{hostname}
+    secretName: maid-tls
+  rules:
+  - host: manga-api.{hostname}
+    http:
+      paths:
+      - backend:
+          serviceName: maid-manga-api
+          servicePort: 80
+  - host: auth.{hostname}
+    http:
+      paths:
+      - backend:
+          serviceName: maid-auth-api
+          servicePort: 80
+  - host: {hostname}
+    http:
+      paths:
+      - backend:
+          serviceName: maid-ui
+          servicePort: 80
+---

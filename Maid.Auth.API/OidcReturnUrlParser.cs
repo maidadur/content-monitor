@@ -1,6 +1,7 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -28,18 +29,18 @@ namespace Maid.Auth.API
 		private readonly IAuthorizeRequestValidator _validator;
 		private readonly IUserSession _userSession;
 		private readonly ILogger _logger;
-		private readonly IConfiguration configuration;
+		private readonly IHttpContextAccessor _httpContext;
 
 		public ReturnUrlParser(
 			IAuthorizeRequestValidator validator,
 			IUserSession userSession,
 			ILogger<ReturnUrlParser> logger,
-			IConfiguration configuration
+			IHttpContextAccessor httpContext
 			) {
 			_validator = validator;
 			_userSession = userSession;
 			_logger = logger;
-			this.configuration = configuration;
+			_httpContext = httpContext;
 		}
 
 		public async Task<AuthorizationRequest> ParseAsync(string returnUrl) {
@@ -58,7 +59,9 @@ namespace Maid.Auth.API
 		}
 
 		public bool IsValidReturnUrl(string returnUrl) {
-			if (returnUrl.IsLocalUrl() || returnUrl.StartsWith(configuration["Current_App_Url"])) {
+			var request = _httpContext.HttpContext.Request;
+			string currentUrl = $"{request.Scheme}://{request.Host}";
+			if (returnUrl.IsLocalUrl() || returnUrl.StartsWith(currentUrl)) {
 				var index = returnUrl.IndexOf('?');
 				if (index >= 0) {
 					returnUrl = returnUrl.Substring(0, index);

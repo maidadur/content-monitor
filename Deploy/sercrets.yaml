@@ -1,0 +1,10 @@
+apiVersion: "v1"
+kind: "Secret"
+metadata:
+    name: "maid-manga"
+    namespace: "default"
+data:
+    Maid_Auth_ConnectionString: ""
+    MaidManga_ConnectionString: ""
+    UI_Url: ""
+    Authority: ""
