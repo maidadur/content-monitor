@@ -87,6 +87,7 @@ export function getClientSettings(): UserManagerSettings {
 		filterProtocolClaims: true,
 		loadUserInfo: true,
 		automaticSilentRenew: true,
+		monitorSession: false,
 		silent_redirect_uri: `${appHost}/auth/silent-refresh`,
 	};
 }

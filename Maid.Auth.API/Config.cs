@@ -32,10 +32,10 @@ namespace Maid.Auth.API
 					ClientId = "client",
 					ClientName = "Api client",
 					AllowedGrantTypes = GrantTypes.ClientCredentials,
-					ClientSecrets =
-					{
-						new Secret("secret".Sha256())
-					},
+					//ClientSecrets =
+					//{
+					//	new Secret("secret".Sha256())
+					//},
 					AllowedScopes = { "api" }
 				},
 				new Client {

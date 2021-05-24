@@ -52,7 +52,6 @@
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			IdentityModelEventSource.ShowPII = true;
 			string uiUrl = Configuration["UI_Url"];  
 			services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 			SetupServicesBindings(services);
@@ -62,7 +61,6 @@
 				.AddJwtBearer("Bearer", options => {
 					options.Authority = Configuration["Authority"];
 					options.Audience = "client";
-					options.RequireHttpsMetadata = false;
 				});
 
 			services.AddCors(setup => {
@@ -82,20 +80,20 @@
 				app.UseHsts();
 			}
 
-			app.UseExceptionHandler(c => c.Run(async context =>
-			{
-				var exception = context.Features
-					.Get<IExceptionHandlerPathFeature>()
-					.Error;
-				await context.Response.WriteAsync(exception.Message + "\n" + exception.StackTrace);
-			}));
+			//app.UseExceptionHandler(c => c.Run(async context =>
+			//{
+			//	var exception = context.Features
+			//		.Get<IExceptionHandlerPathFeature>()
+			//		.Error;
+			//	await context.Response.WriteAsync(exception.Message + "\n" + exception.StackTrace);
+			//}));
 
 			app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseCors();
 
-			app.UseAuthentication();
 			app.UseAuthorization();
+			app.UseAuthentication();
 
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllers();

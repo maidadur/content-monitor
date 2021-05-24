@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class MangaTitlesService extends BaseGenericService<MangaInfo> {
 
-  protected apiUrl = environment.mangaHost + '/manga';
+  protected apiUrl = environment.mangaHost + '/api/manga';
 
   constructor(protected http: HttpClient, protected auth: AuthService) {
     super(http, auth);

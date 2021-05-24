@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer4.Events;
-using IdentityServer4.Models;
 using IdentityServer4.Services;
-using IdentityServer4.Stores;
-using IdentityServer4.Extensions;
-using Maid.Auth.API.Consts;
 using Maid.Auth.API.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -23,18 +16,12 @@ namespace Maid.Auth.API.Controllers
 		private readonly SignInManager<AppUser> _signInManager;
 		private readonly UserManager<AppUser> _userManager;
 		private readonly IIdentityServerInteractionService _interaction;
-		private readonly IClientStore _clientStore;
-		private readonly IEventService _events;
 
 		public AuthController(SignInManager<AppUser> signInManager, 
 				UserManager<AppUser> userManager, 
-				IIdentityServerInteractionService interaction, 
-				IClientStore clientStore, 
-				IEventService events) {
+				IIdentityServerInteractionService interaction) {
 			_userManager = userManager;
 			_interaction = interaction;
-			_clientStore = clientStore;
-			_events = events;
 			_signInManager = signInManager;
 		}
 
@@ -60,7 +47,7 @@ namespace Maid.Auth.API.Controllers
 			return Unauthorized();
 		}
 
-		[HttpGet]
+		[HttpPost]
 		public async Task<IActionResult> Logout(string logoutId) {
 			await _signInManager.SignOutAsync();
 			var context = await _interaction.GetLogoutContextAsync(logoutId);
