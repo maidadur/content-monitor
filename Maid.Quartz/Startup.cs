@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
@@ -20,10 +21,8 @@ namespace Maid.Quartz
 
 		public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddLogging();
-
 			services.Add(new ServiceDescriptor(typeof(IJob), typeof(LoadMangaJob), ServiceLifetime.Transient));
 			services.AddSingleton<IJobFactory, ScheduledJobFactory>();
 			services.AddTransient(provider => {
@@ -38,7 +37,7 @@ namespace Maid.Quartz
 					.StartNow()
 					.WithSimpleSchedule
 					 (s =>
-						s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["LoadMangaIntervalSeconds"] ?? (60 * 3).ToString())))
+						s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["LoadMangaIntervalSeconds"])))
 						.RepeatForever()
 					 )
 					 .Build();
@@ -62,11 +61,14 @@ namespace Maid.Quartz
 
 			app.UseHttpsRedirection();
 
-			MessageQueuesManager.Instance
-				.Init(app.ApplicationServices)
-				.ConnectToQueue("quartz");
-
-			scheduler.ScheduleJob(app.ApplicationServices.GetService<IJobDetail>(), app.ApplicationServices.GetService<ITrigger>());
+			try {
+				MessageQueuesManager.Instance
+					.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
+					.ConnectToQueue("quartz");
+				scheduler.ScheduleJob(app.ApplicationServices.GetService<IJobDetail>(), app.ApplicationServices.GetService<ITrigger>());
+			} catch (Exception ex) {
+				Console.WriteLine(ex.Message + " " + ex.StackTrace);
+			}
 		}
 	}
 }

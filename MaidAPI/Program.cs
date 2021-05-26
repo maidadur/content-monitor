@@ -3,6 +3,7 @@
 	using Microsoft.AspNetCore;
 	using Microsoft.AspNetCore.Hosting;
 	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.Logging;
 
 	public class Program
 	{
@@ -12,9 +13,12 @@
 
 		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 			WebHost.CreateDefaultBuilder(args)
-			.ConfigureAppConfiguration((context, config) => {
-				config.AddJsonFile("webRequestsConfig.json", false, true);
-				config.AddEnvironmentVariables(prefix: "Maid_");
-			}).UseStartup<Startup>();
+				.ConfigureLogging((hostingContext, logging) => {
+					logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+					logging.AddConsole();
+				})
+				.ConfigureAppConfiguration((context, config) => {
+					config.AddJsonFile("webRequestsConfig.json", false, true);
+				}).UseStartup<Startup>();
 	}
 }
