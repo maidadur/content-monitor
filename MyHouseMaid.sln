@@ -26,6 +26,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{09FDD4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Auth.API", "Maid.Auth.API\Maid.Auth.API.csproj", "{3C706894-019E-4F7D-BCDF-67E97D0DA7C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maid.Notifications.Api", "Maid.Notifications.Api\Maid.Notifications.Api.csproj", "{B4D9C663-83E2-48EE-BFB7-A3F8B14DE62C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maid.Notifications.DB", "Maid.Notifications.DB\Maid.Notifications.DB.csproj", "{95B16E92-537A-4F16-9FAC-03C6183F4EB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +64,14 @@ Global
 		{3C706894-019E-4F7D-BCDF-67E97D0DA7C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C706894-019E-4F7D-BCDF-67E97D0DA7C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C706894-019E-4F7D-BCDF-67E97D0DA7C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4D9C663-83E2-48EE-BFB7-A3F8B14DE62C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4D9C663-83E2-48EE-BFB7-A3F8B14DE62C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4D9C663-83E2-48EE-BFB7-A3F8B14DE62C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4D9C663-83E2-48EE-BFB7-A3F8B14DE62C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95B16E92-537A-4F16-9FAC-03C6183F4EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95B16E92-537A-4F16-9FAC-03C6183F4EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95B16E92-537A-4F16-9FAC-03C6183F4EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95B16E92-537A-4F16-9FAC-03C6183F4EB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
