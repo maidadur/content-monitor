@@ -17,7 +17,6 @@ namespace Maid.RabbitMQ
 
 		private MessageQueuesManager() { }
 
-
 		public static MessageQueuesManager Instance => _instance.Value;
 
 		public MessageQueuesManager Init(IServiceProvider serviceProvider, string queueUrl = null, int? port = null) {
