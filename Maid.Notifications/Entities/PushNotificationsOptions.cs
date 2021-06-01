@@ -1,4 +1,4 @@
-﻿namespace Maid.Notifications.Api
+﻿namespace Maid.Notifications
 {
 	public class PushNotificationsOptions
 	{

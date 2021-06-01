@@ -1,13 +1,14 @@
 using Lib.Net.Http.WebPush;
 using Maid.Core.DB;
-using Maid.Notifications.Api.NotificationClients;
 using Maid.Notifications.DB;
+using Maid.RabbitMQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace Maid.Notifications.Api
 {
@@ -60,6 +61,15 @@ namespace Maid.Notifications.Api
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllers();
 			});
+
+			try {
+				MessageQueuesManager.Instance
+						.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
+						.ConnectToQueue("notifications")
+						.Subsribe<SendNotificationsSubscriber>("notifications");
+			} catch {
+				Console.WriteLine("Error. Could not connect to RabbitMQ");
+			}
 		}
 	}
 }

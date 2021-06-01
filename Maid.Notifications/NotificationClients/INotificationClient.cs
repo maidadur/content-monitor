@@ -1,8 +1,7 @@
-﻿using Maid.Notifications.Api.Entities;
-using Maid.Notifications.DB;
+﻿using Maid.Notifications.DB;
 using System.Threading.Tasks;
 
-namespace Maid.Notifications.Api.NotificationClients
+namespace Maid.Notifications
 {
 	public interface INotificationClient
 	{

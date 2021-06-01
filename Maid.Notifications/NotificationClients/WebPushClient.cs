@@ -1,11 +1,10 @@
 ﻿using Lib.Net.Http.WebPush;
 using Lib.Net.Http.WebPush.Authentication;
-using Maid.Notifications.Api.Entities;
 using Maid.Notifications.DB;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 
-namespace Maid.Notifications.Api.NotificationClients
+namespace Maid.Notifications
 {
 	public class WebPushClient : INotificationClient
 	{

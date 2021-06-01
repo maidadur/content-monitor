@@ -18,6 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Maid.Core\Maid.Core.csproj" />
     <ProjectReference Include="..\Maid.Notifications.DB\Maid.Notifications.DB.csproj" />
+    <ProjectReference Include="..\Maid.Notifications\Maid.Notifications.csproj" />
+    <ProjectReference Include="..\Maid.RabbitMQ\Maid.RabbitMQ.csproj" />
   </ItemGroup>
 
 

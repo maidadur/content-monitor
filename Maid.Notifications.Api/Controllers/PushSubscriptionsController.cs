@@ -1,7 +1,5 @@
 ﻿using Lib.Net.Http.WebPush;
 using Maid.Core.DB;
-using Maid.Notifications.Api.Entities;
-using Maid.Notifications.Api.NotificationClients;
 using Maid.Notifications.DB;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;

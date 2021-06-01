@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Maid.Notifications.Api.Entities
+namespace Maid.Notifications
 {
 	public class Notification
 	{
