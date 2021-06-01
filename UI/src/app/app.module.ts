@@ -20,6 +20,7 @@ import { LoginPageComponent } from './ui/pages/auth/login-page/login-page.compon
 import { SilentRenewComponent } from './ui/pages/auth/silent-renew/silent-renew.component';
 import { AuthInterceptor } from './utils/auth/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
 	declarations: [
@@ -40,6 +41,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 		MatButtonModule,
 		MatDialogModule,
 		routing,
+		ServiceWorkerModule.register('ngsw-worker.js', { enabled: true }),
 	],
 	providers: [
 		{

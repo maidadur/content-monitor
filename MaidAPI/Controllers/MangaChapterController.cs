@@ -4,7 +4,6 @@
 	using Maid.Core.DB;
 	using Maid.Manga.DB;
 	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.AspNetCore.Cors;
 	using Microsoft.AspNetCore.Mvc;
 	using System;
 	using System.Collections.Generic;

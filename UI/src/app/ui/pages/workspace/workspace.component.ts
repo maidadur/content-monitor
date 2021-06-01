@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { WebPushClient } from '@app/utils/notifications/web-push-client';
 
 @Component({
-  selector: 'app-workspace',
-  templateUrl: './workspace.component.html',
-  styleUrls: ['./workspace.component.css']
+	selector: 'app-workspace',
+	templateUrl: './workspace.component.html',
+	styleUrls: ['./workspace.component.css']
 })
 export class WorkspaceComponent implements OnInit {
 
-  constructor() { }
+	constructor(private _webPushClient: WebPushClient) {
+	}
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+		this._webPushClient.init().subscribe(() => {
+			this._webPushClient.subscribeEndpoint();
+		});
+	}
 
 }

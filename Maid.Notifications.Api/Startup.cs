@@ -1,3 +1,6 @@
+using Lib.Net.Http.WebPush;
+using Maid.Core.DB;
+using Maid.Notifications.Api.NotificationClients;
 using Maid.Notifications.DB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +25,18 @@ namespace Maid.Notifications.Api
 				options.UseMySql(connection)
 			);
 			services.AddScoped<INotificationsDbContext, NotificationsDbContext>();
+			services.AddScoped<DbContext, NotificationsDbContext>();
+			services.AddTransient<IEntityRepository<Subscription>, EntityRepository<Subscription>>();
+			services.AddTransient<INotificationClient, WebPushClient>();
+			services.AddTransient<PushServiceClient, PushServiceClient>();
+
+			services.AddCors(setup => {
+				setup.AddDefaultPolicy(policy => {
+					policy.AllowAnyHeader();
+					policy.AllowAnyMethod();
+					policy.WithOrigins(Configuration["Ui_Url"]);
+				});
+			});
 		}
 
 		public void ConfigureServices(IServiceCollection services) {

@@ -27,6 +27,8 @@ import { MangaSourcesSectionComponent } from '..//manga/manga-sources-section/ma
 import { MangaSourcePageComponent } from '..//manga/manga-source-page/manga-source-page.component';
 import { ViewPortComponent } from '../../controls//view-port/view-port.component';
 import { WorkspaceComponent } from './workspace.component';
+import { WebPushClient } from '../../../utils/notifications/web-push-client';
+import { NotificationsService } from '@app/services/notifications/notifications-service';
 
 @NgModule({
 	declarations: [
@@ -44,6 +46,7 @@ import { WorkspaceComponent } from './workspace.component';
 		WorkspaceComponent,
 	],
 	entryComponents: [DialogWindowComponent],
+	//providers: [WebPushClient, NotificationsService],
 	imports: [
 		BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
 		HttpClientModule,
@@ -58,7 +61,7 @@ import { WorkspaceComponent } from './workspace.component';
 		MatSelectModule,
 		MatButtonModule,
 		MatDialogModule,
-		NgbModule,
+		NgbModule
 	],
 })
 export class WorkspaceModule {}

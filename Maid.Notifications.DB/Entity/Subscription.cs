@@ -11,7 +11,7 @@
 
 		public Subscription(PushSubscription pushSubscription) {
 			Endpoint = pushSubscription.Endpoint;
-			KeysObj = JsonConvert.SerializeObject(pushSubscription, Formatting.Indented);
+			KeysObj = JsonConvert.SerializeObject(pushSubscription.Keys, Formatting.Indented);
 		}
 
 		public string Endpoint { get; set; }
@@ -20,9 +20,10 @@
 		public PushSubscription GetPushSubscription() {
 			return new PushSubscription() {
 				Endpoint = Endpoint,
-				Keys = JsonConvert.DeserializeObject<Dictionary<string, string>>(KeysObj)
+				Keys = JsonConvert.DeserializeObject<Dictionary<string, string>>(KeysObj, new JsonSerializerSettings {
+					Formatting = Formatting.Indented
+				})
 			};
 		}
-
 	}
 }
