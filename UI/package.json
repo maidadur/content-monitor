@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-	"build:deploy": "ng b --prod --output-hashing none && xcopy C:\\Users\\maida\\source\\repos\\maidadur\\MyHouseMaido\\UI\\dist\\UI C:\\ui /S /Y"
+    "build:deploy": "ng b --prod --output-hashing none && xcopy C:\\Users\\maida\\source\\repos\\maidadur\\MyHouseMaido\\UI\\dist\\UI C:\\ui /S /Y"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +24,7 @@
     "@angular/platform-browser": "~10.0.11",
     "@angular/platform-browser-dynamic": "~10.0.11",
     "@angular/router": "~10.0.11",
+    "@angular/service-worker": "~10.0.11",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "^3.4.1",
     "core-js": "^2.6.11",
