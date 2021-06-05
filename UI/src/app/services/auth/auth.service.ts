@@ -80,7 +80,7 @@ export class AuthService extends BaseService {
 export function getClientSettings(): UserManagerSettings {
 	const appHost = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}`;
 	return {
-		authority: this._host,
+		authority: UrlUtils.replaceUrlDomain(environment.authHost),
 		client_id: "angular_spa",
 		redirect_uri: `${appHost}/auth-callback`,
 		post_logout_redirect_uri: appHost,
