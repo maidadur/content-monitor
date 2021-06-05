@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Maid.Core.DB
 {
-
 	public class OrderOptions
 	{
 		public string Column { get; set; }

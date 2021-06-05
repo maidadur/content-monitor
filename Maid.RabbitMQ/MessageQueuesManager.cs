@@ -1,9 +1,9 @@
-﻿using RabbitMQ.Client;
+﻿using Maid.Core;
+using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 using System;
 using System.Text;
-using Maid.Core;
-using RabbitMQ.Client.Events;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Maid.RabbitMQ
 {
@@ -11,11 +11,13 @@ namespace Maid.RabbitMQ
 	{
 		private static Lazy<MessageQueuesManager> _instance =
 			new Lazy<MessageQueuesManager>(() => new MessageQueuesManager());
+
 		private IServiceProvider _serviceProvider;
 		private IModel _channel;
 		private IConnection _connection;
 
-		private MessageQueuesManager() { }
+		private MessageQueuesManager() {
+		}
 
 		public static MessageQueuesManager Instance => _instance.Value;
 

@@ -6,7 +6,6 @@
 	using System;
 	using System.Threading.Tasks;
 
-
 	public class LoadMangaJob : IJob
 	{
 		private readonly ILogger<LoadMangaJob> logger;

@@ -64,6 +64,5 @@
 			});
 			_log.LogInformation("LoadMangaInfosAsync. Ended loading manga");
 		}
-
 	}
 }

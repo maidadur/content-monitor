@@ -8,10 +8,9 @@
 	using System.Threading.Tasks;
 
 	[EnableCors()]
-	public class BaseApiController<T>: ControllerBase
-		where T: BaseEntity
+	public class BaseApiController<T> : ControllerBase
+		where T : BaseEntity
 	{
-
 		protected IEntityRepository<T> EntityRepository;
 
 		public BaseApiController(IEntityRepository<T> entityRepository) {

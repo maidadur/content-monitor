@@ -17,9 +17,9 @@ namespace Maid.Notifications
 			_configuration = configuration;
 			_pushClient = pushClient;
 			_pushClient.DefaultAuthentication = new VapidAuthentication(
-				_configuration["Push_Public_Key"], 
+				_configuration["Push_Public_Key"],
 				_configuration["Push_Private_Key"]) {
-					Subject = _configuration["Ui_Url"]
+				Subject = _configuration["Ui_Url"]
 			};
 		}
 

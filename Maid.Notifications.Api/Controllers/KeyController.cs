@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace Maid.Notifications.Api.Controllers
 {
@@ -10,7 +9,6 @@ namespace Maid.Notifications.Api.Controllers
 	[EnableCors()]
 	public class KeyController : ControllerBase
 	{
-
 		public KeyController(IConfiguration configuration) {
 			Configuration = configuration;
 		}

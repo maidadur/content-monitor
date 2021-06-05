@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Maid.Manga.DB;
+﻿using Maid.Manga.DB;
+using System.Threading.Tasks;
 
 namespace Maid.Manga
 {

@@ -12,10 +12,10 @@
 
 	public class MangaLoader : IMangaLoader
 	{
-		IHtmlDocumentLoader _htmlDocumentLoader;
-		IParsersFactory _parsersFactory;
-		ConfigHelper _configHelper;
-		IEntityRepository<MangaSource> _sourceRepository;
+		private IHtmlDocumentLoader _htmlDocumentLoader;
+		private IParsersFactory _parsersFactory;
+		private ConfigHelper _configHelper;
+		private IEntityRepository<MangaSource> _sourceRepository;
 
 		public MangaLoader(IHtmlDocumentLoader documentLoader, IParsersFactory parsersFactory,
 				IEntityRepository<MangaSource> sourceRepository, ConfigHelper configHelper) {

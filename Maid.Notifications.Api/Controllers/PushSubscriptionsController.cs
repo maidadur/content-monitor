@@ -12,19 +12,16 @@ namespace Maid.Notifications.Api.Controllers
 	[EnableCors()]
 	public class PushSubscriptionsController : ControllerBase
 	{
-		private readonly IEntityRepository<Subscription> _pushSubscriptionsRepository;
 		private readonly INotificationClient _notificationClient;
+		private readonly IEntityRepository<Subscription> _pushSubscriptionsRepository;
 
-		public PushSubscriptionsController(IEntityRepository<Subscription> pushSubscriptionsRepository, INotificationClient notificationClient) {
+		public PushSubscriptionsController(IEntityRepository<Subscription> pushSubscriptionsRepository,
+				INotificationClient notificationClient) {
 			_pushSubscriptionsRepository = pushSubscriptionsRepository;
 			_notificationClient = notificationClient;
 		}
 
-		[HttpPost]
-		public async Task Post([FromBody] PushSubscription pushSubscription) {
-			var subscription = new Subscription(pushSubscription);
-			_pushSubscriptionsRepository.Create(subscription);
-			_pushSubscriptionsRepository.Save();
+		private async Task SendTestMessage(Subscription subscription) {
 			await _notificationClient.SendNotificationsAsync(
 				subscription,
 				new Notification {
@@ -32,13 +29,21 @@ namespace Maid.Notifications.Api.Controllers
 					Body = "Test message",
 					Icon = "https://maidadur.com/assets/loli-maid.png",
 					Vibrate = { 200, 100, 200 }
-			});
+				});
 		}
 
 		[HttpDelete()]
 		public void Delete([FromBody] PushSubscription subscription) {
 			_pushSubscriptionsRepository.Delete(new Subscription(subscription));
 			_pushSubscriptionsRepository.Save();
+		}
+
+		[HttpPost]
+		public async Task Post([FromBody] PushSubscription pushSubscription) {
+			var subscription = new Subscription(pushSubscription);
+			_pushSubscriptionsRepository.Create(subscription);
+			_pushSubscriptionsRepository.Save();
+			await SendTestMessage(subscription);
 		}
 	}
 }

@@ -15,9 +15,9 @@
 	public class MangaChapterController : BaseApiController<MangaChapterInfo>
 	{
 		public MangaChapterController(IEntityRepository<MangaChapterInfo> repository)
-			: base (repository) {
+			: base(repository) {
 		}
-		
+
 		[HttpGet("manga/{id:guid}")]
 		public async Task<ActionResult<IEnumerable<MangaChapterInfo>>> GetByMangaIdAsync(Guid id) {
 			return Ok(await EntityRepository.GetByAsync(i => i.MangaId == id));

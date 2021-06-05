@@ -7,17 +7,12 @@
 	using Maid.Manga.Html;
 	using Maid.RabbitMQ;
 	using Microsoft.AspNetCore.Builder;
-	using Microsoft.AspNetCore.Diagnostics;
 	using Microsoft.AspNetCore.Hosting;
-	using Microsoft.AspNetCore.Http;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Hosting;
-	using Microsoft.IdentityModel.Logging;
 	using System;
-	using System.Net;
-	using System.Net.Http;
 	using System.Reflection;
 
 	public class Startup
@@ -52,7 +47,7 @@
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			string uiUrl = Configuration["UI_Url"];  
+			string uiUrl = Configuration["UI_Url"];
 			services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 			SetupServicesBindings(services);
 			SetupDbServices(services);
@@ -107,6 +102,7 @@
 				MessageQueuesManager.Instance
 						.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
 						.ConnectToQueue("quartz")
+						.ConnectToQueue("notifications")
 						.Subsribe<LoadMangaQuartzSubscriber>("quartz");
 			} catch {
 				Console.WriteLine("Error. Could not connect to RabbitMQ");

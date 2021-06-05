@@ -12,7 +12,6 @@
 	[EnableCors()]
 	public class LookupController : ControllerBase
 	{
-
 		protected IEntityRepository EntityRepository;
 
 		public LookupController(IEntityRepository entityRepository) {

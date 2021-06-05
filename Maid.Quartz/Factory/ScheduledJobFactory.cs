@@ -22,6 +22,5 @@ namespace Schedule.WebApiCore.Sample.Schedule
 				disposable.Dispose();
 			}
 		}
-
 	}
 }

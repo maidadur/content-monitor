@@ -1,13 +1,14 @@
 ﻿namespace Maid.Notifications.DB
 {
-	using Maid.Core;
 	using Lib.Net.Http.WebPush;
+	using Maid.Core;
 	using Newtonsoft.Json;
 	using System.Collections.Generic;
 
 	public class Subscription : BaseEntity
 	{
-		public Subscription() {}
+		public Subscription() {
+		}
 
 		public Subscription(PushSubscription pushSubscription) {
 			Endpoint = pushSubscription.Endpoint;

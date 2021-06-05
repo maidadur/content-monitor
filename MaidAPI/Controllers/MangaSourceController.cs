@@ -11,7 +11,7 @@
 	[Authorize]
 	public class MangaSourceController : BaseApiController<MangaSource>
 	{
-		public MangaSourceController(IEntityRepository<MangaSource> entityRepository) : base(entityRepository)
-		{}
+		public MangaSourceController(IEntityRepository<MangaSource> entityRepository) : base(entityRepository) {
+		}
 	}
 }

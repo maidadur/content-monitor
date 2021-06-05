@@ -1,6 +1,5 @@
 ﻿namespace Maid.Manga
 {
-
 	using HtmlAgilityPack;
 	using Maid.Manga.DB;
 	using System.Collections.Generic;

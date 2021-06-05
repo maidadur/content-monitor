@@ -8,7 +8,6 @@ namespace Maid.Core.Utilities
 {
 	public static class RepositoryUtils
 	{
-
 		private static LambdaExpression CreateExpression(Type type, string propertyName) {
 			var param = Expression.Parameter(type, "x");
 

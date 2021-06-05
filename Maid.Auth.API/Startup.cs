@@ -1,5 +1,3 @@
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
@@ -11,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Maid.Auth.API
 {
@@ -114,4 +114,3 @@ namespace Maid.Auth.API
 		}
 	}
 }
-

@@ -1,8 +1,4 @@
 ﻿using Maid.Core;
-using Maid.Manga.DB;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Maid.Manga.ViewModels
 {

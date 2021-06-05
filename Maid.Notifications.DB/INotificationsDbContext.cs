@@ -5,6 +5,5 @@
 	public interface INotificationsDbContext
 	{
 		DbSet<Subscription> Subscriptions { get; set; }
-
 	}
 }

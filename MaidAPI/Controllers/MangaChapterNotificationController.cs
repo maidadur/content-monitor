@@ -5,7 +5,6 @@
 	using Maid.Manga.DB;
 	using Maid.Manga.ViewModels;
 	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.AspNetCore.Cors;
 	using Microsoft.AspNetCore.Mvc;
 	using System;
 	using System.Collections.Generic;
@@ -23,7 +22,7 @@
 			IEntityRepository<MangaChapterNotification> repository,
 			IEntityRepository<MangaInfo> mangaRep
 			)
-			: base (repository) {
+			: base(repository) {
 			_mangaRep = mangaRep;
 		}
 

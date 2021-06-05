@@ -1,15 +1,14 @@
 ﻿namespace Maid.Manga.Html
 {
+	using HtmlAgilityPack;
 	using System;
+	using System.Collections.Generic;
 	using System.IO;
 	using System.Net.Http;
 	using System.Threading.Tasks;
-	using HtmlAgilityPack;
-	using System.Collections.Generic;
 
 	public class HtmlDocumentLoader : IHtmlDocumentLoader
 	{
-
 		public Dictionary<string, string> Cookies { get; set; }
 
 		private void ApplyCookies(HttpRequestMessage message) {

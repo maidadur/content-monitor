@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using IdentityServer4.Services;
+﻿using IdentityServer4.Services;
 using Maid.Auth.API.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Maid.Auth.API.Controllers
 {
@@ -17,8 +17,8 @@ namespace Maid.Auth.API.Controllers
 		private readonly UserManager<AppUser> _userManager;
 		private readonly IIdentityServerInteractionService _interaction;
 
-		public AuthController(SignInManager<AppUser> signInManager, 
-				UserManager<AppUser> userManager, 
+		public AuthController(SignInManager<AppUser> signInManager,
+				UserManager<AppUser> userManager,
 				IIdentityServerInteractionService interaction) {
 			_userManager = userManager;
 			_interaction = interaction;

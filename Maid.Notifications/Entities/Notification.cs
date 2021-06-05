@@ -47,6 +47,5 @@ namespace Maid.Notifications
 				Urgency = urgency
 			};
 		}
-
 	}
 }
