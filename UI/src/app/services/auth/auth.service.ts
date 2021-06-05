@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { catchError } from "rxjs/operators";
 import { UserManager, UserManagerSettings, User } from "oidc-client";
 import { BehaviorSubject } from "rxjs";
 import { BaseService } from "../base-http-service.service";
 import { environment } from '../../../environments/environment';
+import { UrlUtils } from '../../utils/url-utils';
 
 @Injectable({
 	providedIn: "root",
@@ -15,11 +15,13 @@ export class AuthService extends BaseService {
 
 	private manager = new UserManager(getClientSettings());
 	private user: User | null;
+	private _host: string;
 
 	constructor(
 		private http: HttpClient
 	) {
 		super();
+		this._host = UrlUtils.replaceUrlDomain(environment.authHost);
 	}
 
 	public loadUser(): Promise<User> {
@@ -37,7 +39,7 @@ export class AuthService extends BaseService {
 	}
 
 	public login(email: string, password: string, returnUrl: string) {
-		return this.http.post(environment.authHost + '/api/auth/login', {
+		return this.http.post(this._host + '/api/auth/login', {
 			email: email,
 			password: password,
 			returnUrl: returnUrl
@@ -78,7 +80,7 @@ export class AuthService extends BaseService {
 export function getClientSettings(): UserManagerSettings {
 	const appHost = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}`;
 	return {
-		authority: environment.authHost,
+		authority: this._host,
 		client_id: "angular_spa",
 		redirect_uri: `${appHost}/auth-callback`,
 		post_logout_redirect_uri: appHost,

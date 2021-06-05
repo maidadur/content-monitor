@@ -1,7 +1,7 @@
 export const environment = {
 	production: true,
-	mangaHost: 'https://localhost:5001/api',
-	authHost: 'https://localhost:44393',
-	notificationsHost: "https://localhost:44399"
+	mangaHost: 'https://manga-api.{domain}',
+	authHost: 'https://auth.{domain}',
+	notificationsHost: "https://push.{domain}"
   };
   

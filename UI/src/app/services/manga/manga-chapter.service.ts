@@ -6,13 +6,14 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../auth/auth.service';
+import { UrlUtils } from '@app/utils/url-utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MangaChapterService extends BaseGenericService<MangaChapter> {
 
-  protected apiUrl = environment.mangaHost + '/api/mangachapter';
+  protected apiUrl = UrlUtils.replaceUrlDomain(environment.mangaHost) + '/api/mangachapter';
 
   constructor(protected http: HttpClient, protected auth: AuthService) {
     super(http, auth);

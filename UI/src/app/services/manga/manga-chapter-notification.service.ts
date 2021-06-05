@@ -7,13 +7,14 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { MangaChapterNotification } from '@app/entity/manga/manga-chapter-notification';
 import { AuthService } from '../auth/auth.service';
+import { UrlUtils } from '@app/utils/url-utils';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class MangaChapterNotificationService extends BaseGenericService<MangaChapterNotification> {
 
-	protected apiUrl = environment.mangaHost + '/api/new-manga';
+	protected apiUrl = UrlUtils.replaceUrlDomain(environment.mangaHost) + '/api/new-manga';
 
 	constructor(protected http: HttpClient, protected auth: AuthService) {
 		super(http, auth);
