@@ -12,22 +12,14 @@ namespace Maid.RabbitMQ
 		private static Lazy<MessageQueuesManager> _instance =
 			new Lazy<MessageQueuesManager>(() => new MessageQueuesManager());
 
-		private IServiceProvider _serviceProvider;
 		private IModel _channel;
 		private IConnection _connection;
+		private IServiceProvider _serviceProvider;
 
 		private MessageQueuesManager() {
 		}
 
 		public static MessageQueuesManager Instance => _instance.Value;
-
-		public MessageQueuesManager Init(IServiceProvider serviceProvider, string queueUrl = null, int? port = null) {
-			_serviceProvider = serviceProvider;
-			var factory = new ConnectionFactory() { HostName = queueUrl ?? "localhost", Port = port ?? 5672 };
-			_connection = factory.CreateConnection();
-			_channel = _connection.CreateModel();
-			return Instance;
-		}
 
 		public MessageQueuesManager ConnectToQueue(string queueName) {
 			if (_channel == null) {
@@ -41,15 +33,22 @@ namespace Maid.RabbitMQ
 			return Instance;
 		}
 
-		public void Publish(string queueName, object data) {
+		public MessageQueuesManager Init(IServiceProvider serviceProvider, string queueUrl = null, int? port = null) {
+			_serviceProvider = serviceProvider;
+			var factory = new ConnectionFactory() { HostName = queueUrl ?? "localhost", Port = port ?? 5672 };
+			_connection = factory.CreateConnection();
+			_channel = _connection.CreateModel();
+			return Instance;
+		}
+
+		public void Publish(string queueName, byte[] data) {
 			if (_channel == null) {
 				return;
 			}
-			var bytes = data.ToBytesArray();
 			_channel.BasicPublish(exchange: "",
 								 routingKey: queueName,
 								 basicProperties: null,
-								 body: bytes);
+								 body: data);
 		}
 
 		public MessageQueuesManager Subsribe<T>(string queueName)
@@ -61,6 +60,7 @@ namespace Maid.RabbitMQ
 			consumer.Received += async (model, eventArgs) => {
 				var body = eventArgs.Body.ToArray();
 				var message = Encoding.UTF8.GetString(body);
+				Console.WriteLine("MessageQueuesManager. Received message: " + message);
 				using (var scope = _serviceProvider.CreateScope()) {
 					var subscriber = scope.ServiceProvider.GetRequiredService<T>();
 					await subscriber.ProcessAsync(body);

@@ -43,30 +43,7 @@
 			services.AddTransient<ConfigHelper, ConfigHelper>();
 			services.AddTransient<MangaLoadTask, MangaLoadTask>();
 			services.AddTransient<LoadMangaQuartzSubscriber, LoadMangaQuartzSubscriber>();
-		}
-
-		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services) {
-			string uiUrl = Configuration["UI_Url"];
-			services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-			SetupServicesBindings(services);
-			SetupDbServices(services);
-
-			services.AddAuthentication("Bearer")
-				.AddJwtBearer("Bearer", options => {
-					options.Authority = Configuration["Authority"];
-					options.Audience = "client";
-				});
-
-			services.AddCors(setup => {
-				setup.AddDefaultPolicy(policy => {
-					policy.AllowAnyHeader();
-					policy.AllowAnyMethod();
-					policy.WithOrigins(uiUrl);
-				});
-			});
-
-			services.AddLogging();
+			services.AddTransient<IMessageClient, MessageClient>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,6 +84,30 @@
 			} catch {
 				Console.WriteLine("Error. Could not connect to RabbitMQ");
 			}
+		}
+
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services) {
+			string uiUrl = Configuration["UI_Url"];
+			services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+			SetupServicesBindings(services);
+			SetupDbServices(services);
+
+			services.AddAuthentication("Bearer")
+				.AddJwtBearer("Bearer", options => {
+					options.Authority = Configuration["Authority"];
+					options.Audience = "client";
+				});
+
+			services.AddCors(setup => {
+				setup.AddDefaultPolicy(policy => {
+					policy.AllowAnyHeader();
+					policy.AllowAnyMethod();
+					policy.WithOrigins(uiUrl);
+				});
+			});
+
+			services.AddLogging();
 		}
 	}
 }

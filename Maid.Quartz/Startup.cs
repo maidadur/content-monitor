@@ -20,16 +20,37 @@ namespace Maid.Quartz
 
 		public IConfiguration Configuration { get; }
 
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IScheduler scheduler) {
+			if (env.IsDevelopment()) {
+				app.UseDeveloperExceptionPage();
+			} else {
+				app.UseHsts();
+			}
+
+			app.UseHttpsRedirection();
+
+			try {
+				MessageQueuesManager.Instance
+					.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
+					.ConnectToQueue("quartz");
+				scheduler.ScheduleJob(app.ApplicationServices.GetService<IJobDetail>(), app.ApplicationServices.GetService<ITrigger>());
+			} catch (Exception ex) {
+				Console.WriteLine(ex.Message + " " + ex.StackTrace);
+			}
+		}
+
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddLogging();
 			services.Add(new ServiceDescriptor(typeof(IJob), typeof(LoadMangaJob), ServiceLifetime.Transient));
 			services.AddSingleton<IJobFactory, ScheduledJobFactory>();
+			services.AddTransient<IMessageClient, MessageClient>();
 			services.AddTransient(provider => {
 				return JobBuilder.Create<LoadMangaJob>()
 				  .WithIdentity("LoadManga.job", "MangaGroup")
 				  .Build();
 			});
 
+			Console.WriteLine("LoadMangaIntervalSeconds: " + Configuration["LoadMangaIntervalSeconds"]);
 			services.AddTransient(provider => {
 				return TriggerBuilder.Create()
 					.WithIdentity($"LoadManga.trigger", "MangaGroup")
@@ -49,25 +70,6 @@ namespace Maid.Quartz
 				scheduler.Start();
 				return scheduler;
 			});
-		}
-
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IScheduler scheduler) {
-			if (env.IsDevelopment()) {
-				app.UseDeveloperExceptionPage();
-			} else {
-				app.UseHsts();
-			}
-
-			app.UseHttpsRedirection();
-
-			try {
-				MessageQueuesManager.Instance
-					.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
-					.ConnectToQueue("quartz");
-				scheduler.ScheduleJob(app.ApplicationServices.GetService<IJobDetail>(), app.ApplicationServices.GetService<ITrigger>());
-			} catch (Exception ex) {
-				Console.WriteLine(ex.Message + " " + ex.StackTrace);
-			}
 		}
 	}
 }

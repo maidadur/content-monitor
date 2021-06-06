@@ -12,6 +12,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Maid.Core\Maid.Core.csproj" />
     <ProjectReference Include="..\Maid.Manga.DB\Maid.Manga.DB.csproj" />
+    <ProjectReference Include="..\Maid.Notifications\Maid.Notifications.csproj" />
+    <ProjectReference Include="..\Maid.RabbitMQ\Maid.RabbitMQ.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,16 +8,18 @@
 
 	public class LoadMangaJob : IJob
 	{
-		private readonly ILogger<LoadMangaJob> logger;
+		private readonly IMessageClient _client;
+		private readonly ILogger<LoadMangaJob> _logger;
 
-		public LoadMangaJob(ILogger<LoadMangaJob> logger) {
-			this.logger = logger;
+		public LoadMangaJob(ILogger<LoadMangaJob> logger, IMessageClient messageClient) {
+			_logger = logger;
+			_client = messageClient;
 		}
 
 		public async Task Execute(IJobExecutionContext context) {
-			logger.LogInformation($">> LoadMangaJob fired:  {DateTime.Now}");
-			MessageQueuesManager.Instance.Publish("quartz", "");
-			logger.LogInformation($">> LoadMangaJob published message");
+			_logger.LogInformation($">> LoadMangaJob fired:  {DateTime.Now}");
+			_client.SendMessage("quartz", null);
+			_logger.LogInformation($">> LoadMangaJob published message");
 			await Task.CompletedTask;
 		}
 	}

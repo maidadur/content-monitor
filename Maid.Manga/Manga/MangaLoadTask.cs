@@ -3,6 +3,8 @@
 	using Maid.Core;
 	using Maid.Core.DB;
 	using Maid.Manga.DB;
+	using Maid.Notifications;
+	using Maid.RabbitMQ;
 	using Microsoft.Extensions.Logging;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -10,23 +12,48 @@
 
 	public class MangaLoadTask
 	{
-		private IMangaLoader _mangaLoader;
+		private readonly IMessageClient _messageClient;
 		private IEntityRepository<MangaChapterInfo> _chaptersRep;
-		private IEntityRepository<MangaInfo> _mangaInfoRep;
-		private IEntityRepository<MangaChapterNotification> _mangaNotificationRep;
 		private ILogger<MangaLoadTask> _log;
+		private IEntityRepository<MangaInfo> _mangaInfoRep;
+		private IMangaLoader _mangaLoader;
+		private IEntityRepository<MangaChapterNotification> _mangaNotificationRep;
 
 		public MangaLoadTask(
 				IEntityRepository<MangaInfo> mangaInfoRep,
 				IEntityRepository<MangaChapterInfo> chaptersRep,
 				IEntityRepository<MangaChapterNotification> mangaNotificationRep,
 				IMangaLoader mangaLoader,
+				IMessageClient messageClient,
 				ILogger<MangaLoadTask> log) {
 			_mangaInfoRep = mangaInfoRep;
 			_mangaLoader = mangaLoader;
+			this._messageClient = messageClient;
 			_chaptersRep = chaptersRep;
 			_mangaNotificationRep = mangaNotificationRep;
 			_log = log;
+		}
+
+		//TODO create notifications class
+		private void CreateNewMangaNotifications(List<MangaChapterInfo> newChapters) {
+			var newChapterNotification = new MangaChapterNotification {
+				MangaChapterInfo = newChapters.Last()
+			};
+			if (newChapters.Count > 1) {
+				newChapterNotification.MangaChapterInfo.Name += " - " + newChapters.First().Name;
+			}
+			_mangaNotificationRep.Create(newChapterNotification);
+			_mangaNotificationRep.Save();
+			SendNotification(newChapterNotification);
+		}
+
+		private void SendNotification(MangaChapterNotification newChapterNotification) {
+			var notification = new Notification {
+				Title = newChapterNotification.MangaChapterInfo.Manga.Name,
+				Body = newChapterNotification.MangaChapterInfo.Name,
+				Icon = newChapterNotification.MangaChapterInfo.Manga.ImageUrl
+			};
+			_messageClient.SendMessage("notifications", notification);
 		}
 
 		private async Task UpdateMangaChaptersAsync(MangaInfo manga) {
@@ -46,14 +73,6 @@
 				_chaptersRep.Save();
 				CreateNewMangaNotifications(newChapters);
 			}
-		}
-
-		//TODO create notifications class
-		private void CreateNewMangaNotifications(List<MangaChapterInfo> newChapters) {
-			newChapters.ForEach(chapter => _mangaNotificationRep.Create(new MangaChapterNotification() {
-				MangaChapterInfo = chapter
-			}));
-			_mangaNotificationRep.Save();
 		}
 
 		public async Task LoadMangaInfosAsync() {

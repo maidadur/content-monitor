@@ -30,6 +30,9 @@ namespace Maid.Notifications.Api
 			services.AddTransient<IEntityRepository<Subscription>, EntityRepository<Subscription>>();
 			services.AddTransient<INotificationClient, WebPushClient>();
 			services.AddTransient<PushServiceClient, PushServiceClient>();
+			services.AddTransient<ISendNotificationTask, SendNotificationTask>();
+			services.AddTransient<IMessageClient, MessageClient>();
+			services.AddTransient<SendNotificationsSubscriber, SendNotificationsSubscriber>();
 
 			services.AddCors(setup => {
 				setup.AddDefaultPolicy(policy => {
@@ -38,12 +41,6 @@ namespace Maid.Notifications.Api
 					policy.WithOrigins(Configuration["Ui_Url"]);
 				});
 			});
-		}
-
-		public void ConfigureServices(IServiceCollection services) {
-			services.AddControllers();
-			services.AddLogging();
-			SetupDbServices(services);
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -70,6 +67,12 @@ namespace Maid.Notifications.Api
 			} catch {
 				Console.WriteLine("Error. Could not connect to RabbitMQ");
 			}
+		}
+
+		public void ConfigureServices(IServiceCollection services) {
+			services.AddControllers();
+			services.AddLogging();
+			SetupDbServices(services);
 		}
 	}
 }
