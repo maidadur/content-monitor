@@ -5,6 +5,7 @@
 	using System.IO;
 	using System.Linq;
 	using System.Runtime.Serialization.Formatters.Binary;
+	using System.Text;
 	using System.Threading.Tasks;
 
 	public static class CommonUtils
@@ -27,12 +28,13 @@
 			}
 		}
 
-		public static byte[] ToBytesArray(this object obj) {
-			BinaryFormatter bf = new BinaryFormatter();
-			using (var ms = new MemoryStream()) {
-				bf.Serialize(ms, obj);
-				return ms.ToArray();
-			}
+		public static byte[] ToBytesArray(this string data) {
+			//BinaryFormatter bf = new BinaryFormatter();
+			//using (var ms = new MemoryStream()) {
+			//	bf.Serialize(ms, obj);
+			//	return ms.ToArray();
+			//}
+			return Encoding.UTF8.GetBytes(data);
 		}
 
 		public static bool IsEmpty<T>(this IEnumerable<T> collection) {

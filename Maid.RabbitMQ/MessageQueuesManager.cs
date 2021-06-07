@@ -30,6 +30,7 @@ namespace Maid.RabbitMQ
 					 exclusive: false,
 					 autoDelete: false,
 					 arguments: null);
+			Console.WriteLine("MessageQueuesManager. QueueDeclare " + queueName);
 			return Instance;
 		}
 
@@ -69,6 +70,7 @@ namespace Maid.RabbitMQ
 			_channel.BasicConsume(queue: queueName,
 								 autoAck: true,
 								 consumer: consumer);
+			Console.WriteLine("MessageQueuesManager. Subscribed for queue " + queueName);
 			return Instance;
 		}
 	}

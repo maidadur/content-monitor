@@ -34,7 +34,6 @@
 			_log = log;
 		}
 
-		//TODO create notifications class
 		private void CreateNewMangaNotifications(List<MangaChapterInfo> newChapters) {
 			var newChapterNotification = new MangaChapterNotification {
 				MangaChapterInfo = newChapters.Last()
@@ -44,10 +43,10 @@
 			}
 			_mangaNotificationRep.Create(newChapterNotification);
 			_mangaNotificationRep.Save();
-			SendNotification(newChapterNotification);
+			SendNotificationMessage(newChapterNotification);
 		}
 
-		private void SendNotification(MangaChapterNotification newChapterNotification) {
+		private void SendNotificationMessage(MangaChapterNotification newChapterNotification) {
 			var notification = new Notification {
 				Title = newChapterNotification.MangaChapterInfo.Manga.Name,
 				Body = newChapterNotification.MangaChapterInfo.Name,
