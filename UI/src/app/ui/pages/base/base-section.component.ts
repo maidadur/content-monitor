@@ -24,7 +24,10 @@ export class BaseSectionComponent<TEntity extends BaseEntity> {
 		this.parentBody = document;
 	}
 
-	public ngOnInit(): void {
+	public ngOnInit(): void {}
+
+	ngAfterViewInit(): void {
+		this._viewPortEl.stopPropagation = true;
 		this.loadData();
 	}
 
