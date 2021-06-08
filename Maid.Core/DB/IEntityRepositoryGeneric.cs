@@ -11,7 +11,7 @@
 
 		IEnumerable<TEntity> GetAll(SelectOptions options = null);
 
-		Task<IEnumerable<TEntity>> GetByAsync(Expression<Func<TEntity, bool>> expression);
+		Task<IEnumerable<TEntity>> GetByAsync(Expression<Func<TEntity, bool>> expression, SelectOptions options = null);
 
 		IEnumerable<TEntity> GetBy(Expression<Func<TEntity, bool>> expression);
 

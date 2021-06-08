@@ -34,6 +34,7 @@
 		protected virtual MangaInfo FillMangaInfo(MangaInfo mangaInfo, MangaSource source, HtmlDocument document) {
 			IMangaParser mangaParser = _parsersFactory.GetParser(source.Code);
 			List<MangaChapterInfo> chaptersList = mangaParser.GetMangaChapters(document, source);
+			chaptersList.Reverse();
 			chaptersList.ForEach(chapter => chapter.MangaId = mangaInfo.Id);
 			string imageUrl = mangaParser.GetMangaImageUrl(document, source.ImageXpath);
 			string name = mangaParser.GetMangaName(document, source.TitleXpath);

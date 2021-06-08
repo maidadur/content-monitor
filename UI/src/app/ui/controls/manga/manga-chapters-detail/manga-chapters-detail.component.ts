@@ -13,8 +13,14 @@ export class MangaChaptersDetailComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.parentId && Guid.isGuid(this.parentId)) {
-			this.service.getMangaChapters(this.parentId)
-				.subscribe(items => this.rows = items);
+			this.service.getMangaChapters(this.parentId, {
+				orderOptions: [
+					{
+						column: "CreatedOn",
+						isAscending: false
+					}
+				]
+			}).subscribe(items => this.rows = items);
 		}
 	}
 

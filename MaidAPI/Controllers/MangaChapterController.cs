@@ -18,9 +18,9 @@
 			: base(repository) {
 		}
 
-		[HttpGet("manga/{id:guid}")]
-		public async Task<ActionResult<IEnumerable<MangaChapterInfo>>> GetByMangaIdAsync(Guid id) {
-			return Ok(await EntityRepository.GetByAsync(i => i.MangaId == id));
+		[HttpPost("manga/{id:guid}")]
+		public async Task<ActionResult<IEnumerable<MangaChapterInfo>>> GetByMangaIdAsync(Guid id, SelectOptions options) {
+			return Ok(await EntityRepository.GetByAsync(i => i.MangaId == id, options));
 		}
 	}
 }

@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../auth/auth.service';
 import { UrlUtils } from '@app/utils/url-utils';
+import { SelectOptions } from '@app/common/select-options';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,9 @@ export class MangaChapterService extends BaseGenericService<MangaChapter> {
     super(http, auth);
   }
   
-  getMangaChapters(id: string): Observable<MangaChapter[]> {
+  getMangaChapters(id: string, options?: SelectOptions): Observable<MangaChapter[]> {
     const url = `${this.apiUrl}/manga/${id}`;
-    return this.http.get<MangaChapter[]>(url, this.httpOptions)
+    return this.http.post<MangaChapter[]>(url, options, this.httpOptions)
       .pipe(
         catchError(this.handleError)
       );

@@ -61,9 +61,12 @@
 				.ToList();
 		}
 
-		public async Task<IEnumerable<TEntity>> GetByAsync(Expression<Func<TEntity, bool>> expression) {
+		public async Task<IEnumerable<TEntity>> GetByAsync(Expression<Func<TEntity, bool>> expression, SelectOptions options = null) {
+			options = options ?? new SelectOptions();
 			return await Context.Set<TEntity>()
+				.ApplyOrderOptions(options.OrderOptions)
 				.Where(expression)
+				.ApplyOffsetOptions(options)
 				.ToListAsync();
 		}
 
