@@ -51,7 +51,16 @@ export class BaseSectionComponent<TEntity extends BaseEntity> {
 	}
 
 	public getItemsObservable() {
-		return this.service.getAll({offset: this.offset, count: this.count});
+		return this.service.getAll({
+			offset: this.offset, 
+			count: this.count,
+			orderOptions: [
+				{
+					column: "CreatedOn",
+					isAscending: false
+				}
+			]
+		});
 	}
 
 	public onViewPortVisible() {

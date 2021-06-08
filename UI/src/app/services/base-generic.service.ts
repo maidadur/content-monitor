@@ -6,6 +6,7 @@ import { BaseEntity } from '../entity/base-entity';
 import { Guid } from 'guid-typescript';
 import { BaseService} from './base-http-service.service';
 import { AuthService } from './auth/auth.service';
+import { SelectOptions } from '@app/common/select-options';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,14 +17,13 @@ export class BaseGenericService<TEntity extends BaseEntity> extends BaseService 
 		super();
 	}
 
-	getAll(params?: any): Observable<TEntity[]> {
-		let url = this.apiUrl;
-		return this.http.get<TEntity[]>(url, {
-			params: params
-		}).pipe(
-			catchError(this.handleError)
-		);
-	}
+	getAll(options?: SelectOptions): Observable<TEntity[]> {
+		let url = this.apiUrl + "/list";
+		return this.http.post<TEntity[]>(url, options, this.httpOptions)
+			.pipe(
+				catchError(this.handleError)
+			);
+	} 
 
 	get(id: string): Observable<TEntity> {
 		const url = `${this.apiUrl}/${id}`;

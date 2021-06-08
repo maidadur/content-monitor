@@ -19,7 +19,15 @@ export class MangaSectionComponent extends BaseSectionComponent<MangaChapterNoti
 	}
 
 	public getItemsObservable() {
-		return this.service.getAllNotifications({ offset: this.offset, count: this.count });
+		return this.service.getAllNotifications({ 
+			offset: this.offset, 
+			count: this.count,
+			orderOptions: [{
+					column: "CreatedOn",
+					isAscending: false
+				}
+			]
+		});
 	}
 
 	public handleGetDataResponse(items: MangaChapterNotification[]) {

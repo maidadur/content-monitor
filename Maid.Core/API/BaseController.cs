@@ -22,11 +22,9 @@
 			return Ok();
 		}
 
-		[HttpGet]
-		public async Task<ActionResult<IEnumerable<T>>> GetAllItems(bool loadLookups = false) {
-			var data = await EntityRepository.GetAllAsync(new SelectOptions {
-				LoadLookups = loadLookups
-			});
+		[HttpPost("list")]
+		public async Task<ActionResult<IEnumerable<T>>> GetAllItems(SelectOptions selectOptions) {
+			var data = await EntityRepository.GetAllAsync(selectOptions);
 			return Ok(data);
 		}
 
@@ -39,12 +37,12 @@
 			return item;
 		}
 
-		[HttpPost()]
-		public ActionResult AddItem(T item) {
-			EntityRepository.Create(item);
-			EntityRepository.Save();
-			return Ok();
-		}
+		//[HttpPost()]
+		//public ActionResult AddItem(T item) {
+		//	EntityRepository.Create(item);
+		//	EntityRepository.Save();
+		//	return Ok();
+		//}
 
 		[HttpPut()]
 		public ActionResult EditItem(T item) {

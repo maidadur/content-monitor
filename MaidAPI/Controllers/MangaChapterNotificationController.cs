@@ -26,13 +26,10 @@
 			_mangaRep = mangaRep;
 		}
 
-		[HttpGet("updates")]
-		public async Task<ActionResult<IEnumerable<MangaChapterNotificationViewModel>>> GetMangaNotifications(int count = 0, int offset = 0) {
-			var notifications = await EntityRepository.GetAllAsync(new SelectOptions {
-				LoadLookups = true,
-				Count = count,
-				Offset = offset
-			});
+		[HttpPost("updates")]
+		public async Task<ActionResult<IEnumerable<MangaChapterNotificationViewModel>>> GetMangaNotifications(SelectOptions options = null) {
+			options.LoadLookups = true;
+			var notifications = await EntityRepository.GetAllAsync(options);
 			var mangaIds = notifications.GroupBy(g => g.MangaChapterInfo.MangaId).Select(g => g.Key);
 			var mangas = await _mangaRep.GetByAsync(manga => mangaIds.Contains(manga.Id));
 			var models = new List<MangaChapterNotificationViewModel>();

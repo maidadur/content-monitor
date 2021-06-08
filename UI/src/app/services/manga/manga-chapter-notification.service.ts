@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BaseGenericService } from '../base-generic.service';
-import { MangaChapter } from '@app/entity/manga/manga-chapter';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { MangaChapterNotification } from '@app/entity/manga/manga-chapter-notification';
 import { AuthService } from '../auth/auth.service';
 import { UrlUtils } from '@app/utils/url-utils';
+import { SelectOptions } from '@app/common/select-options';
 
 @Injectable({
 	providedIn: 'root'
@@ -20,11 +20,9 @@ export class MangaChapterNotificationService extends BaseGenericService<MangaCha
 		super(http, auth);
 	}
 
-	public getAllNotifications(params?: any): Observable<MangaChapterNotification[]> {
+	public getAllNotifications(selectOptions: SelectOptions): Observable<MangaChapterNotification[]> {
 		let url = this.apiUrl + '/updates';
-		return this.http.get<MangaChapterNotification[]>(url, Object.assign(this.httpOptions, {
-			params: params
-		})).pipe(
+		return this.http.post<MangaChapterNotification[]>(url, selectOptions, this.httpOptions).pipe(
 			catchError(this.handleError)
 		);
 	}

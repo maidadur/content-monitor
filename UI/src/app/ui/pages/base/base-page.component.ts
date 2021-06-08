@@ -1,7 +1,7 @@
 import { BaseEntity } from '@app/entity/base-entity';
 import { BaseGenericService } from '@app/services/base-generic.service';
 import { Guid } from 'guid-typescript';
-import { CardMode } from '@app/entity/card-mode';
+import { CardMode } from '@app/common/card-mode';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
