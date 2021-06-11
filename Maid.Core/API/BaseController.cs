@@ -37,12 +37,12 @@
 			return item;
 		}
 
-		//[HttpPost()]
-		//public ActionResult AddItem(T item) {
-		//	EntityRepository.Create(item);
-		//	EntityRepository.Save();
-		//	return Ok();
-		//}
+		[HttpPost()]
+		public ActionResult AddItem(T item) {
+			EntityRepository.Create(item);
+			EntityRepository.Save();
+			return Ok();
+		}
 
 		[HttpPut()]
 		public ActionResult EditItem(T item) {
