@@ -114,4 +114,3 @@ namespace Maid.Auth.API
 		}
 	}
 }
-
