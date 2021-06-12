@@ -5,11 +5,11 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --prod --output-hashing none",
+    "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:deploy": "ng b --prod --output-hashing none && xcopy C:\\Users\\maida\\source\\repos\\maidadur\\MyHouseMaido\\UI\\dist\\UI C:\\ui /S /Y"
+    "build:deploy": "ng b --prod && xcopy C:\\Users\\maida\\source\\repos\\maidadur\\MyHouseMaido\\UI\\dist\\UI C:\\ui /S /Y"
   },
   "private": true,
   "dependencies": {
