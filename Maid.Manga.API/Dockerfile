@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["MaidAPI/Maid.Manga.API.csproj", "MaidAPI/"]
-RUN dotnet restore "MaidAPI/Maid.Manga.API.csproj"
+COPY ["Maid.Manga.API/Maid.Manga.API.csproj", "Maid.Manga.API/"]
+RUN dotnet restore "Maid.Manga.API/Maid.Manga.API.csproj"
 COPY . .
-WORKDIR "/src/MaidAPI"
+WORKDIR "/src/Maid.Manga.API"
 RUN dotnet build "Maid.Manga.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
