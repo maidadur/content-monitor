@@ -41,7 +41,6 @@ jobs:
         with:
           push: true
           file: ./Maid.Manga.API/Dockerfile
-          context:  .
           tags: maidadur/maid-manga-api:latest
       -
         name: Image digest
