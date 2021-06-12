@@ -1,1 +1,1 @@
-![.NET Core Build](https://github.com/maidadur/MyHouseMaido/workflows/.NET%20Core%20Build/badge.svg) ![UI Build](https://github.com/maidadur/MyHouseMaido/workflows/UI/badge.svg)
+[![Auth API build](https://github.com/maidadur/MyHouseMaido/actions/workflows/auth-api-build.yml/badge.svg)](https://github.com/maidadur/MyHouseMaido/actions/workflows/auth-api-build.yml) ![UI Build](https://github.com/maidadur/MyHouseMaido/workflows/UI/badge.svg)
