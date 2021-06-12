@@ -51,7 +51,7 @@ jobs:
   k8s:
     runs-on: ubuntu-latest
     needs: docker
-    if: ${{ needs.changes.outputs.auth-api == 'true' }}
+    if: ${{ needs.changes.outputs.manga-api == 'true' }}
     steps:
       - 
         name: Set up kubectl
