@@ -7,7 +7,7 @@ jobs:
   changes:
     runs-on: ubuntu-latest
     outputs:
-      frontend: ${{ steps.filter.outputs.manga-api }}
+      manga-api: ${{ steps.filter.outputs.manga-api }}
     steps:
       - 
         name: Checkout
