@@ -1,0 +1,21 @@
+shared: &shared
+    - Maid.Core/**
+    - Maid.RabbitMQ/**
+frontend:
+    - UI/**
+auth-api:
+    - Maid.Auth.API/**
+manga-api:
+    - *shared
+    - Maid.Manga/**
+    - Maid.Notifications/**
+    - Maid.Manga.DB/**
+    - Maid.Manga.API/**
+push-api:
+    - *shared
+    - Maid.Notifications/**
+    - Maid.Notifications.DB/**
+    - Maid.Notifications.API/**
+quartz:
+    - Maid.RabbitMQ/**
+    - Maid.Quartz/**
