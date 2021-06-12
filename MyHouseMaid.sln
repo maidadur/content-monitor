@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Manga.API", "MaidAPI\Maid.Manga.API.csproj", "{CCD5D898-8A5B-4F18-A9C7-47B761091E9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Manga.API", "Maid.Manga.API\Maid.Manga.API.csproj", "{CCD5D898-8A5B-4F18-A9C7-47B761091E9C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Core", "Maid.Core\Maid.Core.csproj", "{D7294F8C-713F-4E68-B204-D51E8C3BC82B}"
 EndProject
