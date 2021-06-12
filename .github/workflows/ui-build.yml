@@ -47,3 +47,12 @@ jobs:
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+      - 
+        name: Set up kubectl
+        uses: matootie/dokube@v1.3.4
+        with:
+          personalAccessToken: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          clusterName: k8s-1-20-2-do-0-ams3-1621366951987
+      - 
+        name: Get nodes
+        run: kubectl delete pod -l app=maid-ui
