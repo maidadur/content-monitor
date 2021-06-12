@@ -35,3 +35,4 @@ namespace Maid.Notifications
 		}
 	}
 }
+
