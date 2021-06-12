@@ -76,3 +76,4 @@ namespace Maid.Notifications.Api
 		}
 	}
 }
+
