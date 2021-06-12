@@ -73,4 +73,3 @@ namespace Maid.Quartz
 		}
 	}
 }
-
