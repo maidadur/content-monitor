@@ -11,9 +11,6 @@ jobs:
       frontend: ${{ steps.filter.outputs.frontend }}
     steps:
       - 
-        name: Checkout
-        uses: actions/checkout@v2
-      - 
         uses: dorny/paths-filter@v2
         id: filter
         with:
@@ -23,6 +20,9 @@ jobs:
     needs: changes
     if: ${{ needs.changes.outputs.frontend == 'true' }}
     steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
       -
         name: Change dir
-        run: cd UI
+        run: cd ./UI
       -
         name: Build and push
         id: docker_build
