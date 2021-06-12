@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Maid.Notifications.Api/Maid.Notifications.Api.csproj", "Maid.Notifications.Api/"]
-RUN dotnet restore "Maid.Notifications.Api/Maid.Notifications.Api.csproj"
+COPY ["Maid.Notifications.API/Maid.Notifications.API.csproj", "Maid.Notifications.API/"]
+RUN dotnet restore "Maid.Notifications.API/Maid.Notifications.API.csproj"
 COPY . .
-WORKDIR "/src/Maid.Notifications.Api"
-RUN dotnet build "Maid.Notifications.Api.csproj" -c Release -o /app/build
+WORKDIR "/src/Maid.Notifications.API"
+RUN dotnet build "Maid.Notifications.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Maid.Notifications.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "Maid.Notifications.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Maid.Notifications.Api.dll"]
+ENTRYPOINT ["dotnet", "Maid.Notifications.API.dll"]

@@ -26,11 +26,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{09FDD4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Auth.API", "Maid.Auth.API\Maid.Auth.API.csproj", "{3C706894-019E-4F7D-BCDF-67E97D0DA7C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Notifications.Api", "Maid.Notifications.Api\Maid.Notifications.Api.csproj", "{B4D9C663-83E2-48EE-BFB7-A3F8B14DE62C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Notifications.API", "Maid.Notifications.Api\Maid.Notifications.API.csproj", "{B4D9C663-83E2-48EE-BFB7-A3F8B14DE62C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Notifications.DB", "Maid.Notifications.DB\Maid.Notifications.DB.csproj", "{95B16E92-537A-4F16-9FAC-03C6183F4EB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maid.Notifications", "Maid.Notifications\Maid.Notifications.csproj", "{D9F0C191-CA6D-4150-A995-533694A03608}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maid.Notifications", "Maid.Notifications\Maid.Notifications.csproj", "{D9F0C191-CA6D-4150-A995-533694A03608}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
