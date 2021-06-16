@@ -16,11 +16,14 @@
 	<mat-grid-list cols="6" rowHeight="230px" class="manga-grid">
 		<a *ngFor="let item of items" [attr.href]="item.href" target="_blank">
 			<mat-grid-tile [colspan]="1" [rowspan]="1">
+				<mat-grid-tile-header>
+					<span class="manga-name-grid-caption">{{item.mangaName}}</span>
+				</mat-grid-tile-header>
 				<span *ngIf="!item.isRead" class="new-chapter-plus fa fa-exclamation fa-1x"></span>
 				<img class="manga-grid-image" [attr.src]="item.imageUrl" />
 				<mat-grid-tile-footer>
-					<span class="manga-name-grid-caption">{{item.mangaName}}</span>
 					<span class="manga-grid-caption">{{item.name}}</span>
+					<span class="manga-grid-createdon">{{item.createdOn}}</span>
 				</mat-grid-tile-footer>
 			</mat-grid-tile>
 		</a>

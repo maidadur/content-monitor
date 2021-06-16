@@ -1,7 +1,8 @@
 import { Guid } from "guid-typescript";
 
 export class BaseEntity {
-  id: string
+  public id: string;
+  public createdOn: string;
 
   constructor(entity) {
     for (let columnName in entity) {

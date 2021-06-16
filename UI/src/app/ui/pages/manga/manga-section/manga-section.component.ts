@@ -3,6 +3,7 @@ import { MangaChapterNotificationService } from '@app/services/manga/manga-chapt
 import { MangaChapterNotification } from '@app/entity/manga/manga-chapter-notification';
 import { BaseSectionComponent } from '../../base/base-section.component';
 import { Location } from '@angular/common';
+import * as moment from 'moment';
 
 @Component({
 	selector: 'app-manga-section',
@@ -16,6 +17,19 @@ export class MangaSectionComponent extends BaseSectionComponent<MangaChapterNoti
 			location: Location
 		) {
 		super(service, location);
+	}
+
+	private _setChaptersAsRead(items: MangaChapterNotification[]) {
+		const notReadItems = items.filter((item) => !item.isRead);
+		if (notReadItems.length > 0) {
+			this.service.readNotifications(notReadItems).subscribe();
+		}
+	}
+
+	private _formatCreatedOn(items: MangaChapterNotification[]) {
+		items.forEach(item => {
+			item.createdOn = moment(item.createdOn).fromNow();
+		});
 	}
 
 	public getItemsObservable() {
@@ -32,9 +46,7 @@ export class MangaSectionComponent extends BaseSectionComponent<MangaChapterNoti
 
 	public handleGetDataResponse(items: MangaChapterNotification[]) {
 		super.handleGetDataResponse(items);
-		const notReadItems = items.filter((item) => !item.isRead);
-		if (notReadItems.length > 0) {
-			this.service.readNotifications(notReadItems).subscribe();
-		}
+		this._formatCreatedOn(items);
+		this._setChaptersAsRead(items);
 	}
 }
