@@ -35,15 +35,16 @@
 		}
 
 		private void CreateNewMangaNotifications(List<MangaChapterInfo> newChapters) {
-			var newChapterNotification = new MangaChapterNotification {
-				MangaChapterInfo = newChapters.Last()
-			};
-			if (newChapters.Count > 1) {
-				newChapterNotification.MangaChapterInfo.Name += " - " + newChapters.First().Name;
-			}
-			_mangaNotificationRep.Create(newChapterNotification);
+			var newNotifications = new List<MangaChapterNotification>();
+			newChapters.ForEach(chapter => {
+				var newNotification = new MangaChapterNotification() {
+					MangaChapterInfo = chapter
+				};
+				newNotifications.Add(newNotification);
+				_mangaNotificationRep.Create(newNotification);
+			});
 			_mangaNotificationRep.Save();
-			SendNotificationMessage(newChapterNotification);
+			SendNotificationMessage(newNotifications.Last());
 		}
 
 		private void SendNotificationMessage(MangaChapterNotification newChapterNotification) {
