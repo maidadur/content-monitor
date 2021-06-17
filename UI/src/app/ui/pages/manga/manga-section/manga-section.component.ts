@@ -28,7 +28,7 @@ export class MangaSectionComponent extends BaseSectionComponent<MangaChapterNoti
 
 	private _formatCreatedOn(items: MangaChapterNotification[]) {
 		items.forEach(item => {
-			item.createdOn = moment(item.createdOn).fromNow();
+			item.createdOn = moment(item.createdOn).local().fromNow();
 		});
 	}
 
