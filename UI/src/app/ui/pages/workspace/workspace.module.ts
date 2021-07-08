@@ -27,8 +27,7 @@ import { MangaSourcesSectionComponent } from '..//manga/manga-sources-section/ma
 import { MangaSourcePageComponent } from '..//manga/manga-source-page/manga-source-page.component';
 import { ViewPortComponent } from '../../controls//view-port/view-port.component';
 import { WorkspaceComponent } from './workspace.component';
-import { WebPushClient } from '../../../utils/notifications/web-push-client';
-import { NotificationsService } from '@app/services/notifications/notifications-service';
+import { LazyImgDirective } from '../../../utils/lazy-load.directive';
 
 @NgModule({
 	declarations: [
@@ -44,6 +43,7 @@ import { NotificationsService } from '@app/services/notifications/notifications-
 		MangaSourcePageComponent,
 		ViewPortComponent,
 		WorkspaceComponent,
+		LazyImgDirective
 	],
 	entryComponents: [DialogWindowComponent],
 	//providers: [WebPushClient, NotificationsService],
