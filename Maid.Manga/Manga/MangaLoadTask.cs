@@ -6,6 +6,7 @@
 	using Maid.Notifications;
 	using Maid.RabbitMQ;
 	using Microsoft.Extensions.Logging;
+	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
@@ -57,21 +58,26 @@
 		}
 
 		private async Task UpdateMangaChaptersAsync(MangaInfo manga) {
-			var newManga = await _mangaLoader.LoadMangaInfoAsync(manga);
-			var chapters = await _chaptersRep.GetByAsync(chapter => chapter.MangaId == manga.Id);
-			var currentChapters = manga.Chapters;
-			var newChapters = new List<MangaChapterInfo>();
-			newManga.Chapters.ForEach(chapter => {
-				if (currentChapters.Any(c => c.Name == chapter.Name)) {
-					return;
+			_log.LogInformation($"Started loading new chapters for '{manga.Name}' title");
+			try {
+				var newManga = await _mangaLoader.LoadMangaInfoAsync(manga);
+				var chapters = await _chaptersRep.GetByAsync(chapter => chapter.MangaId == manga.Id);
+				var currentChapters = manga.Chapters;
+				var newChapters = new List<MangaChapterInfo>();
+				newManga.Chapters.ForEach(chapter => {
+					if (currentChapters.Any(c => c.Name == chapter.Name)) {
+						return;
+					}
+					newChapters.Add(chapter);
+					_chaptersRep.Create(chapter);
+				});
+				_log.LogInformation($"Found {newChapters.Count} new chapters for '{newManga.Name}' title");
+				if (newChapters.IsNotEmpty()) {
+					_chaptersRep.Save();
+					CreateNewMangaNotifications(newChapters);
 				}
-				newChapters.Add(chapter);
-				_chaptersRep.Create(chapter);
-			});
-			_log.LogInformation($"Found {newChapters.Count} new chapters for '{newManga.Name}' title");
-			if (newChapters.IsNotEmpty()) {
-				_chaptersRep.Save();
-				CreateNewMangaNotifications(newChapters);
+			} catch (Exception ex) {
+				_log.LogError($"Error while loading new info for '{manga.Name}' title. Error info: \n{ex.Message}\n{ex.StackTrace}");
 			}
 		}
 
