@@ -109,7 +109,7 @@ namespace Maid.Auth.API
 			app.UseCors();
 			app.UseIdentityServer();
 
-			app.UseMiddleware<ExceptionMiddleware>();
+			app.UseMiddleware<ExceptionMiddleware>(); 
 
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllers();
