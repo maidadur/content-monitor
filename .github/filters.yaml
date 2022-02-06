@@ -4,6 +4,7 @@ shared: &shared
 frontend:
     - UI/**
 auth-api:
+    - *shared
     - Maid.Auth.API/**
 manga-api:
     - *shared
