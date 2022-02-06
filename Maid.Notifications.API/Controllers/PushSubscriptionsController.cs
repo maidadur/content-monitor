@@ -3,6 +3,7 @@ using Maid.Core.DB;
 using Maid.Notifications.DB;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Maid.Notifications.Api.Controllers
@@ -40,6 +41,9 @@ namespace Maid.Notifications.Api.Controllers
 
 		[HttpPost]
 		public async Task Post([FromBody] PushSubscription pushSubscription) {
+			if (pushSubscription == null) {
+				throw new ArgumentNullException(nameof(pushSubscription));
+			}
 			var subscription = new Subscription(pushSubscription);
 			_pushSubscriptionsRepository.Create(subscription);
 			_pushSubscriptionsRepository.Save();

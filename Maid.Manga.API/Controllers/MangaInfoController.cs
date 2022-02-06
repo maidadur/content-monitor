@@ -26,6 +26,9 @@
 
 		[HttpPost("LoadMangaInfo")]
 		public async Task<ActionResult> LoadMangaInfo([FromBody] MangaInfo item) {
+			if (item == null) {
+				return BadRequest("Manga info is nulll");
+			}
 			item = await _mangaLoader.LoadMangaInfoAsync(item);
 			_chaptersRep.Delete(chapter => chapter.Manga.Id == item.Id);
 			_chaptersRep.Save();

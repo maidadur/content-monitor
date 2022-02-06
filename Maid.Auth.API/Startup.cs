@@ -1,4 +1,5 @@
 using IdentityServer4.Services;
+using Maid.Core.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
@@ -107,6 +108,8 @@ namespace Maid.Auth.API
 
 			app.UseCors();
 			app.UseIdentityServer();
+
+			app.UseMiddleware<ExceptionMiddleware>();
 
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllers();

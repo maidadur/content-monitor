@@ -2,6 +2,7 @@
 {
 	using Maid.Core;
 	using Maid.Core.DB;
+	using Maid.Core.Exceptions;
 	using Maid.Manga;
 	using Maid.Manga.DB;
 	using Maid.Manga.Html;
@@ -74,6 +75,8 @@
 			});
 
 			LookupTypeManager.Instance.LoadLookupTypes(Assembly.GetAssembly(typeof(MangaDbContext)));
+
+			app.UseMiddleware<ExceptionMiddleware>();
 
 			try {
 				MessageQueuesManager.Instance

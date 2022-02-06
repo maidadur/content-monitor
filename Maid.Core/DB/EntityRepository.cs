@@ -48,9 +48,11 @@
 
 		public void Delete(Guid id) {
 			var entityToDelete = Context.Set<TEntity>().FirstOrDefault(e => e.Id == id);
-			if (entityToDelete != null) {
-				Context.Set<TEntity>().Remove(entityToDelete);
+			if (entityToDelete == null) {
+				throw new KeyNotFoundException("Item with specified key not found");
 			}
+			Context.Set<TEntity>().Remove(entityToDelete);
+
 		}
 
 		public TEntity Get(Guid id) {

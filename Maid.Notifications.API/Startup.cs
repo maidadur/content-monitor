@@ -1,5 +1,6 @@
 using Lib.Net.Http.WebPush;
 using Maid.Core.DB;
+using Maid.Core.Exceptions;
 using Maid.Notifications.DB;
 using Maid.RabbitMQ;
 using Microsoft.AspNetCore.Builder;
@@ -58,6 +59,8 @@ namespace Maid.Notifications.Api
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllers();
 			});
+
+			app.UseMiddleware<ExceptionMiddleware>();
 
 			try {
 				MessageQueuesManager.Instance
