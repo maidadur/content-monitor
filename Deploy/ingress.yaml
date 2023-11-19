@@ -18,7 +18,7 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: maid-manga-api
+          serviceName: maid-content-api
           servicePort: 80
   - host: auth.{hostname}
     http:

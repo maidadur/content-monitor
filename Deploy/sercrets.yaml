@@ -1,7 +1,7 @@
 apiVersion: "v1"
 kind: "Secret"
 metadata:
-    name: "maid-manga"
+    name: "maid-content"
     namespace: "default"
 data:
     Maid_Auth_ConnectionString: ""
