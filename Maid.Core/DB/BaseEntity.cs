@@ -10,7 +10,7 @@
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public Guid Id { get; set; }
 
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime? CreatedOn { get; set; } = DateTime.Now;
 	}
 }

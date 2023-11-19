@@ -53,7 +53,8 @@ namespace Maid.Auth.API.Controllers
 						IsPersistent = true,
 						ExpiresUtc = DateTimeOffset.UtcNow.AddHours(12)
 					};
-					await HttpContext.SignInAsync(user.Id, user.UserName);
+					// TODO redo login
+					//await HttpContext.SignInAsync(user.Id, user.UserName);
 					return new JsonResult(new { RedirectUrl = model.ReturnUrl, IsOk = true });
 				}
 				_log.LogError("Password is incorrect");

@@ -19,7 +19,7 @@ namespace Maid.Auth.API
 			{
 				new ApiResource("client", "Resource API")
 				{
-					Scopes = {new Scope("api")}
+					Scopes = new [] { "api" }
 				}
 			};
 		}

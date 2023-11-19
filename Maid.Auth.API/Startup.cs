@@ -29,7 +29,8 @@ namespace Maid.Auth.API
 			string uiUrl = Configuration["UI_Url"];
 			services.AddTransient<IReturnUrlParser, ReturnUrlParser>();
 			services.AddControllers();
-			services.AddDbContext<AppIdentityDbContext>(options => options.UseMySql(Configuration["Maid_Auth_ConnectionString"]));
+			services.AddDbContext<AppIdentityDbContext>(options => options.UseMySql(Configuration["Maid_Auth_ConnectionString"], 
+				ServerVersion.AutoDetect(Configuration["Maid_Auth_ConnectionString"])));
 
 			services.AddIdentity<AppUser, IdentityRole>()
 				.AddEntityFrameworkStores<AppIdentityDbContext>()
@@ -64,6 +65,7 @@ namespace Maid.Auth.API
 				.AddOperationalStore(options => {
 					options.ConfigureDbContext = builder =>
 						builder.UseMySql(Configuration["Maid_Auth_ConnectionString"],
+						ServerVersion.AutoDetect(Configuration["Maid_Auth_ConnectionString"]),
 						sql => sql.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
 					options.EnableTokenCleanup = true;
 					options.TokenCleanupInterval = 360;

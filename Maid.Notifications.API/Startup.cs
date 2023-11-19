@@ -24,7 +24,7 @@ namespace Maid.Notifications.Api
 		private void SetupDbServices(IServiceCollection services) {
 			var connection = Configuration["Maid_Push_ConnectionString"];
 			services.AddDbContext<NotificationsDbContext>(options =>
-				options.UseMySql(connection)
+				options.UseMySql(connection, ServerVersion.AutoDetect(connection))
 			);
 			services.AddScoped<INotificationsDbContext, NotificationsDbContext>();
 			services.AddScoped<DbContext, NotificationsDbContext>();

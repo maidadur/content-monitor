@@ -2,6 +2,7 @@
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
@@ -137,16 +138,19 @@ namespace Maid.Auth.API
 		[DebuggerStepThrough]
 		internal static AuthorizationRequest ToAuthorizationRequest(this ValidatedAuthorizeRequest request) {
 			var authRequest = new AuthorizationRequest {
-				ClientId = request.ClientId,
+				
+				Client = new Client {
+					ClientId = request.ClientId
+				},
 				RedirectUri = request.RedirectUri,
 				DisplayMode = request.DisplayMode,
 				UiLocales = request.UiLocales,
 				IdP = request.GetIdP(),
 				Tenant = request.GetTenant(),
 				LoginHint = request.LoginHint,
-				PromptMode = request.PromptMode,
+				//PromptMode = request.PromptMode,
 				AcrValues = request.GetAcrValues(),
-				ScopesRequested = request.RequestedScopes,
+				//ScopesRequested = request.RequestedScopes,
 			};
 
 			authRequest.Parameters.Add(request.Raw);

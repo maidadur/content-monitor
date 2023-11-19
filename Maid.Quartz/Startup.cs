@@ -41,23 +41,23 @@ namespace Maid.Quartz
 
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddLogging();
-			services.Add(new ServiceDescriptor(typeof(IJob), typeof(LoadMangaJob), ServiceLifetime.Transient));
+			services.Add(new ServiceDescriptor(typeof(IJob), typeof(LoadContentJob), ServiceLifetime.Transient));
 			services.AddSingleton<IJobFactory, ScheduledJobFactory>();
 			services.AddTransient<IMessageClient, MessageClient>();
 			services.AddTransient(provider => {
-				return JobBuilder.Create<LoadMangaJob>()
-				  .WithIdentity("LoadManga.job", "MangaGroup")
+				return JobBuilder.Create<LoadContentJob>()
+				  .WithIdentity("LoadContent.job", "ContentGroup")
 				  .Build();
 			});
 
-			Console.WriteLine("LoadMangaIntervalSeconds: " + Configuration["LoadMangaIntervalSeconds"]);
+			Console.WriteLine("LoadContentIntervalSeconds: " + Configuration["LoadContentIntervalSeconds"]);
 			services.AddTransient(provider => {
 				return TriggerBuilder.Create()
-					.WithIdentity($"LoadManga.trigger", "MangaGroup")
+					.WithIdentity($"LoadContent.trigger", "ContentGroup")
 					.StartNow()
 					.WithSimpleSchedule
 					 (s =>
-						s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["LoadMangaIntervalSeconds"])))
+						s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["LoadContentIntervalSeconds"])))
 						.RepeatForever()
 					 )
 					 .Build();

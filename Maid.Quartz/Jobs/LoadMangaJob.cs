@@ -6,20 +6,20 @@
 	using System;
 	using System.Threading.Tasks;
 
-	public class LoadMangaJob : IJob
+	public class LoadContentJob : IJob
 	{
 		private readonly IMessageClient _client;
-		private readonly ILogger<LoadMangaJob> _logger;
+		private readonly ILogger<LoadContentJob> _logger;
 
-		public LoadMangaJob(ILogger<LoadMangaJob> logger, IMessageClient messageClient) {
+		public LoadContentJob(ILogger<LoadContentJob> logger, IMessageClient messageClient) {
 			_logger = logger;
 			_client = messageClient;
 		}
 
 		public async Task Execute(IJobExecutionContext context) {
-			_logger.LogInformation($">> LoadMangaJob fired:  {DateTime.Now}");
+			_logger.LogInformation($">> LoadContentJob fired:  {DateTime.Now}");
 			_client.SendMessage("quartz", null);
-			_logger.LogInformation($">> LoadMangaJob published message");
+			_logger.LogInformation($">> LoadContentJob published message");
 			await Task.CompletedTask;
 		}
 	}
