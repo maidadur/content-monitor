@@ -6,12 +6,12 @@ frontend:
 auth-api:
     - *shared
     - Maid.Auth.API/**
-manga-api:
+content-api:
     - *shared
-    - Maid.Manga/**
+    - Maid.Content/**
     - Maid.Notifications/**
-    - Maid.Manga.DB/**
-    - Maid.Manga.API/**
+    - Maid.Content.DB/**
+    - Maid.Content.API/**
 push-api:
     - *shared
     - Maid.Notifications/**
