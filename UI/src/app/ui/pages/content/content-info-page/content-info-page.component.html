@@ -1,0 +1,42 @@
+<div class="main-page-container">
+	<div class="row">
+		<div class="col-sm-6">
+			<h3>
+				{{model.name}}
+			</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 page-top-control-panel">
+			<button mat-button (click)="goBack();">Back</button>
+			<button mat-raised-button class="maid-button" (click)="doSave();">Save</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+			<img src="{{model.imageUrl}}" class="form-image" />
+		</div>
+		<div class="col-sm-6">
+			<mat-form-field class="page-input">
+				<input matInput
+					   #contentUrl
+					   autocomplete="doNotAutoComplete"
+					   placeholder="Url"
+					   [(ngModel)]="model.href"
+					   (paste)="onHrefPaste($event)" />
+			</mat-form-field>
+			<mat-form-field class="page-input">
+				<input matInput placeholder="Name" [(ngModel)]="model.name" />
+			</mat-form-field>
+			<div>
+				<label class="content-status">{{model.status}}</label>
+			</div>
+		</div>
+	</div>
+	<mat-divider class="divider"></mat-divider>
+	<div class="row">
+		<div class="col-sm-12">
+			<app-content-chapters-detail [parentId]="model.id"></app-content-chapters-detail>
+		</div>
+	</div>
+</div>

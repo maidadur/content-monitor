@@ -1,15 +1,16 @@
 import { Routes } from '@angular/router';
 
-import { MangaSectionComponent } from '../manga/manga-section/manga-section.component';
-import { MangaPageComponent } from '../manga/manga-page/manga-page.component';
-import { MangaTitlesSectionComponent } from '../manga/manga-titles-section/manga-titles-section.component';
-import { MangaSourcesSectionComponent } from '../manga/manga-sources-section/manga-sources-section.component';
-import { MangaSourcePageComponent } from '../manga/manga-source-page/manga-source-page.component';
+import { ContentNotificationSectionComponent } from '../content/content-notifications-section/content-notifications-section.component';
+import { ContentInfoSectionComponent } from '../content/content-info-section/content-info-section.component';
+import { ContentSourceSectionComponent } from '../content/content-source-section/content-source-section.component';
+import { ContentInfoPageComponent } from '../content/content-info-page/content-info-page.component';
+import { ContentSourcePageComponent } from '../content/content-source-page/content-source-page.component';
+
 
 export const workspaceRoutes: Routes = [
-	{ path: 'manga', component: MangaSectionComponent },
-	{ path: 'manga/titles', component: MangaTitlesSectionComponent },
-	{ path: 'manga/sources', component: MangaSourcesSectionComponent },
-	{ path: 'manga/titles/:id', component: MangaPageComponent },
-	{ path: 'manga/sources/:id', component: MangaSourcePageComponent },
+	{ path: 'content', component: ContentNotificationSectionComponent },
+	{ path: 'content/content-info', component: ContentInfoSectionComponent },
+	{ path: 'content/sources', component: ContentSourceSectionComponent },
+	{ path: 'content/content-info/:id', component: ContentInfoPageComponent },
+	{ path: 'content/sources/:id', component: ContentSourcePageComponent },
 ];

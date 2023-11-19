@@ -1,0 +1,32 @@
+<h3>
+	New content updates
+</h3>
+<div class="content-section-navigation">
+	<a [routerLink]="['content-info']">
+		<span class="span-icon fa fa-copyright fa-1x"></span>
+		<span>Titles</span>
+	</a>
+	<a [routerLink]="['sources']">
+		<span class="span-icon fa fa-sitemap fa-1x"></span>
+		<span>Sources</span>
+	</a>
+</div>
+<br />
+<div class="row content-section-content">
+	<mat-grid-list cols="6" rowHeight="230px" class="content-grid">
+		<a *ngFor="let item of items" [attr.href]="item.href" target="_blank">
+			<mat-grid-tile [colspan]="1" [rowspan]="1">
+				<mat-grid-tile-header>
+					<span class="content-name-grid-caption">{{item.contentName}}</span>
+				</mat-grid-tile-header>
+				<span *ngIf="!item.isRead" class="new-chapter-plus fa fa-exclamation fa-1x"></span>
+				<img class="content-grid-image" [attr.src]="item.imageUrl" />
+				<mat-grid-tile-footer>
+					<span class="content-grid-caption">{{item.name}}</span>
+					<span class="content-grid-createdon">{{item.createdOn}}</span>
+				</mat-grid-tile-footer>
+			</mat-grid-tile>
+		</a>
+	</mat-grid-list>
+	<app-view-port [scrollableParentDomEl]="parentBody" (onVisible)="onViewPortVisible()"></app-view-port>
+</div>

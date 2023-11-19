@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SwPush } from '@angular/service-worker'
-import { NotificationsService } from '@app/services/notifications/notifications-service';
+import { PushNotificationsService } from '@app/services/notifications/push-notifications-service';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ export class WebPushClient {
 
 	constructor(
 			private _swPush: SwPush,
-			private _notificationsService: NotificationsService
+			private _notificationsService: PushNotificationsService
 		) {
 	}
 

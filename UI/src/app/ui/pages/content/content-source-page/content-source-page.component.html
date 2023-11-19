@@ -1,0 +1,66 @@
+<div class="main-page-container">
+	<div class="row">
+		<div class="col-sm-6">
+			<h3>
+				{{model.name}}
+			</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 page-top-control-panel">
+			<button mat-button (click)="goBack();">Back</button>
+			<button mat-raised-button class="maid-button" (click)="doSave();">Save</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<mat-form-field class="page-input">
+				<input matInput [(ngModel)]="model.domainUrl" #domainUrl autocomplete="doNotAutoComplete"
+					placeholder="Domain url" />
+			</mat-form-field>
+			<mat-form-field class="page-input">
+				<input matInput placeholder="Name" [(ngModel)]="model.name" />
+			</mat-form-field>
+			<mat-form-field class="page-input">
+				<input matInput placeholder="Image url" [(ngModel)]="model.imageUrl" />
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<mat-form-field class="page-input">
+				<input matInput placeholder="Title xpath" [(ngModel)]="model.titleXpath" />
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<mat-form-field class="page-input">
+				<input matInput placeholder="Image xpath" [(ngModel)]="model.imageXpath" />
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="col-sm-6">
+			<mat-form-field class="page-input">
+				<input matInput placeholder="Status xpath" [(ngModel)]="model.statusXpath" />
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="col-sm-6">
+			<mat-form-field class="page-input">
+				<input matInput placeholder="Chapter item xpath" [(ngModel)]="model.collectionItemXpath" />
+			</mat-form-field>
+			<mat-form-field class="page-input">
+				<input matInput placeholder="Chapter title xpath" [(ngModel)]="model.collectionItemTitleXpath" />
+			</mat-form-field>
+			<mat-form-field class="page-input">
+				<input matInput placeholder="Chapter href xpath" [(ngModel)]="model.collectionItemHrefXpath" />
+			</mat-form-field>
+			<mat-form-field class="page-input">
+				<input matInput placeholder="Chapter date xpath" [(ngModel)]="model.collectionItemDateXpath" />
+			</mat-form-field>
+		</div>
+	</div>
+</div>

@@ -19,20 +19,20 @@ body.body {
 		background-color: @button-color;
 
 	}
-	.mat-form-field-underline{
+	.mat-mdc-form-field-underline{
 		background-color: @field-font-color;
 	}
 			
-	.mat-raised-button {
-		color:#fff;
+	.mat-mdc-raised-button, .mdc-button, mat-radio-group .mdc-label {
+		color: @font-color;
 	}
 
-	.mat-grid-list .mat-grid-tile .mat-grid-tile-footer{ 
+	.mat-mdc-grid-list .mat-mdc-grid-tile .mat-mdc-grid-tile-footer{ 
 		background	: rgba(0,0,0,0.55);
 		height: 70px;
 
 		span {
-			color: #fff;
+			color: @font-color;
 		}
 	}
 
@@ -70,11 +70,16 @@ body .container-fluid {
 	margin-right: 8px;
 }
 
-.mat-form-field-label span{
+.mat-mdc-form-field-label span{
 	font-size: 18px;
 	color: @field-font-color;
 }
 
 input:-webkit-autofill {
 	-webkit-box-shadow: 0 0 0px 100% transparent inset;
+}
+
+
+mat-radio-group .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle {
+	border-color: @font-color;
 }
