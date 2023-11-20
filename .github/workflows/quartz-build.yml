@@ -58,7 +58,7 @@ jobs:
         uses: matootie/dokube@v1.3.4
         with:
           personalAccessToken: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          clusterName: k8s-1-20-2-do-0-ams3-1621366951987
+          clusterName: k8s-maid-cluster
       - 
         name: Delete pod
         run: kubectl delete pod -l app=maid-quartz-api
