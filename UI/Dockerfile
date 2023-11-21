@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./app/
 COPY . /app
 RUN npm install
-RUN ./node_modules/.bin/ng build
+RUN ./node_modules/.bin/ng build --configuration=production
 
 FROM nginx:1.17.1-alpine
 COPY --from=app-build /app/nginx.conf /etc/nginx/nginx.conf
