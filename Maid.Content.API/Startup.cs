@@ -54,6 +54,7 @@
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 			if (env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
+				app.UseHttpsRedirection();
 				IdentityModelEventSource.ShowPII = true;
 			} else {
 				app.UseHsts();
@@ -67,7 +68,6 @@
 			//	await context.Response.WriteAsync(exception.Message + "\n" + exception.StackTrace);
 			//}));
 
-			app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseCors();
 			

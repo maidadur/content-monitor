@@ -23,11 +23,11 @@ namespace Maid.Quartz
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IScheduler scheduler) {
 			if (env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
+				app.UseHttpsRedirection();
 			} else {
 				app.UseHsts();
 			}
 
-			app.UseHttpsRedirection();
 
 			try {
 				MessageQueuesManager.Instance
