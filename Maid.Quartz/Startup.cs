@@ -22,11 +22,13 @@ namespace Maid.Quartz
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IScheduler scheduler) {
 			if (env.IsDevelopment()) {
+				Console.WriteLine("env.IsDevelopment()");
 				app.UseDeveloperExceptionPage();
 				app.UseHttpsRedirection();
-			} else {
-				app.UseHsts();
-			}
+			} 
+			//else {
+			//	app.UseHsts();
+			//}
 
 
 			try {

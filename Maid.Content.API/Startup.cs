@@ -53,12 +53,14 @@
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 			if (env.IsDevelopment()) {
+				Console.WriteLine("env.IsDevelopment()");
 				app.UseDeveloperExceptionPage();
 				app.UseHttpsRedirection();
 				IdentityModelEventSource.ShowPII = true;
-			} else {
-				app.UseHsts();
-			}
+			} 
+			//else {
+			//	app.UseHsts();
+			//}
 
 			//app.UseExceptionHandler(c => c.Run(async context =>
 			//{
