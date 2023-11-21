@@ -1,8 +1,10 @@
+import { UrlUtils } from "@app/utils/url-utils";
+
 export const environment = {
 	production: true,
-	contentHost: 'https://content-api.{domain}',
+	contentHost: UrlUtils.replaceUrlDomain('https://content-api.{domain}'),
 	authHost: '',
-	notificationsHost: "https://push.{domain}",
+	notificationsHost: UrlUtils.replaceUrlDomain("https://push.{domain}"),
 	auth: {
 		flowName: "B2C_1_maid-prod",
 		authorityDomain: "maidadur.b2clogin.com",
