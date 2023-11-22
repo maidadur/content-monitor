@@ -29,7 +29,7 @@
 				ILogger<ContentLoadTask> log) {
 			_contentInfoRep = contentInfoRep;
 			_contentLoader = contentLoader;
-			this._messageClient = messageClient;
+			_messageClient = messageClient;
 			_chaptersRep = chaptersRep;
 			_contentNotificationRep = contentNotificationRep;
 			_log = log;
@@ -57,12 +57,22 @@
 			_messageClient.SendMessage("notifications", notification);
 		}
 
+		private void SendStatusNotification(ContentInfo newContent) {
+			var notification = new Notification {
+				Title = newContent.Name,
+				Body = newContent.Status,
+				Icon = newContent.ImageUrl
+			};
+			_messageClient.SendMessage("notifications", notification);
+		}
+
 		private async Task UpdateContentChaptersAsync(ContentInfo contentInfo) {
 			_log.LogInformation($"Started loading new items for '{contentInfo.Name}'");
 			try {
 				var newContent = await _contentLoader.LoadContentInfoAsync(contentInfo);
 				var chapters = await _chaptersRep.GetByAsync(chapter => chapter.ContentInfoId == contentInfo.Id);
 				var currentChapters = contentInfo.Items;
+				var currentStatus = contentInfo.Status;
 				var newCollectionItems = new List<ContentItemInfo>();
 				newContent.Items.ForEach(chapter => {
 					if (currentChapters.Any(c => c.Name == chapter.Name)) {
@@ -75,6 +85,9 @@
 				if (newCollectionItems.IsNotEmpty()) {
 					_chaptersRep.Save();
 					CreateNewContentNotifications(newCollectionItems);
+				}
+				if (newContent.Status != currentStatus) {
+					SendStatusNotification(newContent);
 				}
 				_contentInfoRep.Update(newContent);
 			} catch (Exception ex) {
