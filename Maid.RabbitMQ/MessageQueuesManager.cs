@@ -36,6 +36,7 @@ namespace Maid.RabbitMQ
 
 		public MessageQueuesManager Init(IServiceProvider serviceProvider, string queueUrl = null, int? port = null) {
 			_serviceProvider = serviceProvider;
+			Console.WriteLine($"MessageQueuesManager. Init. {queueUrl}:{port}");
 			var factory = new ConnectionFactory() { HostName = queueUrl ?? "localhost", Port = port ?? 5672 };
 			_connection = factory.CreateConnection();
 			_channel = _connection.CreateModel();
