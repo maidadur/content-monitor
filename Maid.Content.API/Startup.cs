@@ -94,7 +94,8 @@
 						.ConnectToQueue("quartz")
 						.ConnectToQueue("notifications")
 						.ConnectToQueue("save_image")
-						.Subscribe<SaveImageToEntitySubscriber>("save_image")
+						.ConnectToQueue("load_image")
+						.Subscribe<SaveImageToEntitySubscriber>("load_image")
 						.Subscribe<LoadContentQuartzSubscriber>("quartz");
 			} catch {
 				Console.WriteLine("Error. Could not connect to RabbitMQ");

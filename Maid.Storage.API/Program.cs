@@ -46,6 +46,7 @@ namespace Maid.Storage.API
 				MessageQueuesManager.Instance
 						.Init(app.Services, builder.Configuration["Maid_RabbitMQ_Host"], int.Parse(builder.Configuration["Maid_RabbitMQ_Port"]))
 						.ConnectToQueue("save_image")
+						.ConnectToQueue("load_image")
 						.Subscribe<SaveImageToStorageSubscriber>("save_image");
 			} catch {
 				Console.WriteLine("Error. Could not connect to RabbitMQ");

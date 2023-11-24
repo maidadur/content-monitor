@@ -29,7 +29,7 @@
 			Console.WriteLine("Uploaded image " + newFileName);
 			message.ImageUrl = newFileName;
 			var newData = JsonConvert.SerializeObject(message).ToBytesArray();
-			_messageClient.SendMessage("save_image", newData);
+			_messageClient.SendMessage("load_image", newData);
 		}
 	}
 }
