@@ -67,7 +67,7 @@ namespace Maid.Notifications.Api
 				MessageQueuesManager.Instance
 						.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
 						.ConnectToQueue("notifications")
-						.Subsribe<SendNotificationsSubscriber>("notifications");
+						.Subscribe<SendNotificationsSubscriber>("notifications");
 			} catch {
 				Console.WriteLine("Error. Could not connect to RabbitMQ");
 			}

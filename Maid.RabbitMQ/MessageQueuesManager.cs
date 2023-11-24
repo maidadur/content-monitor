@@ -53,7 +53,7 @@ namespace Maid.RabbitMQ
 								 body: data);
 		}
 
-		public MessageQueuesManager Subsribe<T>(string queueName)
+		public MessageQueuesManager Subscribe<T>(string queueName)
 				where T : IMessageConsumer {
 			if (_channel == null) {
 				return Instance;

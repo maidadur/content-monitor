@@ -9,7 +9,7 @@ namespace Maid.Core
 	public static partial class DbContextUtils
 	{
 		public static IQueryable<BaseEntity> Set(this DbContext _context, Type t) {
-			return (IQueryable<BaseEntity>)_context.GetType().GetMethod("Set").MakeGenericMethod(t).Invoke(_context, null);
+			return (IQueryable<BaseEntity>)_context.GetType().GetMethod("Set", 1, Type.EmptyTypes).MakeGenericMethod(t).Invoke(_context, null);
 		}
 
 		public static IQueryable<TEntity> Include<TEntity>(this IQueryable<TEntity> query, DbContext context)

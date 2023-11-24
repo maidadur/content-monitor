@@ -12,6 +12,12 @@ content-api:
     - Maid.Notifications/**
     - Maid.Content.DB/**
     - Maid.Content.API/**
+storage-api:
+    - *shared
+    - Maid.IStorage/**
+    - Maid.Storage/**
+    - Maid.AzureStorage/**
+    - Maid.Storage.API/**
 push-api:
     - *shared
     - Maid.Notifications/**

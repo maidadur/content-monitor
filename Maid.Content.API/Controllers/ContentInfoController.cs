@@ -8,6 +8,8 @@
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.Identity.Web.Resource;
 	using System.Threading.Tasks;
+	using Maid.RabbitMQ;
+	using Newtonsoft.Json;
 
 	[Route("api/contentinfo")]
 	[ApiController]
@@ -16,13 +18,16 @@
 	public class ContentInfoController : BaseApiController<ContentInfo>
 	{
 		private IContentLoader _contentLoader;
+		private readonly IMessageClient _messageClient;
 		private IEntityRepository<ContentItemInfo> _contentItemsRep;
 
 		public ContentInfoController(
 				IEntityRepository<ContentInfo> contentInfoRep,
 				IEntityRepository<ContentItemInfo> contentItemsRep,
-				IContentLoader contentLoader) : base(contentInfoRep) {
+				IContentLoader contentLoader,
+				IMessageClient messageClient) : base(contentInfoRep) {
 			_contentLoader = contentLoader;
+			_messageClient = messageClient;
 			_contentItemsRep = contentItemsRep;
 		}
 
@@ -36,6 +41,12 @@
 			_contentItemsRep.Save();
 			EntityRepository.Update(item);
 			EntityRepository.Save();
+			var message = JsonConvert.SerializeObject(new SaveImageMessage {
+				EntityId = item.Id,
+				EntityName = item.GetType().AssemblyQualifiedName,
+				ImageUrl = item.ImageUrl
+			}).ToBytesArray();
+			_messageClient.SendMessage("save_image", message);
 			return Ok();
 		}
 	}

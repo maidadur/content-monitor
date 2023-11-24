@@ -92,6 +92,7 @@
 				}
 				contentInfo.Status = newContent.Status;
 				_contentInfoRep.Update(contentInfo);
+				_contentInfoRep.Save();
 			} catch (Exception ex) {
 				_log.LogError($"Error while loading new info for '{contentInfo.Name}'. Error info: \n{ex.Message}\n{ex.StackTrace}");
 			}

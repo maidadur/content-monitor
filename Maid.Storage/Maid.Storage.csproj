@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Maid.Core\Maid.Core.csproj" />
+    <ProjectReference Include="..\Maid.IStorage\Maid.IStorage.csproj" />
+    <ProjectReference Include="..\Maid.RabbitMQ\Maid.RabbitMQ.csproj" />
+  </ItemGroup>
+
+</Project>

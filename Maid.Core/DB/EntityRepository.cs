@@ -8,8 +8,7 @@
 	using System.Linq.Expressions;
 	using System.Threading.Tasks;
 
-	public class EntityRepository : IEntityRepository
-	{
+	public class EntityRepository : IEntityRepository {
 		public EntityRepository(DbContext repositoryContext) {
 			Context = repositoryContext;
 		}
@@ -18,6 +17,24 @@
 
 		public async Task<IEnumerable<BaseEntity>> GetAllAsync(Type type) {
 			return await Context.Set(type).ToListAsync();
+		}
+
+		public async Task<BaseEntity> GetAsync(Type type, Guid id) {
+			return await Context.Set(type)
+				.SingleOrDefaultAsync(item => item.Id == id);
+		}
+
+		public BaseEntity Get(Type type, Guid id) {
+			return Context.Set(type)
+			.SingleOrDefault(item => item.Id == id);
+		}
+
+		public void Save() {
+			Context.SaveChanges();
+		}
+
+		public void Update(BaseEntity entity) {
+			Context.Update(entity);
 		}
 	}
 

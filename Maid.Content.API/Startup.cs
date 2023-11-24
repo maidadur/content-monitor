@@ -18,6 +18,8 @@
 	using Microsoft.IdentityModel.Logging;
 	using System;
 	using System.Reflection;
+	using Maid.Content.API.Messaging;
+	using Maid.Content.Content;
 
 	public class Startup
 	{
@@ -47,7 +49,9 @@
 			services.AddTransient<ConfigHelper, ConfigHelper>();
 			services.AddTransient<ContentLoadTask, ContentLoadTask>();
 			services.AddTransient<LoadContentQuartzSubscriber, LoadContentQuartzSubscriber>();
+			services.AddTransient<SaveImageToEntitySubscriber, SaveImageToEntitySubscriber>();
 			services.AddTransient<IMessageClient, MessageClient>();
+			services.AddTransient<SaveImageToEntityTask, SaveImageToEntityTask>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,7 +93,9 @@
 						.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
 						.ConnectToQueue("quartz")
 						.ConnectToQueue("notifications")
-						.Subsribe<LoadContentQuartzSubscriber>("quartz");
+						.ConnectToQueue("save_image")
+						.Subscribe<SaveImageToEntitySubscriber>("save_image")
+						.Subscribe<LoadContentQuartzSubscriber>("quartz");
 			} catch {
 				Console.WriteLine("Error. Could not connect to RabbitMQ");
 			}
