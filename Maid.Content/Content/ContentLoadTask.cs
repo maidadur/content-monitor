@@ -90,7 +90,8 @@
 				if (newContent.Status != currentStatus) {
 					SendStatusNotification(newContent);
 				}
-				_contentInfoRep.Update(newContent);
+				contentInfo.Status = newContent.Status;
+				_contentInfoRep.Update(contentInfo);
 			} catch (Exception ex) {
 				_log.LogError($"Error while loading new info for '{contentInfo.Name}'. Error info: \n{ex.Message}\n{ex.StackTrace}");
 			}
