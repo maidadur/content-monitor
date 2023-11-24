@@ -5,6 +5,7 @@
 	using Maid.IStorage;
 	using Maid.RabbitMQ;
 	using Newtonsoft.Json;
+	using System.Text;
 
 	public class SaveImageToStorageTask
 	{
@@ -28,8 +29,7 @@
 			string newFileName = await _storageProvider.UploadFile(imageBytes, extention);
 			Console.WriteLine("Uploaded image " + newFileName);
 			message.ImageUrl = newFileName;
-			var newData = JsonConvert.SerializeObject(message).ToBytesArray();
-			_messageClient.SendMessage("load_image", newData);
+			_messageClient.SendMessage("load_image", message);
 		}
 	}
 }

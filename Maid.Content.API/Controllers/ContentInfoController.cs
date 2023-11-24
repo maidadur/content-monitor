@@ -11,6 +11,7 @@
 	using Maid.RabbitMQ;
 	using Newtonsoft.Json;
 	using System;
+	using System.Text;
 
 	[Route("api/contentinfo")]
 	[ApiController]
@@ -42,13 +43,11 @@
 			_contentItemsRep.Save();
 			EntityRepository.Update(item);
 			EntityRepository.Save();
-			var message = JsonConvert.SerializeObject(new SaveImageMessage {
+			_messageClient.SendMessage("save_image", new SaveImageMessage {
 				EntityId = item.Id,
 				EntityName = item.GetType().AssemblyQualifiedName,
 				ImageUrl = item.ImageUrl
-			}).ToBytesArray();
-			Console.WriteLine("sent save_image message");
-			_messageClient.SendMessage("save_image", message);
+			});
 			return Ok();
 		}
 	}
