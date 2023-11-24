@@ -86,6 +86,7 @@
 					_chaptersRep.Save();
 					CreateNewContentNotifications(newCollectionItems);
 				}
+				_log.LogInformation($"Status for '{newContent.Name}'. Old: '{currentStatus}'. New: '{newContent.Status}'");
 				if (newContent.Status != currentStatus) {
 					SendStatusNotification(newContent);
 				}

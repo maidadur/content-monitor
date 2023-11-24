@@ -58,6 +58,7 @@
 		public TEntity Get(Guid id) {
 			return Context.Set<TEntity>().AsQueryable()
 				.Include(Context)
+				.AsNoTracking()
 				.SingleOrDefault(item => item.Id == id);
 		}
 
@@ -67,11 +68,13 @@
 			if (options.LoadLookups) {
 				return dbSet
 					.Include(Context)
+					.AsNoTracking()
 					.ApplyOrderOptions(options.OrderOptions)
 					.ApplyOffsetOptions(options)
 					.ToList();
 			}
 			return dbSet
+				.AsNoTracking()
 				.ApplyOrderOptions(options.OrderOptions)
 				.ApplyOffsetOptions(options)
 				.ToList();
@@ -83,11 +86,13 @@
 			if (options.LoadLookups) {
 				return await dbSet
 					.Include(Context)
+					.AsNoTracking()
 					.ApplyOrderOptions(options.OrderOptions)
 					.ApplyOffsetOptions(options)
 					.ToListAsync();
 			}
 			return await dbSet
+				.AsNoTracking()
 				.ApplyOrderOptions(options.OrderOptions)
 				.ApplyOffsetOptions(options)
 				.ToListAsync();
@@ -96,11 +101,13 @@
 		public Task<TEntity> GetAsync(Guid id) {
 			return Context.Set<TEntity>().AsQueryable()
 				.Include(Context)
+				.AsNoTracking()
 				.SingleOrDefaultAsync(item => item.Id == id);
 		}
 
 		public IEnumerable<TEntity> GetBy(Expression<Func<TEntity, bool>> expression) {
 			return Context.Set<TEntity>()
+				.AsNoTracking()
 				.Where(expression)
 				.ToList();
 		}
@@ -108,6 +115,7 @@
 		public async Task<IEnumerable<TEntity>> GetByAsync(Expression<Func<TEntity, bool>> expression, SelectOptions options = null) {
 			options = options ?? new SelectOptions();
 			return await Context.Set<TEntity>()
+				.AsNoTracking()
 				.ApplyOrderOptions(options.OrderOptions)
 				.Where(expression)
 				.ApplyOffsetOptions(options)
