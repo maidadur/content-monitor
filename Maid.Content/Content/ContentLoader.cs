@@ -40,7 +40,7 @@
 			content.ImageUrl = imageUrl;
 			content.Name = name;
 			content.Href = contentInfo.Href;
-			content.Source = contentInfo.Source;
+			content.Source = source;
 			List<ContentItemInfo> collectionItems = contentParser.GetCollectionItems(document, source);
 			collectionItems.Reverse();
 			collectionItems.ForEach(chapter => chapter.ContentInfoId = contentInfo.Id);
@@ -55,14 +55,16 @@
 			contentUrl.CheckArgumentEmptyOrNull(nameof(contentUrl));
 			Uri contentUri = new Uri(contentUrl);
 			ContentSource contentSource = GetSourceByUrl(contentUri);
-			contentInfo.Source = contentSource ?? throw new ArgumentException("Wrong url domain");
+			if (contentSource == null) {
+				throw new ArgumentException("Wrong url domain");
+			}
 			string sourceName = contentSource.Name;
 			ServiceConfigrationSection config = _configHelper.GetServiceConfig(sourceName);
 			if (config == null) {
 				throw new ArgumentException($"No handler for source {sourceName}");
 			}
 			_htmlDocumentLoader.Cookies = config.Cookies;
-			HtmlDocument document = await _htmlDocumentLoader.GetHtmlDoc(contentInfo.Href);
+			HtmlDocument document = await _htmlDocumentLoader.GetHtmlDoc(contentUrl);
 			return FillContentInfo(contentInfo, contentSource, document);
 		}
 	}
