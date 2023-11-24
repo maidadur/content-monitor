@@ -18,14 +18,10 @@
 		}
 
 		public async Task SaveImageToStorage(byte[] data) {
-			Console.WriteLine("SaveImageToStorage");
-			string strData = System.Text.Encoding.UTF8.GetString(data);
-			Console.WriteLine("strData");
+			string strData = Encoding.UTF8.GetString(data);
 			SaveImageMessage message = JsonConvert.DeserializeObject<SaveImageMessage>(strData);
 			byte[] imageBytes = await ImageUtils.LoadImageByUrl(message.ImageUrl);
-			Console.WriteLine("Loaded image");
 			string extention = Path.GetExtension(message.ImageUrl);
-			Console.WriteLine("Image extension: " + extention);
 			string newFileName = await _storageProvider.UploadFile(imageBytes, extention);
 			Console.WriteLine("Uploaded image " + newFileName);
 			message.ImageUrl = newFileName;
