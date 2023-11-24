@@ -18,6 +18,7 @@ namespace Maid.Storage.API
 			);
 			builder.Services.AddTransient<SaveImageToStorageSubscriber, SaveImageToStorageSubscriber>();
 			builder.Services.AddTransient<SaveImageToStorageTask, SaveImageToStorageTask>();
+			builder.Services.AddTransient<IMessageClient, MessageClient>();
 		}
 
 		public static void Main(string[] args) {
