@@ -10,6 +10,7 @@
 	using System.Threading.Tasks;
 	using Maid.RabbitMQ;
 	using Newtonsoft.Json;
+	using System;
 
 	[Route("api/contentinfo")]
 	[ApiController]
@@ -46,6 +47,7 @@
 				EntityName = item.GetType().AssemblyQualifiedName,
 				ImageUrl = item.ImageUrl
 			}).ToBytesArray();
+			Console.WriteLine("sent save_image message");
 			_messageClient.SendMessage("save_image", message);
 			return Ok();
 		}

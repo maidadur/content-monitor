@@ -20,11 +20,15 @@ namespace Maid.AzureStorage
 		}
 
 		public async Task<string> UploadFile(byte[] fileBytes, string extension) {
+			Console.Write("AzureStorageProvider UploadFile");
 			BlobServiceClient blobServiceClient = new BlobServiceClient(ConnectionString);
+			Console.Write("BlobServiceClient blobServiceClient = new BlobServiceClient(ConnectionString);");
 			BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(ContainerName);
+			Console.Write("BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(ContainerName);");
 			string blobName = $"{Guid.NewGuid()}.{extension}";
 			using (MemoryStream memoryStream = new MemoryStream(fileBytes)) {
 				await containerClient.UploadBlobAsync(blobName, memoryStream);
+				Console.Write("await containerClient.UploadBlobAsync(blobName, memoryStream);");
 			}
 			return CreateFileUrl(blobName);
 		}
