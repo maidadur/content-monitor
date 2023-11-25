@@ -46,7 +46,8 @@
 			collectionItems.ForEach(chapter => chapter.ContentInfoId = contentInfo.Id);
 			content.Items = collectionItems;
 			content.Status = contentParser.GetStatus(document, source) ?? "";
-			content.IsStatusPositive = !source.PositiveStatusText.IsNullOrEmpty() ? content.Status.Contains(source.PositiveStatusText) : false;
+			content.IsStatusPositive = !source.PositiveStatusText.IsNullOrEmpty() && !content.Status.IsNullOrEmpty() ? 
+				content.Status.Trim() == source.PositiveStatusText.Trim() : false;
 			return content;
 		}
 
