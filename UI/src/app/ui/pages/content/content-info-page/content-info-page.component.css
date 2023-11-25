@@ -19,3 +19,8 @@
 .divider {
   margin: 10px 0 10px 0;
 }
+
+.form-image {
+  max-height: 364px;
+  max-width: 364px;
+}

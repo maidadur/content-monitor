@@ -16,6 +16,8 @@
 
 		public string Status { get; set; }
 
+		public bool IsStatusPositive { get; set; }
+
 		[JsonIgnore]
 		public List<ContentItemInfo> Items { get; set; }
 	}

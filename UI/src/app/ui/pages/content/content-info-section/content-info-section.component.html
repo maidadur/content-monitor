@@ -11,6 +11,10 @@
 					   [colspan]="1"
 					   [rowspan]="1"
 					   [routerLink]="[item.id]">
+			<span class="content-grid-status" 
+				[ngStyle]="{'background-color': item.isStatusPositive ? 'rgba(111, 111, 111, 0.38)' : 'rgba(0, 0, 0, 0.38)'}">
+					{{item.status}}
+			</span>
 			<img class="content-grid-image" src="{{item.imageUrl}}" />
 			<mat-grid-tile-footer>
 				<span class="content-grid-caption">{{item.name}}</span>

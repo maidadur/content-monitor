@@ -14,7 +14,9 @@ namespace Maid.Content.DB
 
 		public string StatusXpath { get; set; }
 
-		public string CollectionItemXpath { get; set; }
+        public string PositiveStatusText { get; set; }
+
+        public string CollectionItemXpath { get; set; }
 
 		public string CollectionItemHrefXpath { get; set; }
 

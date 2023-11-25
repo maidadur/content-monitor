@@ -91,6 +91,7 @@
 					SendStatusNotification(newContent);
 				}
 				contentInfo.Status = newContent.Status;
+				contentInfo.IsStatusPositive = newContent.IsStatusPositive;
 				_contentInfoRep.Update(contentInfo);
 				_contentInfoRep.Save();
 			} catch (Exception ex) {

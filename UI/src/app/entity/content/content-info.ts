@@ -5,6 +5,7 @@ export class ContentInfo extends BaseEntity {
   href: string;
   imageUrl: string;
   status: string;
+  isStatusPositive?: boolean;
 
   constructor(entity?) {
     super(entity);

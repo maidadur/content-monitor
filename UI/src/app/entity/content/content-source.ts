@@ -14,6 +14,7 @@ export class ContentSource extends BaseLookup {
 	collectionItemHrefXpath?: string;
 
 	statusXpath?: string;
+	positiveStatusText?: string;
 
 	constructor(entity?) {
 		super(entity);
