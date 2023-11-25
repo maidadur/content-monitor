@@ -38,7 +38,7 @@
 		}
 
 		[HttpPost()]
-		public ActionResult AddItem(T item) {
+		public virtual ActionResult AddItem(T item) {
 			if (item == null) {
 				return BadRequest("Parameter object is null");
 			}
