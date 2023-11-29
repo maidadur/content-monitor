@@ -7,14 +7,17 @@
 </div>
 <div class="row">
 	<mat-grid-list cols="6" rowHeight="230px" class="content-grid">
-		<mat-grid-tile *ngFor="let item of items"
-					   [colspan]="1"
-					   [rowspan]="1"
-					   [routerLink]="[item.id]">
-			<span class="content-grid-status" 
-				[ngStyle]="{'background-color': item.isStatusPositive ? 'rgba(16, 175, 59, 0.80)' : 'rgba(0, 0, 0, 0.38)'}">
+		<mat-grid-tile *ngFor="let item of items" [colspan]="1" [rowspan]="1" [routerLink]="[item.id]">
+			<div class="content-grid-status-container" 
+				(click)="onStatusClick(item)" 
+				[ngStyle]="{'background-color': item.isStatusPositive ? 'rgba(16, 175, 59, 0.80)' : 'rgba(0, 0, 0, 0.38)'}"
+			>
+				<span class="content-grid-status "
+					>
 					{{item.status}}
-			</span>
+				</span>
+				<span class="link-icon fa fa-external-link-square"></span>
+			</div>
 			<img class="content-grid-image" src="{{item.imageUrl}}" />
 			<mat-grid-tile-footer>
 				<span class="content-grid-caption">{{item.name}}</span>

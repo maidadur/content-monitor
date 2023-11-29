@@ -26,4 +26,9 @@ export class ContentInfoSectionComponent extends BaseSectionComponent<ContentInf
 		this.items = this.items.filter(i => i.id !== item.id);
 	}
 
+	public onStatusClick(item: ContentInfo) {
+		event.stopPropagation();
+		window.open(item.href, '_blank').focus();
+	}
+
 }

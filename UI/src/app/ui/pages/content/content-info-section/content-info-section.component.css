@@ -1,5 +1,6 @@
 .content-grid-image {
   height: 230px;
+  max-width: 230px;
 	-webkit-box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
 	-moz-box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
 	box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
@@ -24,7 +25,8 @@
 .content-grid .mat-grid-tile {
   cursor: pointer;
 }
-.content-grid-status {
+
+.content-grid-status-container {
   position: absolute;
   top: 0;
   color: white;
@@ -32,4 +34,8 @@
   padding: 3px;
   width: 100%;
   text-align: center;
+
+  .content-grid-status {
+
+  }
 }
