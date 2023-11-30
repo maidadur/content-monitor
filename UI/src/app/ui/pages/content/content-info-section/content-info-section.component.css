@@ -5,8 +5,12 @@
 	-moz-box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
 	box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
 }
-.mat-grid-tile-footer {
+.mat-grid-tile .mat-grid-tile-footer {
   margin: 0 7px 0 7px;
+  width: 100%;
+  max-width: 230px;
+  left: unset;
+  right: unset;
 }
 .section-top-control-panel {
   margin: 20px 0 20px 0;
@@ -32,10 +36,7 @@
   color: white;
   background: rgba(0,0,0,.38);
   padding: 3px;
-  width: 100%;
   text-align: center;
-
-  .content-grid-status {
-
-  }
+  width: 100%;
+  max-width: 230px;
 }
