@@ -88,10 +88,10 @@
 				}
 				_log.LogInformation($"Status for '{newContent.Name}'. Old: '{currentStatus}'. New: '{newContent.Status}'");
 				if (newContent.Status != currentStatus) {
-					SendStatusNotification(newContent);
+					contentInfo.Status = newContent.Status;
+					contentInfo.IsStatusPositive = newContent.IsStatusPositive;
+					SendStatusNotification(contentInfo);
 				}
-				contentInfo.Status = newContent.Status;
-				contentInfo.IsStatusPositive = newContent.IsStatusPositive;
 				_contentInfoRep.Update(contentInfo);
 				_contentInfoRep.Save();
 			} catch (Exception ex) {
