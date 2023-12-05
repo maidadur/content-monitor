@@ -81,12 +81,12 @@
 					newCollectionItems.Add(chapter);
 					_chaptersRep.Create(chapter);
 				});
-				_log.LogInformation($"Found {newCollectionItems.Count} new items for '{newContent.Name}'");
+				_log.LogInformation($"Found {newCollectionItems.Count} new items for '{contentInfo.Name}'");
 				if (newCollectionItems.IsNotEmpty()) {
 					_chaptersRep.Save();
 					CreateNewContentNotifications(newCollectionItems);
 				}
-				_log.LogInformation($"Status for '{newContent.Name}'. Old: '{currentStatus}'. New: '{newContent.Status}'");
+				_log.LogInformation($"Status for '{contentInfo.Name}'. Old: '{currentStatus}'. New: '{newContent.Status}'");
 				if (newContent.Status != currentStatus) {
 					contentInfo.Status = newContent.Status;
 					contentInfo.IsStatusPositive = newContent.IsStatusPositive;
