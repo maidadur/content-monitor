@@ -90,7 +90,9 @@
 				if (newContent.Status != currentStatus) {
 					contentInfo.Status = newContent.Status;
 					contentInfo.IsStatusPositive = newContent.IsStatusPositive;
-					SendStatusNotification(contentInfo);
+					if (newContent.IsStatusPositive) {
+						SendStatusNotification(contentInfo);
+					}
 				}
 				_contentInfoRep.Update(contentInfo);
 				_contentInfoRep.Save();
