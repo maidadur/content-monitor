@@ -5,16 +5,32 @@
 	-moz-box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
 	box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
 }
+
+.grid-list {
+  display: grid;
+    grid-row-gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.mat-grid-tile {
+  position: relative;
+}
+
 .mat-grid-tile .mat-grid-tile-footer {
-  margin: 0 7px 0 7px;
+  padding: 0 7px;
   width: 100%;
   max-width: 230px;
   left: unset;
   right: unset;
+  position: absolute;
+  bottom: 0;
+  background: rgba(0,0,0,.38);
 }
+
 .section-top-control-panel {
   margin: 20px 0 20px 0;
 }
+
 .mat-grid-tile .mat-grid-tile-footer .delete-button {
   min-width: 24px;
   height: 24px;
@@ -22,6 +38,7 @@
   line-height: 0;
   margin-right: -10px;
 }
+
 .mat-grid-tile .mat-grid-tile-footer>* {
   margin-left: auto;
 }

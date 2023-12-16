@@ -6,26 +6,23 @@
 	</div>
 </div>
 <div class="row">
-	<mat-grid-list cols="6" rowHeight="230px" class="content-grid">
-		<mat-grid-tile *ngFor="let item of items" [colspan]="1" [rowspan]="1" [routerLink]="[item.id]">
-			<div class="content-grid-status-container" 
-				(click)="onStatusClick(item)" 
-				[ngStyle]="{'background-color': item.isStatusPositive ? 'rgba(16, 175, 59, 0.80)' : 'rgba(0, 0, 0, 0.38)'}"
-				>
-				<span class="content-grid-status "
-					>
+	<div class="grid-list">
+		<div *ngFor="let item of items" [routerLink]="[item.id]" class="mat-grid-tile">
+			<div class="content-grid-status-container" (click)="onStatusClick(item)"
+				[ngStyle]="{'background-color': item.isStatusPositive ? 'rgba(16, 175, 59, 0.80)' : 'rgba(0, 0, 0, 0.38)'}">
+				<span class="content-grid-status ">
 					{{item.status}}
 				</span>
 				<span class="link-icon fa fa-external-link-square"></span>
 			</div>
 			<img class="content-grid-image" src="{{item.imageUrl}}" />
-			<mat-grid-tile-footer>
+			<div class="mat-grid-tile-footer">
 				<span class="content-grid-caption">{{item.name}}</span>
 				<button class="delete-button" mat-button (click)="onDeleteItem($event, item)">
 					<mat-icon>delete</mat-icon>
 				</button>
-			</mat-grid-tile-footer>
-		</mat-grid-tile>
-	</mat-grid-list>
+			</div>
+		</div>
+	</div>
 	<app-view-port [scrollableParentDomEl]="parentBody" (onVisible)="onViewPortVisible()"></app-view-port>
 </div>

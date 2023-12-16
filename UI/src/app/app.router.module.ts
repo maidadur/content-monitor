@@ -1,5 +1,6 @@
 import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MsalGuard } from '@azure/msal-angular';
 
 import { AuthCallbackComponent } from './ui/pages/auth/auth-callback/auth-callback.component';
 import { WorkspaceComponent } from './ui/pages/workspace/workspace.component';
@@ -7,7 +8,6 @@ import { workspaceRoutes } from './ui/pages/workspace/workspace.routes';
 import { AuthGuard } from './utils/auth/auth.guard';
 import { LoginPageComponent } from './ui/pages/auth/login-page/login-page.component';
 import { SilentRenewComponent } from './ui/pages/auth/silent-renew/silent-renew.component';
-import { MsalGuard, MsalRedirectComponent } from '@azure/msal-angular';
 
 const appRoutes: Routes = [
 	{ path: '', redirectTo: 'workspace', pathMatch: 'full',  },
