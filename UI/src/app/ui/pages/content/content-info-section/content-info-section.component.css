@@ -8,8 +8,9 @@
 
 .grid-list {
   display: grid;
-    grid-row-gap: 15px;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-row-gap: 15px;
+  grid-column-gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
 
 .mat-grid-tile {
