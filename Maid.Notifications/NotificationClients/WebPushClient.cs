@@ -3,6 +3,7 @@ using Lib.Net.Http.WebPush.Authentication;
 using Maid.Notifications.DB;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace Maid.Notifications
@@ -31,7 +32,11 @@ namespace Maid.Notifications
 			PushMessage message = notification.ToPushMessage();
 			var pushSubscription = subscription.GetPushSubscription();
 			_logger.LogInformation($"Sending push notification to {subscription.Id} with content: {notification.Title}");
-			await _pushClient.RequestPushMessageDeliveryAsync(pushSubscription, message);
+			try {
+				await _pushClient.RequestPushMessageDeliveryAsync(pushSubscription, message);
+			} catch (Exception ex) {
+				_logger.LogError(ex, "Error while sending push notification");
+			}
 		}
 	}
 }
