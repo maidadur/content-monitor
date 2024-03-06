@@ -61,7 +61,8 @@
 				app.UseDeveloperExceptionPage();
 				app.UseHttpsRedirection();
 				IdentityModelEventSource.ShowPII = true;
-			} 
+			}
+			IdentityModelEventSource.ShowPII = true;
 			//else {
 			//	app.UseHsts();
 			//}
