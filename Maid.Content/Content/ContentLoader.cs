@@ -9,6 +9,7 @@
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
+	using System.Text.RegularExpressions;
 
 	public class ContentLoader : IContentLoader
 	{
@@ -46,8 +47,9 @@
 			collectionItems.ForEach(chapter => chapter.ContentInfoId = contentInfo.Id);
 			content.Items = collectionItems;
 			content.Status = contentParser.GetStatus(document, source) ?? "";
-			content.IsStatusPositive = !source.PositiveStatusText.IsNullOrEmpty() && !content.Status.IsNullOrEmpty() ? 
-				content.Status.Trim() == source.PositiveStatusText.Trim() : false;
+			if (source.PositiveStatusText.IsNotEmpty() && content.Status.IsNotEmpty()) {
+				content.IsStatusPositive = Regex.Match(content.Status.Trim(), source.PositiveStatusText.Trim()).Success;
+			}
 			return content;
 		}
 
