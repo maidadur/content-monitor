@@ -48,7 +48,7 @@
 			content.Items = collectionItems;
 			content.Status = contentParser.GetStatus(document, source) ?? "";
 			if (source.PositiveStatusText.IsNotEmpty() && content.Status.IsNotEmpty()) {
-				content.IsStatusPositive = Regex.Match(content.Status.Trim(), source.PositiveStatusText.Trim()).Success;
+				content.IsStatusPositive = Regex.IsMatch(content.Status.Trim(), source.PositiveStatusText.Trim());
 			}
 			return content;
 		}
