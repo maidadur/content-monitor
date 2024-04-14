@@ -20,6 +20,7 @@
 	using System.Reflection;
 	using Maid.Content.API.Messaging;
 	using Maid.Content.Content;
+	using Maid.Core.Utilities;
 
 	public class Startup
 	{
@@ -88,7 +89,7 @@
 
 			app.UseMiddleware<ExceptionMiddleware>();
 
-			try {
+			_ = TaskUtils.RepeatActionUntilSuccess(() => {
 				MessageQueuesManager.Instance
 						.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
 						.ConnectToQueue("quartz")
@@ -97,9 +98,7 @@
 						.ConnectToQueue("load_image")
 						.Subscribe<SaveImageToEntitySubscriber>("load_image")
 						.Subscribe<LoadContentQuartzSubscriber>("quartz");
-			} catch {
-				Console.WriteLine("Error. Could not connect to RabbitMQ");
-			}
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to add services to the container.

@@ -1,6 +1,7 @@
 namespace Maid.Storage.API
 {
 	using Maid.AzureStorage;
+	using Maid.Core.Utilities;
 	using Maid.IStorage;
 	using Maid.RabbitMQ;
 	using Microsoft.Extensions.DependencyInjection;
@@ -43,16 +44,13 @@ namespace Maid.Storage.API
 
 			app.MapControllers();
 
-
-			try {
+			_ = TaskUtils.RepeatActionUntilSuccess(() => {
 				MessageQueuesManager.Instance
 						.Init(app.Services, builder.Configuration["Maid_RabbitMQ_Host"], int.Parse(builder.Configuration["Maid_RabbitMQ_Port"]))
 						.ConnectToQueue("save_image")
 						.ConnectToQueue("load_image")
 						.Subscribe<SaveImageToStorageSubscriber>("save_image");
-			} catch {
-				Console.WriteLine("Error. Could not connect to RabbitMQ");
-			}
+			});
 
 			app.Run();
 		}
