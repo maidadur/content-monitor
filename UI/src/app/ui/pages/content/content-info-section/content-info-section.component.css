@@ -1,10 +1,12 @@
 .content-grid-image {
   height: 230px;
   max-width: 230px;
+  width: 100%;
 	-webkit-box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
 	-moz-box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
 	box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
-  border-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .grid-list {
@@ -50,7 +52,6 @@
 }
 
 .content-grid-status-container {
-  position: absolute;
   top: 0;
   color: white;
   background: rgba(0,0,0,.38);
@@ -58,5 +59,6 @@
   text-align: center;
   width: 100%;
   max-width: 230px;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
