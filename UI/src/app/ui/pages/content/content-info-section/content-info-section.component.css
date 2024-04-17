@@ -4,6 +4,7 @@
 	-webkit-box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
 	-moz-box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
 	box-shadow: 10px 10px 17px -6px rgba(0,0,0,1);
+  border-radius: 8px;
 }
 
 .grid-list {
@@ -57,4 +58,5 @@
   text-align: center;
   width: 100%;
   max-width: 230px;
+  border-radius: 8px;
 }
