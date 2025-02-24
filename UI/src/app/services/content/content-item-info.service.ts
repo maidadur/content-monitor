@@ -21,7 +21,7 @@ export class ContentItemInfoService extends BaseGenericService<ContentItemInfo> 
   }
   
   getContentInfoItems(id: string, options?: SelectOptions): Observable<ContentItemInfo[]> {
-    const url = `${this.apiUrl}/content/${id}`;
+    const url = `${this.apiUrl}/contentinfo/${id}`;
     return this.http.post<ContentItemInfo[]>(url, options, this.httpOptions)
       .pipe(
         catchError(this.handleError)
