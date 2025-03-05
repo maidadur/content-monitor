@@ -1,5 +1,3 @@
-import { UrlUtils } from "@app/utils/url-utils";
-
 export const environment = {
 	production: true,
 	contentHost: 'https://content-api.dwork.me',
