@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HomeComponent } from '../home/home.component';
 import { NavMenuComponent } from '../../controls//nav-menu/nav-menu.component';
@@ -30,7 +30,7 @@ import { ContentItemsDetailComponent } from '@app/ui/controls/content/content-it
 import { ContentSourceSectionComponent } from '../content/content-source-section/content-source-section.component';
 
 
-@NgModule({
+@NgModule({ 
     declarations: [
         HomeComponent,
         NavMenuComponent,
@@ -45,11 +45,9 @@ import { ContentSourceSectionComponent } from '../content/content-source-section
         ViewPortComponent,
         WorkspaceComponent,
         LazyImgDirective
-    ],
-    //providers: [WebPushClient, NotificationsService],
+    ], 
     imports: [
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-        HttpClientModule,
         FormsModule,
         RouterModule,
         BrowserAnimationsModule,
@@ -62,8 +60,7 @@ import { ContentSourceSectionComponent } from '../content/content-source-section
         MatButtonModule,
         MatDialogModule,
         MatRadioModule,
-        NgbModule,
-        RouterModule
-    ]
-})
+       // NgbModule,
+        RouterModule], 
+        providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class WorkspaceModule {}

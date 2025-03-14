@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginPageComponent } from './ui/pages/auth/login-page/login-page.component';
 import { SilentRenewComponent } from './ui/pages/auth/silent-renew/silent-renew.component';
 import { AuthInterceptor } from './utils/auth/auth.interceptor';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,49 +23,32 @@ import { MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent } from '@
 import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 import { msalConfig, msalModule } from './auth-config';
 
-@NgModule({
-	declarations: [
-		AppComponent,
-		LoginComponent,
-		AuthCallbackComponent,
-		LoginPageComponent,
-		SilentRenewComponent,
-	],
-	imports: [
-		WorkspaceModule,
-		FormsModule,
-		BrowserAnimationsModule,
-		MatIconModule,
-		MatFormFieldModule,
-		MatInputModule,
-		MatButtonModule,
-		MatDialogModule,
-		routing,
-		ServiceWorkerModule.register("ngsw-worker.js", { enabled: true }),
-		HttpClientModule,
-		msalModule,
-	],
-	providers: [
-		{
-			provide: HTTP_INTERCEPTORS,
-			useClass: MsalInterceptor,
-			multi: true,
-		},
-		MsalGuard,
-		// {
-		//     provide: APP_INITIALIZER,
-		//     useFactory: authProviderFactory,
-		//     deps: [AuthService],
-		//     multi: true,
-		// },
-		// {
-		//     provide: HTTP_INTERCEPTORS,
-		//     useClass: AuthInterceptor,
-		//     multi: true
-		// }
-	],
-	bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        LoginComponent,
+        AuthCallbackComponent,
+        LoginPageComponent,
+        SilentRenewComponent,
+    ],
+    bootstrap: [AppComponent], imports: [WorkspaceModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatDialogModule,
+        routing,
+        ServiceWorkerModule.register("ngsw-worker.js", { enabled: true }),
+        msalModule], providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: MsalInterceptor,
+            multi: true,
+        },
+        MsalGuard,
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}
 
 export function authProviderFactory(provider: AuthService) {
