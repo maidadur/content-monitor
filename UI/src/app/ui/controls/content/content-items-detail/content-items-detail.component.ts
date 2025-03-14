@@ -3,9 +3,10 @@ import { ContentItemInfoService } from '@app/services/content/content-item-info.
 import { Guid } from 'guid-typescript';
 
 @Component({
-	selector: 'app-content-chapters-detail',
-	templateUrl: './content-items-detail.component.html',
-	styleUrls: ['./content-items-detail.component.css']
+    selector: 'app-content-chapters-detail',
+    templateUrl: './content-items-detail.component.html',
+    styleUrls: ['./content-items-detail.component.css'],
+    standalone: false
 })
 export class ContentItemsDetailComponent implements OnInit {
 

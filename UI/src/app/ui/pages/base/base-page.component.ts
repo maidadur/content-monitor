@@ -7,7 +7,10 @@ import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { Component } from '@angular/core';
 
-@Component({template: ''})
+@Component({
+    template: '',
+    standalone: false
+})
 export class BasePageComponent<TEntity extends BaseEntity> {
 
 	public cardMode: CardMode;

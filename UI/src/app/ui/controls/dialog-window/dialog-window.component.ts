@@ -4,9 +4,10 @@ import { DialogData } from './dialog-data';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-dialog-window',
-  templateUrl: './dialog-window.component.html',
-  styleUrls: ['./dialog-window.component.css']
+    selector: 'app-dialog-window',
+    templateUrl: './dialog-window.component.html',
+    styleUrls: ['./dialog-window.component.css'],
+    standalone: false
 })
 export class DialogWindowComponent {
   model: DialogData;

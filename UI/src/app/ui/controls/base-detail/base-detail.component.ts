@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-base-detail',
-  templateUrl: './base-detail.component.html',
-  styleUrls: ['./base-detail.component.css']
+    selector: 'app-base-detail',
+    templateUrl: './base-detail.component.html',
+    styleUrls: ['./base-detail.component.css'],
+    standalone: false
 })
 export class BaseDetailComponent implements OnInit {
 

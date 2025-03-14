@@ -5,7 +5,10 @@ import { Component, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ViewPortComponent } from '@app/ui/controls/view-port/view-port.component';
 
-@Component({template: ''})
+@Component({
+    template: '',
+    standalone: false
+})
 export class BaseSectionComponent<TEntity extends BaseEntity> {
 
 	public items: TEntity[] = [];

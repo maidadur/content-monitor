@@ -8,10 +8,11 @@ import { DialogWindowComponent } from '@app/ui/controls/dialog-window/dialog-win
 import { BasePageComponent } from '../../base/base-page.component';
 
 @Component({
-	selector: 'app-content-info-page',
-	templateUrl: './content-info-page.component.html',
-	styleUrls: ['./content-info-page.component.css'],
-	providers: []
+    selector: 'app-content-info-page',
+    templateUrl: './content-info-page.component.html',
+    styleUrls: ['./content-info-page.component.css'],
+    providers: [],
+    standalone: false
 })
 export class ContentInfoPageComponent extends BasePageComponent<ContentInfo> implements OnInit {
 

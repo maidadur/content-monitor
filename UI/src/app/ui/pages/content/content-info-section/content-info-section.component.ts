@@ -5,9 +5,10 @@ import { BaseSectionComponent } from '../../base/base-section.component';
 import { Location } from '@angular/common';
 
 @Component({
-	selector: 'app-content-info-section',
-	templateUrl: './content-info-section.component.html',
-	styleUrls: ['./content-info-section.component.css']
+    selector: 'app-content-info-section',
+    templateUrl: './content-info-section.component.html',
+    styleUrls: ['./content-info-section.component.css'],
+    standalone: false
 })
 export class ContentInfoSectionComponent extends BaseSectionComponent<ContentInfo> implements OnInit {
 

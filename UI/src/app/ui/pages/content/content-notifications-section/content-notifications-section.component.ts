@@ -6,9 +6,10 @@ import { Location } from '@angular/common';
 import * as moment from 'moment';
 
 @Component({
-	selector: 'app-content-section',
-	templateUrl: './content-notifications-section.component.html',
-	styleUrls: ['./content-notifications-section.component.less']
+    selector: 'app-content-section',
+    templateUrl: './content-notifications-section.component.html',
+    styleUrls: ['./content-notifications-section.component.less'],
+    standalone: false
 })
 export class ContentNotificationSectionComponent extends BaseSectionComponent<ContentItemNotification> implements OnInit {
 

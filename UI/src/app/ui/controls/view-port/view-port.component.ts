@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef, Input, NgZone, Output, EventE
 import { DomUtils } from '@app/utils/dom-utils';
 
 @Component({
-	selector: 'app-view-port',
-	templateUrl: './view-port.component.html',
-	styleUrls: ['./view-port.component.css']
+    selector: 'app-view-port',
+    templateUrl: './view-port.component.html',
+    styleUrls: ['./view-port.component.css'],
+    standalone: false
 })
 export class ViewPortComponent implements OnInit {
 

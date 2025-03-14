@@ -6,9 +6,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
-	selector: 'app-content-source-page',
-	templateUrl: './content-source-page.component.html',
-	styleUrls: ['./content-source-page.component.css']
+    selector: 'app-content-source-page',
+    templateUrl: './content-source-page.component.html',
+    styleUrls: ['./content-source-page.component.css'],
+    standalone: false
 })
 export class ContentSourcePageComponent extends BasePageComponent<ContentSource> implements OnInit {
 	public model: ContentSource = new ContentSource();

@@ -5,9 +5,10 @@ import { ContentSourcesService } from '@app/services/content/content-source.serv
 import { BaseSectionComponent } from '../../base/base-section.component';
 
 @Component({
-	selector: 'app-content-sources-section',
-	templateUrl: './content-source-section.component.html',
-	styleUrls: ['./content-source-section.component.css']
+    selector: 'app-content-sources-section',
+    templateUrl: './content-source-section.component.html',
+    styleUrls: ['./content-source-section.component.css'],
+    standalone: false
 })
 export class ContentSourceSectionComponent extends BaseSectionComponent<ContentSource> implements OnInit {
 
