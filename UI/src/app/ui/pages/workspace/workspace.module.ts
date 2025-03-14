@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
-//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HomeComponent } from '../home/home.component';
 import { NavMenuComponent } from '../../controls//nav-menu/nav-menu.component';
@@ -47,8 +47,7 @@ import { ContentSourceSectionComponent } from '../content/content-source-section
         LazyImgDirective
     ], 
     imports: [
-        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-        FormsModule,
+        BrowserModule,
         RouterModule,
         BrowserAnimationsModule,
         MatGridListModule,
@@ -60,7 +59,9 @@ import { ContentSourceSectionComponent } from '../content/content-source-section
         MatButtonModule,
         MatDialogModule,
         MatRadioModule,
-       // NgbModule,
-        RouterModule], 
+        NgbModule,
+        RouterModule,
+        FormsModule,
+    ], 
         providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class WorkspaceModule {}
