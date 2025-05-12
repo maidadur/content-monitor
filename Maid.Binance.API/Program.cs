@@ -32,7 +32,7 @@ namespace Maid.Binance.API
 		}
 
 		private static void SetupDbServices(WebApplicationBuilder builder) {
-			var connection = builder.Configuration["ConnectionStrings:Maid_Binance_ConnectionString"];
+			var connection = builder.Configuration["Maid_Binance_ConnectionString"];
 			builder.Services.AddDbContext<BinanceDbContext>(options =>
 				options.UseMySql(connection, ServerVersion.AutoDetect(connection))
 			);
