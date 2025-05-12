@@ -22,8 +22,8 @@ namespace Maid.Binance.DB
 			set => _time = DateTime.SpecifyKind(value, DateTimeKind.Utc).ToUniversalTime();
 		}
 
-		public string Notes { get; set; }
+		public string? Notes { get; set; }
 		public int Leverage { get; set; }
-		public string ImageUrl { get; set; }
+		public string? ImageUrl { get; set; }
 	}
 }
