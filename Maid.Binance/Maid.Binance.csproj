@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Maid.Binance.DB\Maid.Binance.DB.csproj" />
+    <ProjectReference Include="..\Maid.Core\Maid.Core.csproj" />
+    <ProjectReference Include="..\Maid.RabbitMQ\Maid.RabbitMQ.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -33,7 +33,11 @@ export const msalConfig: Configuration = {
  export const protectedResources = {
     content_monitor_api: {
       endpoint: environment.contentHost  + '/*',
-      scopes: environment.auth.content_monitor_scopes,
+      scopes: environment.auth.app_scopes,
+    },
+    binance_api: {
+      endpoint: environment.binanceHost  + '/*',
+      scopes: environment.auth.app_scopes,
     },
   }
 
@@ -48,7 +52,8 @@ export const msalConfig: Configuration = {
     {
         interactionType: InteractionType.Redirect,
         protectedResourceMap: new Map([
-            [protectedResources.content_monitor_api.endpoint, protectedResources.content_monitor_api.scopes]
+            [protectedResources.content_monitor_api.endpoint, protectedResources.content_monitor_api.scopes],
+            [protectedResources.binance_api.endpoint, protectedResources.binance_api.scopes],
         ]),
     }
 );

@@ -7,26 +7,24 @@ namespace Maid.AzureStorage
 	{
 		protected string ConnectionString { get; }
 		protected string StorageAccountName { get; }
-		protected string ContainerName { get; }
 
-		public AzureStorageProvider(string connectionString, string storageAccountName, string containerName) {
+		public AzureStorageProvider(string connectionString, string storageAccountName) {
 			ConnectionString = connectionString;
 			StorageAccountName = storageAccountName;
-			ContainerName = containerName;
 		}
 
-		private string CreateFileUrl(string fileName) {
-			return $"https://{StorageAccountName}.blob.core.windows.net/{ContainerName}/{fileName}";
+		private string CreateFileUrl(string fileName, string containerName) {
+			return $"https://{StorageAccountName}.blob.core.windows.net/{containerName}/{fileName}";
 		}
 
-		public async Task<string> UploadFile(byte[] fileBytes, string extension) {
+		public async Task<string> UploadFile(byte[] fileBytes, string extension, string containerName) {
 			BlobServiceClient blobServiceClient = new BlobServiceClient(ConnectionString);
-			BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(ContainerName);
+			BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 			string blobName = $"{Guid.NewGuid()}{extension}";
 			using (MemoryStream memoryStream = new MemoryStream(fileBytes)) {
 				await containerClient.UploadBlobAsync(blobName, memoryStream);
 			}
-			return CreateFileUrl(blobName);
+			return CreateFileUrl(blobName, containerName);
 		}
 	}
 }

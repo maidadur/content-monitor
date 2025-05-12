@@ -13,8 +13,7 @@ namespace Maid.Storage.API
 			builder.Services.AddTransient<IStorageProvider, AzureStorageProvider>((storageProvider) => 
 				new AzureStorageProvider(
 					builder.Configuration["AzureConnectionString"], 
-					builder.Configuration["AzureStorageAccountName"], 
-					builder.Configuration["AzureContainerName"]
+					builder.Configuration["AzureStorageAccountName"]
 				)
 			);
 			builder.Services.AddTransient<SaveImageToStorageSubscriber, SaveImageToStorageSubscriber>();
@@ -49,7 +48,10 @@ namespace Maid.Storage.API
 						.Init(app.Services, builder.Configuration["Maid_RabbitMQ_Host"], int.Parse(builder.Configuration["Maid_RabbitMQ_Port"]))
 						.ConnectToQueue("save_image")
 						.ConnectToQueue("load_image")
-						.Subscribe<SaveImageToStorageSubscriber>("save_image");
+						.ConnectToQueue("save_image_binance")
+						.ConnectToQueue("load_image_binance")
+						.Subscribe<SaveImageToStorageSubscriber>("save_image")
+						.Subscribe<SaveImageToStorageSubscriber>("save_image_binance");
 			});
 
 			app.Run();

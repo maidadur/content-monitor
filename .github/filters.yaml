@@ -26,3 +26,8 @@ push-api:
 quartz:
     - Maid.RabbitMQ/**
     - Maid.Quartz/**
+binance-api:
+    - *shared
+    - Maid.Binance/**
+    - Maid.Binance.DB/**
+    - Maid.Binance.API/**

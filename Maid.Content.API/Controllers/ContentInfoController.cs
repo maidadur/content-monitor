@@ -46,7 +46,9 @@
 			_messageClient.SendMessage("save_image", new SaveImageMessage {
 				EntityId = item.Id,
 				EntityName = item.GetType().AssemblyQualifiedName,
-				ImageUrl = item.ImageUrl
+				ImageUrl = item.ImageUrl,
+				ContainerName = "content_image",
+				CallbackQueueName = "load_image"
 			});
 			return Ok();
 		}

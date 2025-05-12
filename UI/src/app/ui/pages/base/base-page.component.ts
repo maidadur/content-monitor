@@ -16,6 +16,7 @@ export class BasePageComponent<TEntity extends BaseEntity> {
 	public cardMode: CardMode;
 	public isChanged: boolean;
 	public model: TEntity;
+	public loaded: boolean;
 
 	constructor(
 		public service: BaseGenericService<TEntity>,
@@ -33,6 +34,7 @@ export class BasePageComponent<TEntity extends BaseEntity> {
 	}
 
 	public loadData(): void {
+		this.loaded = false;
 		let id = this.model.id;
 		if (id && Guid.isGuid(id)) {
 			this.service.get(id)
@@ -51,6 +53,7 @@ export class BasePageComponent<TEntity extends BaseEntity> {
 			this.cardMode = CardMode.New;
 		}
 		this.model = item;
+		this.loaded = true;
 	}
 
 	public goBack() {

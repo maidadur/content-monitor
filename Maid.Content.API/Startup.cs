@@ -18,8 +18,6 @@
 	using Microsoft.IdentityModel.Logging;
 	using System;
 	using System.Reflection;
-	using Maid.Content.API.Messaging;
-	using Maid.Content.Content;
 	using Maid.Core.Utilities;
 
 	public class Startup

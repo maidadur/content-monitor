@@ -1,12 +1,10 @@
-﻿using Maid.Core;
-using Maid.Core.DB;
+﻿using Maid.Core.DB;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Maid.Content.Content
+namespace Maid.Core
 {
 	public class SaveImageToEntityTask
 	{

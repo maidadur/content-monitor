@@ -1,4 +1,12 @@
 .nav-menu-item {
 	margin: 5px;
 	display: inline-block;
+
+	a {
+		margin: 0 10px;
+
+		span {
+			margin: 0 3px;
+		}
+	}
 }

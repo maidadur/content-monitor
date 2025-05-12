@@ -69,6 +69,26 @@
                 }
               ],
               "serviceWorker": "ngsw-config.json"
+            },
+            "development": {
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": true,
+              "aot": true,
+              "extractLicenses": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "serviceWorker": "ngsw-config.json"
             }
           }
         },
@@ -81,8 +101,8 @@
       "buildTarget": "UI:build"
           },
           "configurations": {
-            "production": {
-              "buildTarget": "UI:build:production"
+            "development": {
+              "buildTarget": "UI:build:development"
             }
           }
         },

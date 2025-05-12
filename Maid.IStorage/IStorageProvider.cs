@@ -2,6 +2,6 @@
 {
 	public interface IStorageProvider
 	{
-		Task<string> UploadFile(byte[] fileBytes, string extension);
+		Task<string> UploadFile(byte[] fileBytes, string extension, string containerName);
 	}
 }

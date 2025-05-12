@@ -9,8 +9,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import  {MatChipListbox, MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -28,6 +30,8 @@ import { ContentInfoPageComponent } from '../content/content-info-page/content-i
 import { ContentInfoSectionComponent } from '../content/content-info-section/content-info-section.component';
 import { ContentItemsDetailComponent } from '@app/ui/controls/content/content-items-detail/content-items-detail.component';
 import { ContentSourceSectionComponent } from '../content/content-source-section/content-source-section.component';
+import { TradingSectionComponent } from '../trading/trading-section/trading-section.component';
+import { OrderPageComponent } from '../trading/order-page/order-page.component';
 
 
 @NgModule({ 
@@ -44,7 +48,9 @@ import { ContentSourceSectionComponent } from '../content/content-source-section
         ContentSourcePageComponent,
         ViewPortComponent,
         WorkspaceComponent,
-        LazyImgDirective
+        LazyImgDirective,
+        TradingSectionComponent,
+        OrderPageComponent
     ], 
     imports: [
         BrowserModule,
@@ -52,6 +58,7 @@ import { ContentSourceSectionComponent } from '../content/content-source-section
         BrowserAnimationsModule,
         MatGridListModule,
         MatListModule,
+        MatChipsModule,
         MatIconModule,
         MatFormFieldModule,
         MatInputModule,
@@ -62,6 +69,8 @@ import { ContentSourceSectionComponent } from '../content/content-source-section
         NgbModule,
         RouterModule,
         FormsModule,
+        MatSliderModule,
+        MatChipListbox
     ], 
-        providers: [provideHttpClient(withInterceptorsFromDi())] })
+    providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class WorkspaceModule {}

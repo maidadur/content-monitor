@@ -1,8 +1,7 @@
-﻿using Maid.Content.Content;
-using Maid.Core;
+﻿using Maid.Core;
 using System.Threading.Tasks;
 
-namespace Maid.Content.API.Messaging
+namespace Maid.Core
 {
 	public class SaveImageToEntitySubscriber : IMessageConsumer
 	{

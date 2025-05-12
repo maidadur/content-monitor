@@ -1,0 +1,63 @@
+<h3>{{headerCaption}}</h3>
+<div class="row">
+	<div class="col-sm-3 section-top-control-panel">
+		<button mat-button (click)="goBack();">Back</button>
+	</div>
+	<div class="col-sm-6 metrics">
+		<div *ngIf="currentWinRate !== undefined">
+			<label>Win rate: </label>
+			<label>{{currentWinRate | percent:'1.0-0'}}</label>
+		</div>
+		<div *ngIf="cleanPnl !== undefined">
+			<label>PnL: </label>
+			<label [ngStyle]="{
+					'color': cleanPnl == 0 ? 'inherit' : (cleanPnl > 0 ? 'rgb(46, 189, 133)' : 'rgb(246, 70, 93)')
+				}">
+				{{cleanPnl | currency }}
+			</label>
+		</div>
+		<div *ngIf="averagePnl !== undefined">
+			<label>Average PnL: </label>
+			<label [ngStyle]="{
+					'color': averagePnl == 0 ? 'inherit' : (averagePnl > 0 ? 'rgb(46, 189, 133)' : 'rgb(246, 70, 93)')
+				}">
+				{{averagePnl | currency }}
+			</label>
+		</div>
+	</div>
+</div>
+<div class="row grid-list-container">
+	<div class="col-sm-1">
+		<button (click)="onPreviousClick()" mat-icon-button>
+			<mat-icon>arrow_back</mat-icon>
+		</button>
+	</div>
+	<div class="col-sm-10">
+		<div class="grid-list" [ngClass]="mode">
+			<div *ngFor="let item of items" class="mat-grid-tile" (click)="onTileClick(item)" [ngStyle]="{'background-color': item.cleanPnl == 0 ? 'rgba(0, 0, 0, 0.38)' :
+						(item.profitable ? 'rgba(14, 203, 129, 0.05)' : 'rgba(246, 70, 93, 0.05)')}">
+				<span class="trading-grid-tile-caption">
+					{{item.caption}}
+				</span>
+				<div>
+					<span class="trading-grid-pnl" [ngStyle]="{
+							'color': item.cleanPnl == 0 ? 'inherit' : (item.profitable ? 'rgb(46, 189, 133)' : 'rgb(246, 70, 93)')
+							}">
+						{{item.cleanPnl > 0 ? '+' : ''}}
+						{{'$' + (item.cleanPnl | number:'1.2-2')}}
+					</span>
+				</div>
+				<div *ngIf="item.numberOfTrades">
+					<span class="trading-grid-trades">
+						{{"(" + item.numberOfTrades + " trades)"}}
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-1">
+		<button (click)="onNextClick()" mat-icon-button>
+			<mat-icon>arrow_forward</mat-icon>
+		</button>
+	</div>
+</div>

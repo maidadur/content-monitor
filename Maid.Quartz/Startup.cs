@@ -10,7 +10,6 @@ using Quartz.Impl;
 using Quartz.Spi;
 using Schedule.WebApiCore.Sample.Schedule;
 using System;
-using System.Threading.Tasks;
 
 namespace Maid.Quartz
 {
@@ -34,7 +33,8 @@ namespace Maid.Quartz
 			_ = TaskUtils.RepeatActionUntilSuccess(() => {
 				MessageQueuesManager.Instance
 					.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
-					.ConnectToQueue("quartz");
+					.ConnectToQueue("quartz")
+					.ConnectToQueue("quartz_binance_trades");
 				scheduler.ScheduleJob(app.ApplicationServices.GetService<IJobDetail>(), app.ApplicationServices.GetService<ITrigger>());
 			});
 		}
@@ -42,11 +42,18 @@ namespace Maid.Quartz
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddLogging();
 			services.Add(new ServiceDescriptor(typeof(IJob), typeof(LoadContentJob), ServiceLifetime.Transient));
+			services.Add(new ServiceDescriptor(typeof(IJob), typeof(LoadTradesJob), ServiceLifetime.Transient));
 			services.AddSingleton<IJobFactory, ScheduledJobFactory>();
 			services.AddTransient<IMessageClient, MessageClient>();
 			services.AddTransient(provider => {
 				return JobBuilder.Create<LoadContentJob>()
 				  .WithIdentity("LoadContent.job", "ContentGroup")
+				  .Build();
+			});
+
+			services.AddTransient(provider => {
+				return JobBuilder.Create<LoadTradesJob>()
+				  .WithIdentity("LoadTradesJob.job", "TradesGroup")
 				  .Build();
 			});
 
@@ -58,6 +65,18 @@ namespace Maid.Quartz
 					.WithSimpleSchedule
 					 (s =>
 						s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["LoadContentIntervalSeconds"])))
+						.RepeatForever()
+					 )
+					 .Build();
+			});
+
+			services.AddTransient(provider => {
+				return TriggerBuilder.Create()
+					.WithIdentity($"LoadTradesJob.trigger", "TradesGroup")
+					.StartNow()
+					.WithSimpleSchedule
+					 (s =>
+						s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["LoadTradesIntervalSeconds"])))
 						.RepeatForever()
 					 )
 					 .Build();

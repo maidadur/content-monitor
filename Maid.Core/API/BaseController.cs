@@ -29,7 +29,7 @@
 		}
 
 		[HttpGet("{id:guid}")]
-		public async Task<ActionResult<T>> GetItem(Guid id) {
+		public virtual async Task<ActionResult<T>> GetItem(Guid id) {
 			var item = await EntityRepository.GetAsync(id);
 			if (item == null) {
 				return NotFound(id);
@@ -48,7 +48,7 @@
 		}
 
 		[HttpPut()]
-		public ActionResult EditItem(T item) {
+		public virtual ActionResult EditItem(T item) {
 			if (item == null) {
 				return BadRequest("Parameter object is null");
 			}

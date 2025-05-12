@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ContentInfoService } from '@app/services/content/content-info.service';
 import { ContentInfo } from '@app/entity/content/content-info';

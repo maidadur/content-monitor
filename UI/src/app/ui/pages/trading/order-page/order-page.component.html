@@ -1,0 +1,94 @@
+<div class="main-page-container" [ngClass]="loaded ? 'loaded' : 'loading'">
+	<div class="row">
+		<div class="col-sm-6">
+			<h3>
+				{{model.side === 'BUY' ? 'LONG' : 'SHORT'}} {{model.symbol}} - {{model.time | date: 'dd MMMM yyyy' :
+				'EEST'}}
+			</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 page-top-control-panel">
+			<button mat-button (click)="goBack();">Back</button>
+			<button mat-raised-button class="maid-button" (click)="doSave();">Save</button>
+		</div>
+	</div>
+	<div class="row ">
+		<div class="col-sm-10">
+			<mat-chip-set aria-label="Fish selection">
+				<mat-chip>
+					<span class="trading-grid-pnl" [ngStyle]="{
+					'color': model.cleanPnl == 0 ? 'inherit' : (model.cleanPnl > 0 ? 'rgb(46, 189, 133)' : 'rgb(246, 70, 93)')
+					}">
+						{{model.cleanPnl > 0 ? '+' : ''}}
+						{{'$' + (model.cleanPnl | number:'1.2-2')}}
+					</span>
+				</mat-chip>
+				<mat-chip>
+					<span [ngStyle]="{'color': model.side === 'BUY' ? 'rgb(46, 189, 133)' : 'rgb(246, 70, 93)'}">
+						{{model.side === 'BUY' ? 'LONG' : 'SHORT'}}
+					</span>
+				</mat-chip>
+				<mat-chip>
+					<img matChipAvatar
+						[src]="model.symbol ? '../../../assets/coins/' + model.symbol.replace('USDT', '') + '.svg' : ''" />
+					{{model.symbol?.replace('USDT', '')}}
+				</mat-chip>
+				<mat-chip>
+					<div class="leverage-display" [ngStyle]="{
+						'color': 'rgb(' + (model.leverage * 2.55) + ',' + (100 - (model.leverage * 1.0)) + ',0)'
+					}">
+						x{{model.leverage}}
+					</div>
+				</mat-chip>
+				<mat-chip>
+					<span>
+						{{model.time | date: 'HH:mm' : 'EEST'}}
+					</span>
+				</mat-chip>
+			</mat-chip-set>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+			<mat-form-field class="page-input">
+				<textarea matInput [(ngModel)]="model.notes" rows="5" placeholder="Notes">
+				</textarea>
+			</mat-form-field>
+			<div>
+				<mat-label>Leverage</mat-label>
+				<mat-slider min="1" max="100" step="1" thumbLabel tickInterval="10" [ngStyle]="{
+						'color': 'rgb(' + (model.leverage * 2.55) + ',' + (255 - (model.leverage * 2.55)) + ',0)'
+					}">
+					<input matSliderThumb [(ngModel)]="model.leverage">
+				</mat-slider>
+			</div>
+			<div *ngIf="loaded">
+				<label>Emotions</label>
+				<mat-chip-listbox multiple>
+					<mat-chip-option *ngFor="let emotion of emotions" [selected]="isEmotionSelected(emotion)"
+						(click)="toggleEmotion(emotion)">
+						{{ emotion.emoji + emotion.text }}
+					</mat-chip-option>
+				</mat-chip-listbox>
+				<label>Tags</label>
+				<mat-chip-listbox multiple>
+					<mat-chip-option *ngFor="let tag of tradeTags" [selected]="isTagSelected(tag)"
+						(click)="toggleTradeTag(tag)">
+						{{ tag.emoji + tag.text }}
+					</mat-chip-option>
+				</mat-chip-listbox>
+			</div>
+		</div>
+		<div class="col-sm-9">
+			<img src="{{model.imageUrl}}" *ngIf="model.imageUrl" class="chart-image"
+				(click)="showFullscreenImage(model.imageUrl)" />
+
+			<ng-template #fullscreenImage>
+				<div class="fullscreen-overlay" (click)="closeFullscreenImage()">
+					<img [src]="fullscreenImageUrl" class="fullscreen-image" />
+				</div>
+			</ng-template>
+		</div>
+	</div>
+</div>

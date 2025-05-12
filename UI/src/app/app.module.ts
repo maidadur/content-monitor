@@ -30,7 +30,9 @@ import { msalConfig, msalModule } from './auth-config';
         LoginPageComponent,
         SilentRenewComponent,
     ],
-    bootstrap: [AppComponent], imports: [WorkspaceModule,
+    bootstrap: [AppComponent], 
+    imports: [
+        WorkspaceModule,
         FormsModule,
         BrowserAnimationsModule,
         MatIconModule,
