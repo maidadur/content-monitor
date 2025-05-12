@@ -1,6 +1,7 @@
 export const environment = {
 	production: true,
 	contentHost: 'https://content-api.dwork.me',
+	binanceHost: 'https://binance-api.dwork.me',
 	authHost: '',
 	notificationsHost: "https://push.dwork.me",
 	auth: {
