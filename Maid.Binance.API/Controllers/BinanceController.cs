@@ -79,6 +79,7 @@
 				.FirstOrDefault();
 			if (secondOrder != null) {
 				item.CleanPnl = item.Pnl - item.Commission - secondOrder.Commission;
+				item.Side = secondOrder.Side;
 			}
 			return item;
 		}
