@@ -5,7 +5,8 @@ import { CardMode } from '@app/common/card-mode';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
     template: '',
@@ -17,6 +18,7 @@ export class BasePageComponent<TEntity extends BaseEntity> {
 	public isChanged: boolean;
 	public model: TEntity;
 	public loaded: boolean;
+	public toast: NgToastService = inject(NgToastService);
 
 	constructor(
 		public service: BaseGenericService<TEntity>,
@@ -60,9 +62,13 @@ export class BasePageComponent<TEntity extends BaseEntity> {
 		this.location.back();
 	}
 
-	public afterUpdateHandler() {}
+	public afterUpdateHandler() {
+		this.toast.success('Record saved', 'Success', 3000);
+	}
 
-	public afterInsertHandler(){}
+	public afterInsertHandler(){
+		this.toast.success('Record saved', 'Success', 3000);
+	}
 
 	public updateEntity() {
 		return this.service.update(this.model)

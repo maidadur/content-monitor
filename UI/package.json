@@ -35,6 +35,7 @@
     "guid-typescript": "^1.0.9",
     "jquery": "^3.7.1",
     "moment": "^2.29.4",
+    "ng-angular-popup": "^0.6.6",
     "oidc-client": "^1.11.5",
     "rxjs": "^7.8.1",
     "tslib": "^2.6.2",

@@ -22,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent } from '@azure/msal-angular';
 import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 import { msalConfig, msalModule } from './auth-config';
+import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -42,6 +43,7 @@ import { msalConfig, msalModule } from './auth-config';
         MatDialogModule,
         routing,
         ServiceWorkerModule.register("ngsw-worker.js", { enabled: true }),
+        NgToastModule,
         msalModule], providers: [
         {
             provide: HTTP_INTERCEPTORS,
@@ -50,6 +52,7 @@ import { msalConfig, msalModule } from './auth-config';
         },
         MsalGuard,
         provideHttpClient(withInterceptorsFromDi()),
+        
     ] })
 export class AppModule {}
 
