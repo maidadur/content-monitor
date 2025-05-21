@@ -105,12 +105,10 @@ export class TradingSectionComponent {
 				const orderDate = new Date(order.time).getDate();
 				dailyData[orderDate - 1].cleanPnl += order.cleanPnl;
 				dailyData[orderDate - 1].numberOfTrades++;
+				dailyData[orderDate - 1].profitable = dailyData[orderDate - 1].cleanPnl > 0;
 			});
 
-			this.items = dailyData.map((data) => ({
-				...data,
-				profitable: data.cleanPnl > 0,
-			}));
+			this._generateEmptyWeekItems(dailyData);
 		} else if (this.mode === "day") {
 			this.headerCaption = `${this.year} ${new Date(
 				this.year,
@@ -128,6 +126,82 @@ export class TradingSectionComponent {
 		this.currentWinRate = this.orders.filter((item) => item.cleanPnl > 0).length / this.orders.length;
 		this.cleanPnl = this.orders.reduce((acc, order) => acc + order.cleanPnl, 0);
 		this.averagePnl = this.cleanPnl / this.orders.length;
+	}
+
+	private _generateEmptyWeekItems(dailyData: TradingSectionItem[]) {
+		var items = dailyData;
+		const firstItem = dailyData[0];
+		if (firstItem) {
+			const firstDayOfWeek = firstItem.date.getDay(); // 0 (Sunday) - 6 (Saturday)
+			const daysToAdd = (firstDayOfWeek === 0 ? 1 : firstDayOfWeek) - 1; // 0 for Monday, 1 for Tuesday, etc.
+			if (daysToAdd > 0) {
+				const emptyItems = [];
+				for (let i = 0; i < daysToAdd; i++) {
+					const date = new Date(firstItem.date);
+					date.setDate(date.getDate() - (daysToAdd - i));
+					emptyItems.push({
+						caption: date.getDate().toString(),
+						code: `${date.getFullYear()}_${date.getMonth() + 1}_${date.getDate()}`,
+						date,
+						cleanPnl: 0,
+						id: null,
+						numberOfTrades: 0,
+					});
+				}
+				items = [...emptyItems, ...items];
+			}
+		}
+
+		const lastItem = items[items.length - 1];
+		if (lastItem) {
+			const lastDayOfWeek = lastItem.date.getDay(); // 0 (Sunday) - 6 (Saturday)
+			const daysToAdd = lastDayOfWeek === 0 ? 0 : 7 - lastDayOfWeek;
+			if (daysToAdd > 0) {
+				const emptyItems = [];
+				for (let i = 1; i <= daysToAdd; i++) {
+					const date = new Date(lastItem.date);
+					date.setDate(date.getDate() + i);
+					emptyItems.push({
+						caption: date.getDate().toString(),
+						code: `${date.getFullYear()}_${date.getMonth() + 1}_${date.getDate()}`,
+						date,
+						cleanPnl: 0,
+						profitable: false,
+						id: null,
+						numberOfTrades: 0,
+					});
+				}
+				items = [...items, ...emptyItems];
+			}
+		}
+		const result: TradingSectionItem[] = this._generateWeekTotalItems(items);
+		this.items = result;
+	}
+
+	private _generateWeekTotalItems(items: TradingSectionItem[]) {
+		let weekSum = 0;
+		let weekStartIndex = 0;
+		const result: TradingSectionItem[] = [];
+		for (let i = 0; i < items.length; i++) {
+			const item = items[i];
+			weekSum += item.cleanPnl;
+			result.push(item);
+			const isLastDayOfWeek = item.date.getDay() === 0 || i === items.length - 1;
+			if (isLastDayOfWeek) {
+				result.push({
+					caption: "Σ",
+					code: `week_${item.date.getFullYear()}_${item.date.getMonth() + 1}_${item.date.getDate()}`,
+					date: new Date(item.date),
+					cleanPnl: weekSum,
+					profitable: weekSum > 0,
+					id: null,
+					numberOfTrades: items.slice(weekStartIndex, i + 1).reduce((acc, d) => acc + (d.numberOfTrades || 0), 0),
+				});
+				weekSum = 0;
+				weekStartIndex = i + 1;
+			}
+		}
+		return result;
 	}
 
 	private _initDueDate() {
