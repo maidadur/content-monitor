@@ -206,21 +206,21 @@ export class TradingSectionComponent {
 
 	private _initDueDate() {
 		if (this.mode == "day") {
-			this.dueDate = new Date(Date.UTC(this.year, this.month - 1, this.day, 23, 59, 59));
+			this.dueDate = new Date(this.year, this.month - 1, this.day, 23, 59, 59);
 		} else if (this.mode == "month") {
-			this.dueDate = new Date(Date.UTC(this.year, this.month, 0, 23, 59, 59));
+			this.dueDate = new Date(this.year, this.month, 0, 23, 59, 59);
 		} else {
-			this.dueDate = new Date(Date.UTC(this.year + 1, 0, 0, 23, 59, 59));
+			this.dueDate = new Date(this.year + 1, 0, 0, 23, 59, 59);
 		}
 	}
 
 	private _initStartDate() {
 		if (this.mode == "day") {
-			this.startDate = new Date(Date.UTC(this.year, this.month - 1, this.day, 0, 0, 0));
+			this.startDate = new Date(this.year, this.month - 1, this.day, 0, 0, 0);
 		} else if (this.mode == "month") {
-			this.startDate = new Date(Date.UTC(this.year, this.month - 1, 1, 0, 0, 0));
+			this.startDate = new Date(this.year, this.month - 1, 1, 0, 0, 0);
 		} else {
-			this.startDate = new Date(Date.UTC(this.year, 0, 1, 0, 0, 0));
+			this.startDate = new Date(this.year, 0, 1, 0, 0, 0);
 		}
 	}
 

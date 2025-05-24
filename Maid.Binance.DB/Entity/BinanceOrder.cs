@@ -1,4 +1,5 @@
 ﻿using Maid.Core;
+using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,7 +19,7 @@ namespace Maid.Binance.DB
 		public decimal Commission { get; set; }
 		public string CommissionAsset { get; set; }
 		public DateTime Time {
-			get => _time;
+			get => DateTime.SpecifyKind(_time, DateTimeKind.Utc).ToUniversalTime();
 			set => _time = DateTime.SpecifyKind(value, DateTimeKind.Utc).ToUniversalTime();
 		}
 

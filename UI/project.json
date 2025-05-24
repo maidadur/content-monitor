@@ -1,0 +1,136 @@
+{
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "name": "UI",
+  "sourceRoot": "src",
+  "projectType": "application",
+  "prefix": "app",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "options": {
+        "aot": true,
+        "outputPath": {
+          "base": "dist/UI"
+        },
+        "index": "src/index.html",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "src/tsconfig.app.json",
+        "assets": [
+          "src/favicon.ico",
+          "src/assets",
+          "src/manifest.webmanifest"
+        ],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "src/styles.less",
+          "src/themes.less",
+          "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+        ],
+        "scripts": [
+          "./node_modules/jquery/dist/jquery.min.js",
+          "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+        ],
+        "browser": "src/main.ts"
+      },
+      "configurations": {
+        "production": {
+          "index": {
+            "input": "src/index.prod.html",
+            "output": "index.html"
+          },
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.ts",
+              "with": "src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": false,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "aot": true,
+          "extractLicenses": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "10mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb"
+            }
+          ],
+          "serviceWorker": "ngsw-config.json"
+        },
+        "development": {
+          "optimization": false,
+          "outputHashing": "all",
+          "sourceMap": true,
+          "namedChunks": true,
+          "aot": true,
+          "extractLicenses": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "10mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb"
+            }
+          ],
+          "serviceWorker": "ngsw-config.json"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "ssl": true,
+        "sslCert": "ssl/localhost.crt",
+        "sslKey": "ssl/localhost.key",
+        "buildTarget": "UI:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "UI:build:development"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "UI:build"
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "src/test.ts",
+        "polyfills": "zone.js",
+        "tsConfig": "src/tsconfig.spec.json",
+        "karmaConfig": "src/karma.conf.js",
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+          "src/styles.less",
+          "src/themes.less",
+          "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+        ],
+        "scripts": [
+          "./node_modules/jquery/dist/jquery.min.js",
+          "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+        ],
+        "assets": [
+          "src/favicon.ico",
+          "src/assets",
+          "src/manifest.webmanifest"
+        ]
+      }
+    }
+  }
+}
