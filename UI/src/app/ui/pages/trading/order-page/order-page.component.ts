@@ -8,7 +8,6 @@ import { EmotionOption, EMOTIONS } from "@app/consts/emotions";
 import { TagOption, TRADE_TAGS } from "@app/consts/trade-tags";
 import { BinanceOrderEmotionService } from "@app/services/trading/binance-order-emotion.service.";
 import { BinanceOrderEmotion } from "@app/entity/trading/binance-order-emotion";
-import { b } from "@angular/core/navigation_types.d-u4EOrrdZ";
 import { Guid } from "guid-typescript";
 import { BinanceOrderTagService } from "@app/services/trading/binance-order-tag.service.";
 import { BinanceOrderTag } from "@app/entity/trading/binance-order-tag";

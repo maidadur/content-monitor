@@ -34,6 +34,7 @@
     "core-js": "^3.33.2",
     "guid-typescript": "^1.0.9",
     "jquery": "^3.7.1",
+    "marked": "^15.0.12",
     "moment": "^2.29.4",
     "ng-angular-popup": "^0.6.6",
     "oidc-client": "^1.11.5",

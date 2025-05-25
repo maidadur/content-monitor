@@ -32,6 +32,7 @@ import { ContentItemsDetailComponent } from '@app/ui/controls/content/content-it
 import { ContentSourceSectionComponent } from '../content/content-source-section/content-source-section.component';
 import { TradingSectionComponent } from '../trading/trading-section/trading-section.component';
 import { OrderPageComponent } from '../trading/order-page/order-page.component';
+import { MarkdownPipe } from '@app/utils/pipes/markdown.pipe';
 
 
 @NgModule({ 
@@ -50,8 +51,10 @@ import { OrderPageComponent } from '../trading/order-page/order-page.component';
         WorkspaceComponent,
         LazyImgDirective,
         TradingSectionComponent,
-        OrderPageComponent
-    ], 
+        OrderPageComponent,
+        MarkdownPipe,
+    ],
+    exports: [MarkdownPipe, OrderPageComponent],
     imports: [
         BrowserModule,
         RouterModule,

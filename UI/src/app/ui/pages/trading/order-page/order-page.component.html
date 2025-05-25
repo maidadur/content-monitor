@@ -95,7 +95,7 @@
 		<div class="col-sm-9">
 			<mat-label>AI summary: </mat-label>
 			<div>
-				<mat-label>{{model.aiSummary}}</mat-label>
+				<div [innerHTML]="model.aiSummary | markdown"></div>
 			</div>
 		</div>
 	</div>
