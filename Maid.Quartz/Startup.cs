@@ -13,6 +13,17 @@ using System;
 
 namespace Maid.Quartz
 {
+	public class JobSchedule
+	{
+		public Type JobType { get; }
+		public ITrigger Trigger { get; }
+
+		public JobSchedule(Type jobType, ITrigger trigger) {
+			JobType = jobType;
+			Trigger = trigger;
+		}
+	}
+
 	public class Startup
 	{
 		public Startup(IConfiguration configuration) {
@@ -23,84 +34,67 @@ namespace Maid.Quartz
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IScheduler scheduler) {
 			if (env.IsDevelopment()) {
-				Console.WriteLine("env.IsDevelopment()");
 				app.UseDeveloperExceptionPage();
 				app.UseHttpsRedirection();
 			}
-			//else {
-			//	app.UseHsts();
-			//}
+
 			_ = TaskUtils.RepeatActionUntilSuccess(() => {
 				MessageQueuesManager.Instance
 					.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
 					.ConnectToQueue("quartz")
 					.ConnectToQueue("quartz_binance_trades")
 					.ConnectToQueue("quartz_binance_order_ai_summary");
-				scheduler.ScheduleJob(app.ApplicationServices.GetService<IJobDetail>(), app.ApplicationServices.GetService<ITrigger>());
+
+				var jobSchedules = app.ApplicationServices.GetServices<JobSchedule>();
+
+				foreach (var schedule in jobSchedules) {
+					var jobDetail = JobBuilder.Create(schedule.JobType)
+						.WithIdentity($"{schedule.JobType.Name}.job")
+						.Build();
+
+					scheduler.ScheduleJob(jobDetail, schedule.Trigger);
+				}
 			});
 		}
 
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddLogging();
-			services.Add(new ServiceDescriptor(typeof(IJob), typeof(LoadContentJob), ServiceLifetime.Transient));
-			services.Add(new ServiceDescriptor(typeof(IJob), typeof(LoadTradesJob), ServiceLifetime.Transient));
-			services.Add(new ServiceDescriptor(typeof(IJob), typeof(GenerateOrderSummaryJob), ServiceLifetime.Transient));
+
+			// Register jobs
+			services.AddTransient<LoadContentJob>();
+			services.AddTransient<LoadTradesJob>();
+			services.AddTransient<GenerateOrderSummaryJob>();
+
 			services.AddSingleton<IJobFactory, ScheduledJobFactory>();
 			services.AddTransient<IMessageClient, MessageClient>();
-			services.AddTransient(provider => {
-				return JobBuilder.Create<LoadContentJob>()
-				  .WithIdentity("LoadContent.job", "ContentGroup")
-				  .Build();
-			});
 
-			services.AddTransient(provider => {
-				return JobBuilder.Create<LoadTradesJob>()
-				  .WithIdentity("LoadTradesJob.job", "TradesGroup")
-				  .Build();
-			});
-
-			services.AddTransient(provider => {
-				return JobBuilder.Create<GenerateOrderSummaryJob>()
-				  .WithIdentity("GenerateOrderSummaryJob.job", "AITradesGroup")
-				  .Build();
-			});
-
-			Console.WriteLine("LoadContentIntervalSeconds: " + Configuration["LoadContentIntervalSeconds"]);
-			services.AddTransient(provider => {
-				return TriggerBuilder.Create()
-					.WithIdentity($"LoadContent.trigger", "ContentGroup")
+			// Register JobSchedules
+			services.AddSingleton(new JobSchedule(
+				typeof(LoadContentJob),
+				TriggerBuilder.Create()
+					.WithIdentity("LoadContent.trigger")
 					.StartNow()
-					.WithSimpleSchedule
-					 (s =>
-						s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["LoadContentIntervalSeconds"])))
-						.RepeatForever()
-					 )
-					 .Build();
-			});
+					.WithSimpleSchedule(s => s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["LoadContentIntervalSeconds"]))).RepeatForever())
+					.Build()
+			));
 
-			services.AddTransient(provider => {
-				return TriggerBuilder.Create()
-					.WithIdentity($"LoadTradesJob.trigger", "TradesGroup")
+			services.AddSingleton(new JobSchedule(
+				typeof(LoadTradesJob),
+				TriggerBuilder.Create()
+					.WithIdentity("LoadTrades.trigger")
 					.StartNow()
-					.WithSimpleSchedule
-					 (s =>
-						s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["LoadTradesIntervalSeconds"])))
-						.RepeatForever()
-					 )
-					 .Build();
-			});
+					.WithSimpleSchedule(s => s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["LoadTradesIntervalSeconds"]))).RepeatForever())
+					.Build()
+			));
 
-			services.AddTransient(provider => {
-				return TriggerBuilder.Create()
-					.WithIdentity($"GenerateOrderSummaryJob.trigger", "AITradesGroup")
+			services.AddSingleton(new JobSchedule(
+				typeof(GenerateOrderSummaryJob),
+				TriggerBuilder.Create()
+					.WithIdentity("GenerateOrderSummary.trigger")
 					.StartNow()
-					.WithSimpleSchedule
-					 (s =>
-						s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["GenerateOrderSummaryIntervalSeconds"])))
-						.RepeatForever()
-					 )
-					 .Build();
-			});
+					.WithSimpleSchedule(s => s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["GenerateOrderSummaryIntervalSeconds"]))).RepeatForever())
+					.Build()
+			));
 
 			services.AddTransient(provider => {
 				var schedulerFactory = new StdSchedulerFactory();

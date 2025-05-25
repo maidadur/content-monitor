@@ -9,9 +9,9 @@
 	public class LoadTradesJob : IJob
 	{
 		private readonly IMessageClient _client;
-		private readonly ILogger<LoadContentJob> _logger;
+		private readonly ILogger<LoadTradesJob> _logger;
 
-		public LoadTradesJob(ILogger<LoadContentJob> logger, IMessageClient messageClient) {
+		public LoadTradesJob(ILogger<LoadTradesJob> logger, IMessageClient messageClient) {
 			_logger = logger;
 			_client = messageClient;
 		}

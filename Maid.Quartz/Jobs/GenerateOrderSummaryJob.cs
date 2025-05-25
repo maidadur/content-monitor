@@ -9,9 +9,9 @@
 	public class GenerateOrderSummaryJob : IJob
 	{
 		private readonly IMessageClient _client;
-		private readonly ILogger<LoadContentJob> _logger;
+		private readonly ILogger<GenerateOrderSummaryJob> _logger;
 
-		public GenerateOrderSummaryJob(ILogger<LoadContentJob> logger, IMessageClient messageClient) {
+		public GenerateOrderSummaryJob(ILogger<GenerateOrderSummaryJob> logger, IMessageClient messageClient) {
 			_logger = logger;
 			_client = messageClient;
 		}
