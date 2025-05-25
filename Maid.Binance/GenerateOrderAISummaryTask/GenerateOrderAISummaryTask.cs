@@ -54,10 +54,9 @@ namespace Maid.Binance
 				var response = await _gptClient.SendTextAndImageAsync(prompt, order.ImageUrl);
 				order.AISummary = response;
 				_orderRepository.Update(order);
-			});
-			if (orders.Any()) {
 				_orderRepository.Save();
-			}
+				await Task.Delay(TimeSpan.FromSeconds(10));
+			});
 		}
 
 	}
