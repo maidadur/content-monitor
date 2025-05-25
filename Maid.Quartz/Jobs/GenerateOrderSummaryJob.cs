@@ -6,20 +6,20 @@
 	using System;
 	using System.Threading.Tasks;
 
-	public class LoadTradesJob : IJob
+	public class GenerateOrderSummaryJob : IJob
 	{
 		private readonly IMessageClient _client;
 		private readonly ILogger<LoadContentJob> _logger;
 
-		public LoadTradesJob(ILogger<LoadContentJob> logger, IMessageClient messageClient) {
+		public GenerateOrderSummaryJob(ILogger<LoadContentJob> logger, IMessageClient messageClient) {
 			_logger = logger;
 			_client = messageClient;
 		}
 
 		public async Task Execute(IJobExecutionContext context) {
-			_logger.LogInformation($">> LoadTradesJob fired:  {DateTime.Now}");
-			_client.SendMessage("quartz_binance_trades", null);
-			_logger.LogInformation($">> LoadTradesJob published message");
+			_logger.LogInformation($">> GenerateTradeSummaryJob fired:  {DateTime.Now}");
+			_client.SendMessage("quartz_binance_order_ai_summary", null);
+			_logger.LogInformation($">> GenerateTradeSummaryJob published message");
 			await Task.CompletedTask;
 		}
 	}

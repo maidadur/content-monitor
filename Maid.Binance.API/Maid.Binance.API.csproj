@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Maid.Binance\Maid.Binance.csproj" />
+    <ProjectReference Include="..\Maid.ChatGPT\Maid.ChatGPT.csproj" />
     <ProjectReference Include="..\Maid.RabbitMQ\Maid.RabbitMQ.csproj" />
   </ItemGroup>
 

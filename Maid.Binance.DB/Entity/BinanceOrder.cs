@@ -26,5 +26,6 @@ namespace Maid.Binance.DB
 		public string? Notes { get; set; }
 		public int Leverage { get; set; }
 		public string? ImageUrl { get; set; }
-	}
+        public string? AISummary { get; set; }
+    }
 }

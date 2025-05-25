@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Maid.Binance.DB\Maid.Binance.DB.csproj" />
+    <ProjectReference Include="..\Maid.ChatGPT\Maid.ChatGPT.csproj" />
     <ProjectReference Include="..\Maid.Core\Maid.Core.csproj" />
     <ProjectReference Include="..\Maid.RabbitMQ\Maid.RabbitMQ.csproj" />
   </ItemGroup>

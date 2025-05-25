@@ -1,5 +1,6 @@
 
 using Maid.Binance.DB;
+using Maid.ChatGPT;
 using Maid.Core;
 using Maid.Core.DB;
 using Maid.Core.Exceptions;
@@ -28,7 +29,12 @@ namespace Maid.Binance.API
 			builder.Services.AddTransient<IEntityRepository, EntityRepository>();
 			builder.Services.AddTransient<SaveImageToEntityTask, SaveImageToEntityTask>();
 			builder.Services.AddTransient<SaveImageToEntitySubscriber, SaveImageToEntitySubscriber>();
+			builder.Services.AddTransient<GenerateOrderAISummarySubscriber, GenerateOrderAISummarySubscriber>();
+			builder.Services.AddTransient<IGenerateOrderAISummaryTask, GenerateOrderAISummaryTask>();
 			builder.Services.AddTransient<IMessageClient, MessageClient>();
+			builder.Services.AddTransient<ChatGptClient, ChatGptClient>((client) =>
+				new ChatGptClient(builder.Configuration["ChatGPTApiKey"])
+			);
 		}
 
 		private static void SetupDbServices(WebApplicationBuilder builder) {
@@ -74,9 +80,11 @@ namespace Maid.Binance.API
 				MessageQueuesManager.Instance
 						.Init(app.Services, builder.Configuration["Maid_RabbitMQ_Host"], int.Parse(builder.Configuration["Maid_RabbitMQ_Port"]))
 						.ConnectToQueue("quartz_binance_trades")
+						.ConnectToQueue("quartz_binance_order_ai_summary")
 						.ConnectToQueue("save_image_binance")
 						.ConnectToQueue("load_image_binance")
 						.Subscribe<SaveImageToEntitySubscriber>("load_image_binance")
+						.Subscribe<GenerateOrderAISummarySubscriber>("quartz_binance_order_ai_summary")
 						.Subscribe<LoadBinanceTradesQuartzSubscriber>("quartz_binance_trades");
 			});
 
