@@ -13,7 +13,7 @@ export class BinanceOrder extends BaseEntity {
   time: string;
   notes: string;
   leverage: number;
-  aISummary: string;
+  aiSummary: string;
 
   constructor(entity?) {
 	super(entity);
