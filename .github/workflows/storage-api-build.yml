@@ -48,17 +48,3 @@ jobs:
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-  k8s:
-    runs-on: ubuntu-latest
-    needs: docker
-    if: ${{ needs.changes.outputs.storage-api == 'true' }}
-    steps:
-      - 
-        name: Set up kubectl
-        uses: matootie/dokube@v1.3.4
-        with:
-          personalAccessToken: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          clusterName: k8s-maid-cluster
-      - 
-        name: Delete pod
-        run: kubectl delete pod -l app=maid-storage-api
