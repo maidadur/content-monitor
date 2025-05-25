@@ -48,7 +48,3 @@ jobs:
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-          clusterName: k8s-maid-cluster
-      - 
-        name: Delete pod
-        run: kubectl delete pod -l app=maid-push-api
