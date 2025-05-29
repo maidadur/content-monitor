@@ -46,27 +46,18 @@
 
 		[HttpPost("orders")]
 		public async Task<ActionResult<IEnumerable<BinanceOrder>>> GetOrders([FromBody] GetOrdersRequest request) {
-			var orders = await EntityRepository.GetByAsync(o => o.Time >= request.StartDate && o.Time <= request.DueDate,
+			var orders = await EntityRepository.GetByAsync(o => o.Time >= request.StartDate && o.Time <= request.DueDate && o.Pnl != 0,
 				new SelectOptions {
 					OrderOptions = [new OrderOptions {
 						Column = "Time",
 						IsAscending = true
 					}]
 				});
-			var groupedOrders = orders.GroupBy(o => o.Quantity);
-			var resultOrders = groupedOrders.Select(o => new BinanceOrder {
-				Id = o.Where(or => or.Pnl != 0).FirstOrDefault()?.Id ?? o.First().Id,
-				OrderId = o.Where(or => or.Pnl != 0).FirstOrDefault()?.OrderId ?? o.First().OrderId,
-				Time = o.Where(or => or.Pnl != 0).FirstOrDefault()?.Time ?? o.First().Time,
-				Pnl = o.Sum(t => t.Pnl),
-				CleanPnl = o.Sum(t => t.Pnl) - o.Sum(t => t.Commission),
-				Quantity = o.First().Quantity,
-				Commission = o.Sum(t => t.Commission),
-				CommissionAsset = o.First().CommissionAsset,
-				Side = o.Where(or => or.Pnl == 0).FirstOrDefault()?.Side,
-				Symbol = o.First().Symbol
-			}).OrderBy(o => o.Time).Where(o => o.Pnl != 0);
-			return Ok(resultOrders);
+			orders.ForEach(o => {
+				o.CleanPnl = o.Pnl - o.Commission - o.Commission / 2;
+				o.Side = o.Side == "BUY" ? "SELL" : "BUY";
+			});
+			return Ok(orders);
 		}
 
 		public override async Task<ActionResult<BinanceOrder>> GetItem(Guid id) {
