@@ -65,13 +65,8 @@
 			if (item == null) {
 				return NotFound(id);
 			}
-			var secondOrder = (await EntityRepository.GetByAsync(order =>
-				order.Quantity == item.Quantity && order.Symbol == item.Symbol))
-				.FirstOrDefault();
-			if (secondOrder != null) {
-				item.CleanPnl = item.Pnl - item.Commission - secondOrder.Commission;
-				item.Side = secondOrder.Side;
-			}
+			item.CleanPnl = item.Pnl - item.Commission - item.Commission / 2;
+			item.Side = item.Side == "BUY" ? "SELL" : "BUY";
 			return item;
 		}
 
