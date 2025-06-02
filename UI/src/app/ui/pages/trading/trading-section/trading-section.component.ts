@@ -133,7 +133,7 @@ export class TradingSectionComponent {
 		const firstItem = dailyData[0];
 		if (firstItem) {
 			const firstDayOfWeek = firstItem.date.getDay(); // 0 (Sunday) - 6 (Saturday)
-			const daysToAdd = (firstDayOfWeek === 0 ? 1 : firstDayOfWeek) - 1; // 0 for Monday, 1 for Tuesday, etc.
+			const daysToAdd = (firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1); // 0 for Monday, 1 for Tuesday, etc.
 			if (daysToAdd > 0) {
 				const emptyItems = [];
 				for (let i = 0; i < daysToAdd; i++) {
