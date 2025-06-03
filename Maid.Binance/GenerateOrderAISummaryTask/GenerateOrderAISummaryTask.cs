@@ -42,9 +42,10 @@ namespace Maid.Binance
 				var tags = _tagRepository.GetBy(e => e.BinanceOrderId == order.Id);
 				string emotionsString = emotions.Any() ? "Emotions: " + string.Join(",", emotions.Select(e => e.Emotion)) : "";
 				string tagsString = tags.Any() ? "Tags: " + string.Join(",", tags.Select(t => t.Tag)) : "";
+				string side = order.Side == "BUY" ? "SHORT" : "LONG";
 				prompt = prompt + "Trade: \n" +
 					$"Symbol: {order.Symbol};\n" +
-					$"Side: {order.Side};\n" +
+					$"Side: {side};\n" +
 					$"Pnl: {order.Pnl};\n" +
 					$"Time: {order.Time};\n" +
 					$"Notes: {order.Notes};\n" +
