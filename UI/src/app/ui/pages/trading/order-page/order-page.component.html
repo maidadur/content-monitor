@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-sm-6">
 			<h3>
-				{{model.side === 'BUY' ? 'LONG' : 'SHORT'}} {{model.symbol}} - {{model.time | date: 'dd MMMM yyyy' :
+				{{model.side === 'BUY' ? 'SHORT' : 'LONG'}} {{model.symbol}} - {{model.time | date: 'dd MMMM yyyy' :
 				'EEST'}}
 			</h3>
 		</div>
@@ -25,8 +25,8 @@
 					</span>
 				</mat-chip>
 				<mat-chip>
-					<span [ngStyle]="{'color': model.side === 'BUY' ? 'rgb(46, 189, 133)' : 'rgb(246, 70, 93)'}">
-						{{model.side === 'BUY' ? 'LONG' : 'SHORT'}}
+					<span [ngStyle]="{'color': model.side === 'SELL' ? 'rgb(46, 189, 133)' : 'rgb(246, 70, 93)'}">
+						{{model.side === 'BUY' ? 'SHORT' : 'LONG'}}
 					</span>
 				</mat-chip>
 				<mat-chip>

@@ -55,7 +55,6 @@
 				});
 			orders.ForEach(o => {
 				o.CleanPnl = o.Pnl - o.Commission - o.Commission / 2;
-				o.Side = o.Side == "BUY" ? "SELL" : "BUY";
 			});
 			return Ok(orders);
 		}
@@ -66,7 +65,6 @@
 				return NotFound(id);
 			}
 			item.CleanPnl = item.Pnl - item.Commission - item.Commission / 2;
-			item.Side = item.Side == "BUY" ? "SELL" : "BUY";
 			return item;
 		}
 
