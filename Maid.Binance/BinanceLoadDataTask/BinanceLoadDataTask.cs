@@ -1,6 +1,7 @@
 ﻿using Maid.Binance.DB;
 using Maid.Core;
 using Maid.Core.DB;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,10 @@ namespace Maid.Binance
 		private IEntityRepository<BinanceOrder> _orderRepository;
 		private IBinanceTradesLoader _tradesLoader;
 		private Dictionary<long, bool> _existingOrders = new Dictionary<long, bool>();
+		private ILogger<BinanceLoadDataTask> _logger;
 
 		public BinanceLoadDataTask(
+			ILogger<BinanceLoadDataTask> log,
 			IEntityRepository<BinanceTrade> tradeRepository,
 			IEntityRepository<BinanceOrder> orderRepository,
 			IBinanceTradesLoader tradesLoader
@@ -24,6 +27,7 @@ namespace Maid.Binance
 			_tradeRepository = tradeRepository;
 			_orderRepository = orderRepository;
 			_tradesLoader = tradesLoader;
+			_logger = log;
 		}
 
 		private void SaveOrders(List<BinanceOrder> orders) {
@@ -86,10 +90,14 @@ namespace Maid.Binance
 		}
 
 		public async Task LoadData() {
-			var trades = await _tradesLoader.LoadNewTrades();
-			var savedTrades = SaveTrades(trades);
-			List<BinanceOrder> orders = MergeTradesToOrders(savedTrades);
-			SaveOrders(orders);
+			try {
+				var trades = await _tradesLoader.LoadNewTrades();
+				var savedTrades = SaveTrades(trades);
+				List<BinanceOrder> orders = MergeTradesToOrders(savedTrades);
+				SaveOrders(orders);
+			} catch (Exception ex) {
+				_logger.LogError(ex, ex.Message);
+			}
 		}
 
 	}
