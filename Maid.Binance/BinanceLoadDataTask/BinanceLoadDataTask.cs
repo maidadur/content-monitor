@@ -49,6 +49,9 @@ namespace Maid.Binance
 					Symbol = gt.First().Symbol,
 					Time = DateTimeOffset.FromUnixTimeMilliseconds(gt.First().Time).DateTime
 				};
+				if (order.Pnl != 0) {
+					order.Side = order.Side == "BUY" ? "SELL" : "BUY";
+				}
 				orders.Add(order);
 			});
 			return orders;

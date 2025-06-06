@@ -116,7 +116,7 @@ export class TradingSectionComponent {
 			).toLocaleString("default", { month: "long" })} ${this.day}`;
 			this.items = this.orders.map((order) => ({
 				id: order.id,
-				caption: `${order.side === 'BUY' ? 'SHORT' : 'LONG'} ${order.symbol.replace('USDT', '')} ${new Date(order.time).toTimeString().slice(0, 5)}`,
+				caption: `${order.side} ${order.symbol.replace('USDT', '')} ${new Date(order.time).toTimeString().slice(0, 5)}`,
 				code: `${this.year}_${this.month}_${this.day}_${order.id}`,
 				date: new Date(order.time),
 				cleanPnl: order.cleanPnl,
