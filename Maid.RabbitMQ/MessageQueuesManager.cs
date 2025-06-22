@@ -5,6 +5,7 @@ using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Channels;
 
 namespace Maid.RabbitMQ
 {
@@ -31,6 +32,7 @@ namespace Maid.RabbitMQ
 					{ "x-max-length", 1 },           // Only 1 message in queue
 					{ "x-overflow", "drop-head" }    // Drop old message if new one arrives
 				} : null;
+			_channel.QueueDelete(queueName);
 			_channel.QueueDeclare(queue: queueName,
 					 durable: false,
 					 exclusive: false,
