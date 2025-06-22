@@ -42,7 +42,7 @@ namespace Maid.Quartz
 				MessageQueuesManager.Instance
 					.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
 					.ConnectToQueue("quartz")
-					.ConnectToQueue("quartz_binance_trades")
+					.ConnectToQueue("quartz_binance_trades", true)
 					.ConnectToQueue("quartz_binance_order_ai_summary");
 
 				var jobSchedules = app.ApplicationServices.GetServices<JobSchedule>();

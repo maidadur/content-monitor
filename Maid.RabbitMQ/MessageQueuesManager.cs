@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Maid.RabbitMQ
@@ -21,15 +22,20 @@ namespace Maid.RabbitMQ
 
 		public static MessageQueuesManager Instance => _instance.Value;
 
-		public MessageQueuesManager ConnectToQueue(string queueName) {
+		public MessageQueuesManager ConnectToQueue(string queueName, bool overrideMessage = true) {
 			if (_channel == null) {
 				return Instance;
 			}
+			var args = overrideMessage ? new Dictionary<string, object>
+				{
+					{ "x-max-length", 1 },           // Only 1 message in queue
+					{ "x-overflow", "drop-head" }    // Drop old message if new one arrives
+				} : null;
 			_channel.QueueDeclare(queue: queueName,
 					 durable: false,
 					 exclusive: false,
 					 autoDelete: false,
-					 arguments: null);
+					 arguments: args);
 			Console.WriteLine("MessageQueuesManager. QueueDeclare " + queueName);
 			return Instance;
 		}

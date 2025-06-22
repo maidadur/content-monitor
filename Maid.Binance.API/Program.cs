@@ -79,7 +79,7 @@ namespace Maid.Binance.API
 			_ = TaskUtils.RepeatActionUntilSuccess(() => {
 				MessageQueuesManager.Instance
 						.Init(app.Services, builder.Configuration["Maid_RabbitMQ_Host"], int.Parse(builder.Configuration["Maid_RabbitMQ_Port"]))
-						.ConnectToQueue("quartz_binance_trades")
+						.ConnectToQueue("quartz_binance_trades", true)
 						.ConnectToQueue("quartz_binance_order_ai_summary")
 						.ConnectToQueue("save_image_binance")
 						.ConnectToQueue("load_image_binance")
