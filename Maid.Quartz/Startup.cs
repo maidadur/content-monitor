@@ -42,8 +42,8 @@ namespace Maid.Quartz
 				MessageQueuesManager.Instance
 					.Init(app.ApplicationServices, Configuration["Maid_RabbitMQ_Host"], int.Parse(Configuration["Maid_RabbitMQ_Port"]))
 					.ConnectToQueue("quartz")
-					.ConnectToQueue("quartz_binance_trades", true)
-					.ConnectToQueue("quartz_binance_order_ai_summary");
+					.ConnectToQueue("quartz_binance_trades", true);
+					//.ConnectToQueue("quartz_binance_order_ai_summary");
 
 				var jobSchedules = app.ApplicationServices.GetServices<JobSchedule>();
 
@@ -87,14 +87,14 @@ namespace Maid.Quartz
 					.Build()
 			));
 
-			services.AddSingleton(new JobSchedule(
-				typeof(GenerateOrderSummaryJob),
-				TriggerBuilder.Create()
-					.WithIdentity("GenerateOrderSummary.trigger")
-					.StartNow()
-					.WithSimpleSchedule(s => s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["GenerateOrderSummaryIntervalSeconds"]))).RepeatForever())
-					.Build()
-			));
+			//services.AddSingleton(new JobSchedule(
+			//	typeof(GenerateOrderSummaryJob),
+			//	TriggerBuilder.Create()
+			//		.WithIdentity("GenerateOrderSummary.trigger")
+			//		.StartNow()
+			//		.WithSimpleSchedule(s => s.WithInterval(TimeSpan.FromSeconds(Convert.ToInt32(Configuration["GenerateOrderSummaryIntervalSeconds"]))).RepeatForever())
+			//		.Build()
+			//));
 
 			services.AddTransient(provider => {
 				var schedulerFactory = new StdSchedulerFactory();
